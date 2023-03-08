@@ -30,8 +30,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
-    keyMap = pkgs.lib.mkForce "no-latin1";
-    useXkbConfig = true; # use xkbOptions in tty.
+    keyMap = "no-latin1";
   };
 
   # Enable the X11 windowing system.
