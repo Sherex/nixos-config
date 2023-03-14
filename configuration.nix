@@ -72,6 +72,7 @@
     wget
     powertop
     #tlp
+    fakeroot
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -88,6 +89,8 @@
   services.openssh.enable = true;
 
   services.tlp.enable = true;
+
+  services.upower.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

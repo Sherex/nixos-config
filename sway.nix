@@ -59,10 +59,13 @@ in
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
     rofi-wayland # wayland clone of dmenu
     mako # notification system developed by swaywm maintainer
-    #i3status-rust
-    (import ./i3status-rust.nix) # i3status-rust at nixpkgs is still at 0.22 # https://github.com/NixOS/nixpkgs/pull/217546
+    i3status-rust
+    #(import ./i3status-rust.nix) # i3status-rust at nixpkgs is still at 0.22 # https://github.com/NixOS/nixpkgs/pull/217546
   ];
 
+  fonts.fonts = with pkgs; [
+    font-awesome_5
+  ];
 
   services.pipewire = {
     enable = true;
