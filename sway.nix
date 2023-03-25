@@ -64,6 +64,10 @@ in
     ungoogled-chromium
     mcfly
     complete-alias
+    btop # Top alt.
+    fd # Find alt.
+    bat # Cat alt.
+    ripgrep # Grep alt.
   ];
 
   fonts.fonts = with pkgs; [
