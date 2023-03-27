@@ -9,6 +9,7 @@
     [
       ./hardware-configuration.nix
       ./sway.nix
+      ./sherex.nix
     ];
 
   # Use the systemd-boot EFI boot loader.

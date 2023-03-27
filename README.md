@@ -13,6 +13,7 @@ I'm in the middle of convert my Arch configuration over to Nix, so there will mo
 ```sh
 sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 sudo nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+sudo nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 sudo nix-channel --update
 ```
 
