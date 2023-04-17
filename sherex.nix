@@ -20,7 +20,6 @@
     home.stateVersion = "22.11";
     home.packages = with pkgs; [
       httpie
-      git-radar # Git status in PS1
     ];
     programs.bash = {
       enable = true;
@@ -68,7 +67,7 @@
         gd = "git diff";
       };
       sessionVariables = {
-        PS1 = "\[\033[0;32m\]\[\033[0m\033[0;32m\]\h:\[\033[0;35m\]\w\[\033[0;32m\]$(git-radar --bash --fetch)\n\[\033[0m\033[0;36m\]\[\033[0m\033[0;32m\] ▶\[\033[0m\] ";
+        PS1 = "\\[\\033[0;32m\\]\\[\\033[0m\\033[0;32m\\]\\h:\\[\\033[0;35m\\]\\w\\[\\033[0;32m\\]\\n\\[\\033[0m\\033[0;36m\\]\\[\\033[0m\\033[0;32m\\] ▶\\[\\033[0m\\] ";
         EDITOR = "nvim";
         GUI_EDITOR = "code";
         VISUAL = "nvim";
