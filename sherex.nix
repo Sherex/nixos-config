@@ -20,6 +20,7 @@
     home.stateVersion = "22.11";
     home.packages = with pkgs; [
       httpie
+      teams
       complete-alias # Alias completion for bash
     ];
     programs.bash = {
@@ -130,6 +131,12 @@
 	  show_switching_delay = 800;
 	};
       };
+    };
+    programs.vscode = {
+      enable = true;
+      extensions = with pkgs.vscode-extensions; [
+        vscodevim.vim
+      ];
     };
     programs.home-manager.enable = true;
   };
