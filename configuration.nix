@@ -29,6 +29,10 @@
     keyMap = "no-latin1";
   };
 
+  # Nix Settings
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nixpkgs.config.allowUnfree = true;
+
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
