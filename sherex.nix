@@ -20,6 +20,7 @@
     home.stateVersion = "22.11";
     home.packages = with pkgs; [
       httpie
+      complete-alias # Alias completion for bash
     ];
     programs.bash = {
       enable = true;
@@ -27,6 +28,10 @@
       profileExtra = lib.mkMerge [
       	# TODO: Move this to sway.nix by injecting to bash like home-manager does
         "sway"
+      ];
+      initExtra = lib.mkMerge [
+	"source ${pkgs.complete-alias.outPath}/bin/complete_alias"
+	"complete -F _complete_alias \"\${!BASH_ALIASES[@]}\""
       ];
       shellAliases = {
         ls = "ls --color=auto";
