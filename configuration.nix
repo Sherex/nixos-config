@@ -57,6 +57,7 @@
     wget
     powertop
     fakeroot
+    killall
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
