@@ -1,7 +1,10 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [ <home-manager/nixos> ];
+  imports = [
+    <home-manager/nixos>
+    ./modules/neovim.nix
+  ];
 
   # Install packages to /etc/profiles instead of ~/.nix-profile
   home-manager.useUserPackages = true;
