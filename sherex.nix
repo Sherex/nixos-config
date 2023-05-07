@@ -3,7 +3,7 @@
 {
   imports = [
     <home-manager/nixos>
-    ./modules/neovim.nix
+    ./modules/neovim
   ];
 
   # Install packages to /etc/profiles instead of ~/.nix-profile
