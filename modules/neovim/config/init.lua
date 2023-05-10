@@ -77,6 +77,14 @@ require("lazy").setup({
   },
 
   {
+    "lewis6991/gitsigns.nvim",
+    config = {
+      current_line_blame = true,
+      numhl = true,
+    },
+  },
+
+  {
   "folke/tokyonight.nvim",
   opts = {
     transparent = true,
