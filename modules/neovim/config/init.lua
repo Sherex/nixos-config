@@ -56,7 +56,24 @@ require("lazy").setup({
       { "<leader>ee", "<cmd>NvimTreeToggle<cr>", desc = "Toggle NvimTree" },
       { "<leader>ef", "<cmd>NvimTreeFindFile<cr>", desc = "Find file in NvimTree" },
     },
-    config = true,
+    config = {
+      renderer = {
+        icons = {
+          show = {
+            git = true,
+          },
+        },
+        highlight_git = true,
+      },
+      modified = {
+        enable = true,
+      },
+      actions = {
+        open_file = {
+          quit_on_open = true,
+        },
+      },
+    },
   },
 
   {
