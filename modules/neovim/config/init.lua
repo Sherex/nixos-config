@@ -85,6 +85,17 @@ require("lazy").setup({
   },
 
   {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    keys = {
+      { "<leader>tt", "<cmd>Telescope<cr>", desc = "Open Telescope" },
+      { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Find file" },
+      { "gs", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
+      { "gS", "<cmd>Telescope grep_string<cr>", desc = "Grep string under cursor" },
+    },
+  },
+
+  {
   "folke/tokyonight.nvim",
   opts = {
     transparent = true,
