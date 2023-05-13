@@ -96,6 +96,13 @@ require("lazy").setup({
   },
 
   {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      auto_install = true,
+    },
+  },
+
+  {
   "folke/tokyonight.nvim",
   opts = {
     transparent = true,

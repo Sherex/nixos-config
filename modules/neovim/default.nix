@@ -14,9 +14,11 @@
       defaultEditor = true;
       vimAlias = true;
       viAlias = true;
-#      extraPackages = [
-#        pkgs.gcc
-#      ];
+      extraPackages = [
+        pkgs.gcc # Treesitter dependency
+        pkgs.tree-sitter # Treesitter dependency
+        pkgs.nodejs # Treesitter dependency
+      ];
     };
   };
 }
