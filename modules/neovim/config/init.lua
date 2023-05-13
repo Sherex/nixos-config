@@ -56,7 +56,7 @@ require("lazy").setup({
       { "<leader>ee", "<cmd>NvimTreeToggle<cr>", desc = "Toggle NvimTree" },
       { "<leader>ef", "<cmd>NvimTreeFindFile<cr>", desc = "Find file in NvimTree" },
     },
-    config = {
+    opts = {
       renderer = {
         icons = {
           show = {
@@ -78,7 +78,7 @@ require("lazy").setup({
 
   {
     "lewis6991/gitsigns.nvim",
-    config = {
+    opts = {
       current_line_blame = true,
       numhl = true,
     },
