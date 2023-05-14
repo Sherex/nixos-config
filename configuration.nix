@@ -53,7 +53,6 @@
   environment.systemPackages = with pkgs; [
     vim
     neovim
-    git
     wget
     powertop
     fakeroot

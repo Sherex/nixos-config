@@ -92,6 +92,12 @@
         PROJECTS_DIRECTORY = "$HOME/documents/git-reps";
       };
     };
+    programs.git = {
+      enable = true;
+      # TODO: Use variables for name and email
+      userName = "Ingar Helgesen";
+      userEmail = "ingar@i-h.no";
+    };
     programs.qutebrowser = {
       enable = true;
       loadAutoconfig = true;
