@@ -96,6 +96,23 @@ require("lazy").setup({
   },
 
   {
+    "akinsho/bufferline.nvim",
+    version = "*",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      options = {
+        offsets = {
+          -- BUG: Doesn't detect NvimTree window when opened
+          filetype = "NvimTree",
+          text = "File Explorer",
+          text_align = "left",
+          separator = true,
+        },
+      },
+    },
+  },
+
+  {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       auto_install = true,
