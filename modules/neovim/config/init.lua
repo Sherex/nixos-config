@@ -65,6 +65,12 @@ require("lazy").setup({
         },
         highlight_git = true,
       },
+      view = {
+        relativenumber = true,
+        float = {
+          enable = true,
+        },
+      },
       modified = {
         enable = true,
       },
