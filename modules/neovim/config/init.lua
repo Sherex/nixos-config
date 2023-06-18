@@ -108,11 +108,12 @@ require("lazy").setup({
     opts = {
       options = {
         offsets = {
-          -- BUG: Doesn't detect NvimTree window when opened
-          filetype = "NvimTree",
-          text = "File Explorer",
-          text_align = "left",
-          separator = true,
+          {
+            filetype = "NvimTree",
+            text = "File Explorer",
+            text_align = "left",
+            separator = true,
+          },
         },
       },
     },
