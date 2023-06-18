@@ -136,6 +136,25 @@ require("lazy").setup({
       },
     },
   },
+
+  {
+    "akinsho/toggleterm.nvim",
+    config = true,
+    keys = {
+      {
+        "<A-3>",
+        "<cmd>ToggleTerm size=40 direction=float<cr>",
+        mode = {"n", "t"},
+        desc = "Toggle floating terminal"
+      },
+      {
+        "<A-2>",
+        "<cmd>ToggleTerm size=20 direction=horizontal<cr>",
+        mode = {"n", "t"},
+        desc = "Toggle horizontal terminal"
+      },
+    },
+  },
 })
 
 -- Set colorscheme
