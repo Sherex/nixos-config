@@ -30,7 +30,7 @@ vim.opt.relativenumber = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- TODO: Move to own modules
+--require("lazy").setup("plugins")
 require("lazy").setup({
   {
     "folke/which-key.nvim",
