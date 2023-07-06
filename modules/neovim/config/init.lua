@@ -155,6 +155,11 @@ require("lazy").setup({
       },
     },
   },
+
+  {
+    "gpanders/editorconfig.nvim",
+    config = false,
+  },
 })
 
 -- Set colorscheme
