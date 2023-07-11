@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ./sway.nix
       ./sherex.nix
+      ./modules/impermanence
     ];
 
   # Use the systemd-boot EFI boot loader.
