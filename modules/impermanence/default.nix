@@ -7,17 +7,50 @@ let
   };
 in
 {
-  # TODO: Create a generic function for persistance
-  #       It should check if the path specified exists
-  #       If not; it creates a symlink (check if source exists)
-  #       If exists; it skips if symlink otherwise moves file/dir
-  #       to persistance and creates a symlink
-  environment.etc = {
-    nixos.source = persistent.safe + "/etc/nixos";
-    NIXOS.source = persistent.safe + "/etc/NIXOS";
-    adjtime.source = persistent.safe + "/etc/adjtime";
-    machine-id.source = persistent.safe + "/etc/machine-id";
-    "wpa_supplicant.conf".source = persistent.safe + "/etc/wpa_supplicant.conf";
+  imports = [
+    <home-manager/nixos>
+    (builtins.getFlake "github:nix-community/impermanence/89253fb1518063556edd5e54509c30ac3089d5e6").nixosModules.impermanence
+  ];
+
+  environment.persistence."/persistent/safe" = {
+    hideMounts = true;
+    directories = [
+      "/home"
+      #"/var/lib/bluetooth"
+    ];
+    files = [
+      "/etc/adjtime"
+      "/etc/machine-id"
+      "/etc/wpa_supplicant.conf"
+
+      # SSH host keys
+      "/etc/ssh/ssh_host_ed25519_key"
+      "/etc/ssh/ssh_host_ed25519_key.pub"
+      "/etc/ssh/ssh_host_rsa_key"
+      "/etc/ssh/ssh_host_rsa_key.pub"
+    ];
+
+    # TODO: Move to user config?
+    #users.sherex = {
+    #  directories = [
+    #    "documents"
+    #    "downloads"
+    #    "nixconf" # TODO: Temporary while still figuring shit out
+    #    ".config/qutebrowser" # Bookmarks and autoconfig
+    #  ]
+    #}
+  };
+
+  environment.persistence."/persistent/unsafe" = {
+    hideMounts = true;
+    directories = [
+      "/etc/nixos"
+      "/var/log"
+      "/var/lib/nixos"
+      "/var/lib/systemd/coredump"
+    ];
+    files = [
+    ];
   };
 
   security.sudo.extraConfig = ''
@@ -25,10 +58,59 @@ in
     Defaults lecture = never
   '';
 
-  imports = [ <home-manager/nixos> ];
-
   home-manager.users.sherex = { pkgs, ... }: {
     # TODO: Use home-manager for user file persistance?
   };
+
+  # Source (but quite modified):
+  # https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html#darling-erasure
+  boot.initrd.postDeviceCommands = pkgs.lib.mkBefore ''
+    DRIVE_PATH="/dev/disk/by-uuid/f967b4b7-4daf-4186-b9c9-62fb5219b09b"
+    MNT_PATH="/mnt"
+    BIN_PATH="$MNT_PATH/bin"
+    PATH="$PATH:$BIN_PATH"
+    SUBVOL_DIR_PATH="$MNT_PATH/subvolumes"
+    SNAPSHOT_DIR_PATH="$SUBVOL_DIR_PATH/snapshots"
+    ROOT_SUBVOL="$SUBVOL_DIR_PATH/tmp"
+    ROOT_BLANK_SUBVOL="$ROOT_SUBVOL-blank"
+    ROOT_SNAPSHOT="$SNAPSHOT_DIR_PATH/tmp@`date -Iseconds | cut -f1 -d"+" -`"
+
+    echo "Printing PATH"
+    echo $PATH
+
+    # Create mountpoint
+    echo "Creating directory $MNT_PATH"
+    mkdir -p $MNT_PATH
+
+    # We first mount the btrfs root to $SUBVOL_DIR_PATH
+    # so we can manipulate btrfs subvolumes.
+    echo "Mounting BTRFS root"
+    mount -o subvol=/ $DRIVE_PATH $MNT_PATH
+
+    # Ensure directories exist
+    echo "Ensure $SUBVOL_DIR_PATH $SNAPSHOT_DIR_PATH exists"
+    mkdir -p "$SUBVOL_DIR_PATH" "$SNAPSHOT_DIR_PATH"
+
+    # Snapshot the existing root subvolume
+    btrfs subvolume snapshot -r "$ROOT_SUBVOL" "$ROOT_SNAPSHOT"
+
+    # Delete all subvolumes inside the root subvolume
+    echo "Searching for subvolumes inside $ROOT_SUBVOL"
+    # Why in the world doesn't it return the absolute path??
+    # And why is not relative to cwd either??!
+    btrfs subvolume list -o $ROOT_SUBVOL |
+    cut -f9 -d' ' |
+    while read subvolume; do
+      echo "Deleting $subvolume subvolume..."
+      btrfs subvolume delete "$MNT_PATH/$subvolume"
+    done &&
+    echo "Deleting $ROOT_SUBVOL subvolume..." &&
+    btrfs subvolume delete $ROOT_SUBVOL
+
+    echo "Restoring blank $ROOT_SUBVOL subvolume..."
+    btrfs subvolume snapshot $ROOT_BLANK_SUBVOL $ROOT_SUBVOL
+
+    umount $MNT_PATH
+  '';
 }
 

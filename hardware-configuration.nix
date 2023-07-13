@@ -16,7 +16,7 @@
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/f967b4b7-4daf-4186-b9c9-62fb5219b09b";
       fsType = "btrfs";
-      options = [ "subvol=subvolumes/root" "compress=zstd:1" "noatime" ];
+      options = [ "subvol=subvolumes/tmp" "compress=zstd:1" "noatime" ];
       neededForBoot = true;
     };
 
@@ -36,6 +36,7 @@
     { device = "/dev/disk/by-uuid/f967b4b7-4daf-4186-b9c9-62fb5219b09b";
       fsType = "btrfs";
       options = [ "subvol=subvolumes/safe" "compress=zstd:1" "noatime" ];
+      neededForBoot = true;
     };
 
   fileSystems."/nix" =

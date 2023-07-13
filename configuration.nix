@@ -44,6 +44,7 @@
   users.users.sherex = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
+    passwordFile = "/persistent/safe/sherex-password-hash"; # TODO: Use secret store, sops-nix?
     packages = with pkgs; [
       qutebrowser
     ];
