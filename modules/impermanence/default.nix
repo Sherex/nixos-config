@@ -65,7 +65,7 @@ in
   # Source (but quite modified):
   # https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html#darling-erasure
   boot.initrd.postDeviceCommands = pkgs.lib.mkBefore ''
-    DRIVE_PATH="/dev/disk/by-uuid/f967b4b7-4daf-4186-b9c9-62fb5219b09b"
+    DRIVE_PATH="/dev/disk/by-label/nixos"
     MNT_PATH="/mnt"
     BIN_PATH="$MNT_PATH/bin"
     PATH="$PATH:$BIN_PATH"
