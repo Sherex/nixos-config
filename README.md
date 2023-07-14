@@ -16,14 +16,12 @@ I'm in the middle of convert my Arch configuration over to Nix, so there will mo
 3. Build current config and output it at the new filesystem
 4. Reboot into the new filesystem with current configuration
 
-### Boot current config
-1. Add and update channels  
-```sh
-sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
-sudo nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
-sudo nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-sudo nix-channel --update
-```
+## Updating channels
+> TODO: Figure out how to set and use `NIX_PATH` in one run.
+> Or just use flakes...
+1. Edit `lock.nix` and update checksums from remote
+2. `nix-rebuild switch` - Sets the `NIX_PATH` to the new checksums
+3. `nix-rebuild switch` - Acutally downloads and uses the new checksums
 
 ## Rebuilding flow
 1. Edit the relevant `*.nix` file.
