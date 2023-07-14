@@ -118,6 +118,21 @@ require("lazy").setup({
         desc = "Cycle pervious bufferline"
       },
       {
+        "<leader><S-c>",
+        "<cmd>bdelete!<cr>",
+        desc = "Close current buffer (force)"
+      },
+      {
+        "<leader>c",
+        "<cmd>bdelete<cr>",
+        desc = "Close current buffer"
+      },
+      {
+        "<leader>bc",
+        "<cmd>BufferLinePickClose<cr>",
+        desc = "Pick a buffer in the bufferline to close"
+      },
+      {
         "<leader>bk",
         "<cmd>BufferLineCloseLeft<cr>",
         desc = "Close all to the left in bufferline"
@@ -130,6 +145,7 @@ require("lazy").setup({
     },
     opts = {
       options = {
+        close_command = "bdelete %d",
         offsets = {
           {
             filetype = "NvimTree",
