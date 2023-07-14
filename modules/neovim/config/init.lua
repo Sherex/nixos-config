@@ -110,25 +110,21 @@ require("lazy").setup({
       {
         "<S-j>",
         "<cmd>BufferLineCycleNext<cr>",
-        mode = {"n"},
         desc = "Cycle next bufferline"
       },
       {
         "<S-k>",
         "<cmd>BufferLineCyclePrev<cr>",
-        mode = {"n"},
         desc = "Cycle pervious bufferline"
       },
       {
         "<leader>bk",
         "<cmd>BufferLineCloseLeft<cr>",
-        mode = {"n"},
         desc = "Close all to the left in bufferline"
       },
       {
         "<leader>bj",
         "<cmd>BufferLineCloseRight<cr>",
-        mode = {"n"},
         desc = "Close all to the right in bufferline"
       },
     },
