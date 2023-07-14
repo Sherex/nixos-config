@@ -53,8 +53,6 @@
         find = "fd";
         dig = "echo -e \"Other cmd: dog\\n\" && dig";
         htop = "echo -e \"Other cmd: btop\\n\" && htop";
-        cp = "cpg --progress";
-        mv = "mvg --progress";
         vim = "nvim";
         v = "vim ./";
         sc = "$EDITOR $HOME/.config/sway/config.d/";
