@@ -48,6 +48,8 @@ in
       "/var/log"
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
+      "/var/lib/upower"
+      "/var/lib/tlp"
     ];
     files = [
     ];
