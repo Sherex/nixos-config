@@ -4,6 +4,7 @@
   imports = [
     home-manager.nixosModule
     ./modules/neovim
+    ./modules/kitty
   ];
 
   # Install packages to /etc/profiles instead of ~/.nix-profile
@@ -81,7 +82,6 @@
         GUI_EDITOR = "code";
         VISUAL = "nvim";
         BROWSER = "qutebrowser";
-        TERMINAL = "kitty";
         GTK_CSD = "0";
         QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
 
