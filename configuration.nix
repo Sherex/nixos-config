@@ -8,7 +8,7 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./sway.nix
+      ./modules/sway
       ./sherex.nix
       ./modules/impermanence
     ];
