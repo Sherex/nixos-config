@@ -13,11 +13,6 @@
       ./modules/impermanence
     ];
 
-  nix.nixPath = (builtins.attrValues
-      (builtins.mapAttrs
-        (repo: archive: "${repo}=${archive}")
-          (import (./. + "/lock.nix")).repositories));
-
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

@@ -1,8 +1,8 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, home-manager, ... }:
 
 {
   imports = [
-    <home-manager/nixos>
+    home-manager.nixosModule
     ./modules/neovim
   ];
 

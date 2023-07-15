@@ -17,15 +17,12 @@ I'm in the middle of convert my Arch configuration over to Nix, so there will mo
 4. Reboot into the new filesystem with current configuration
 
 ## Updating channels
-> TODO: Figure out how to set and use `NIX_PATH` in one run.
-> Or just use flakes...
-1. Edit `lock.nix` and update checksums from remote
-2. `nix-rebuild switch` - Sets the `NIX_PATH` to the new checksums
-3. `nix-rebuild switch` - Acutally downloads and uses the new checksums
+1. `sudo nixos-rebuild switch --flake . --recreate-lock-file`
+2. Then commit flake.lock
 
 ## Rebuilding flow
 1. Edit the relevant `*.nix` file.
-2. `nix-rebuild switch`
+2. `nix-rebuild switch --flake .`
 
 # License
 [MIT](LICENSE)

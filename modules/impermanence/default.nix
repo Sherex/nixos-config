@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, home-manager, impermanence, ... }:
 
 let
   persistent = {
@@ -8,8 +8,8 @@ let
 in
 {
   imports = [
-    <home-manager/nixos>
-    (builtins.getFlake "github:nix-community/impermanence/89253fb1518063556edd5e54509c30ac3089d5e6").nixosModules.impermanence
+    home-manager.nixosModule
+    impermanence.nixosModule
   ];
 
   environment.persistence."/persistent/safe" = {

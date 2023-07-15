@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, home-manager, ... }:
 
 {
-  imports = [ <home-manager/nixos> ];
+  imports = [ home-manager.nixosModule ];
 
   home-manager.users.sherex = { pkgs, ... }: {
    home.file."./.config/nvim/" = {
