@@ -4,7 +4,7 @@
   imports = [
     home-manager.nixosModule
     ./modules/neovim
-    ./modules/kitty
+    ./modules/foot
   ];
 
   # Install packages to /etc/profiles instead of ~/.nix-profile
