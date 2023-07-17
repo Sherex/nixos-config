@@ -8,6 +8,7 @@
   imports =
     [
       ./hardware-configuration.nix
+      ./modules/swap
       ./modules/sway
       ./sherex.nix
       ./modules/impermanence
