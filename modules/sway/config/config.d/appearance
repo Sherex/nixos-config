@@ -1,0 +1,10 @@
+# default_border none
+default_border pixel 1
+
+client.focused "#1793d0" "#285577" "#ffffff" "#1ab404"
+client.focused_inactive "#00000000" "#00000000" "#00000000"
+client.unfocused "#00000000" "#00000000" "#00000000"
+
+gaps inner 20
+#gaps outer -20
+smart_gaps on

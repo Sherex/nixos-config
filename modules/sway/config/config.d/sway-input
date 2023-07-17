@@ -1,0 +1,8 @@
+input type:keyboard xkb_layout no
+#input type:keyboard xkb_layout us
+
+input type:pointer accel_profile flat
+input type:pointer pointer_accel 0.07
+input type:pointer scroll_button BTN_MIDDLE
+input type:pointer scroll_method on_button_down
+# input type:pointer middle_emulation enabled

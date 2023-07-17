@@ -1,0 +1,10 @@
+# Get outputs:
+# swaymsg -t get_outputs
+
+
+# Primary monitor
+output DP-1 pos 0 0
+
+# Secondary monitor
+#output HDMI-A-1 transform 270 pos 1920 -625
+output HDMI-A-1 transform 0 pos 1920 0

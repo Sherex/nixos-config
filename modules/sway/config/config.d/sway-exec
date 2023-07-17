@@ -1,0 +1,16 @@
+#exec dex -a -s ~/.config/sway/scripts.d
+exec /usr/lib/polkit-kde-authentication-agent-1
+#exec xbindkeys
+exec mako
+#exec "systemctl --user import-environment"
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+#exec /usr/lib/kdeconnectd --replace
+#exec_always killall kdeconnectd && /usr/lib/kdeconnectd &
+
+## Set contrast
+#exec wl-gammactl -c 1 -b 0.9 -g 1.7
+
+# Set lineout as sink port on headphones (get index from pacmd list-sinks)
+#exec pacmd set-sink-port 1 analog-output-lineout
+#exec pacmd set-default-sink 1

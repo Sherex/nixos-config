@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, home-manager, ... }:
 
 let
   # bash script to let dbus know about important env variables and
@@ -103,6 +103,14 @@ in
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
+  };
+
+  # put config in store and symlink it to .config
+  home-manager.users.sherex = { pkgs, ... }: {
+    xdg.configFile."sway" = {
+      source = ./config;
+      recursive = true;
+    };
   };
 }
 

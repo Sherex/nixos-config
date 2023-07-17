@@ -1,0 +1,79 @@
+# Default config for sway
+#
+# Copy this to ~/.config/sway/config and edit it to your liking.
+#
+# Read `man 5 sway` for a complete reference.
+
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+set $alt Mod1
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+# Your preferred terminal emulator
+set $term foot
+
+set $assets_dir ~/media/images/backgrounds
+
+# Swaylock command
+#set $swaylockcmd swaylock -f -c 00000F -i $assets_dir/Space-suit-cat-astronaut-creative-picture_3840x2160.jpg
+set $swaylockcmd swaylock --daemonize --color 00000F --fade-in 1 --clock --screenshot --effect-blur 10x2
+
+### Output configuration
+#
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+output * bg $assets_dir/current.img fill
+#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+
+### Idle configuration
+#
+# Example configuration:
+#
+#exec swayidle -w \
+#  timeout 5 $swaylockcmd \
+#  timeout 10 'swaymsg "output * dpms off"' \
+#  resume 'swaymsg "output * dpms on"' \
+#  before-sleep $swaylockcmd
+
+exec swayidle -w \
+  timeout 300 '~/.config/sway/scripts.d/lockscreen-toggle.sh status && $swaylockcmd' \
+  timeout 600 '~/.config/sway/scripts.d/lockscreen-toggle.sh status && ~/.config/sway/scripts.d/toggle-display.sh off' \
+  resume '~/.config/sway/scripts.d/toggle-display.sh on' \
+  before-sleep '$swaylockcmd'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+### Inhibit idle for programs
+# "man 5 sway"
+for_window [app_id="firefox"] inhibit_idle fullscreen
+
+### Input configuration
+#
+# Example configuration:
+#
+#   input "2:14:SynPS/2_Synaptics_TouchPad" {
+#       dwt enabled
+#       tap enabled
+#       natural_scroll enabled
+#       middle_emulation enabled
+#   }
+#
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+
+include /etc/sway/config.d/*
+include ~/.config/sway/config.d/*
+
+exec ~/.config/sway/scripts
+exec ~/.config/sway/scripts-startup/*

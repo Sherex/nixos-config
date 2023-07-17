@@ -1,0 +1,22 @@
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    font "hack 10"
+    position bottom
+    mode hide
+    
+    # When the status_command prints a new line to stdout, swaybar updates.
+    # The default just shows the current date and time.
+    #status_command while date +'%d.%m.%Y %H:%M:%S'; do sleep 1; done
+
+    # https://github.com/greshake/i3status-rust
+    status_command i3status-rs
+
+    colors {
+        statusline #ffffff
+        background #000000bf
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+}
