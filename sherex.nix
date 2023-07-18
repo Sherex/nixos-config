@@ -71,10 +71,15 @@
         ## Git
         gs = "git status";
         ga = "git add";
-        gc = "git commit -m";
+        gc = "git commit";
+        gcm = "git commit -m";
         gl = "git log";
         gcb = "git checkout -B";
         gd = "git diff";
+
+        ## NixOS
+        nos = "sudo nixos-rebuild --flake .# switch";
+        nob = "sudo nixos-rebuild --flake .# build";
       };
       sessionVariables = {
         PS1 = "\\[\\033[0;32m\\]\\[\\033[0m\\033[0;32m\\]\\h:\\[\\033[0;35m\\]\\w\\[\\033[0;32m\\]\\n\\[\\033[0m\\033[0;36m\\]\\[\\033[0m\\033[0;32m\\] ▶\\[\\033[0m\\] ";
