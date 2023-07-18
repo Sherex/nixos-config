@@ -69,16 +69,13 @@ in
   boot.initrd.postDeviceCommands = pkgs.lib.mkBefore ''
     DRIVE_PATH="/dev/disk/by-label/nixos"
     MNT_PATH="/mnt"
-    BIN_PATH="$MNT_PATH/bin"
+    BIN_PATH="${pkgs.coreutils.outPath + "/bin"}"
     PATH="$PATH:$BIN_PATH"
     SUBVOL_DIR_PATH="$MNT_PATH/subvolumes"
     SNAPSHOT_DIR_PATH="$SUBVOL_DIR_PATH/snapshots"
     ROOT_SUBVOL="$SUBVOL_DIR_PATH/tmp"
     ROOT_BLANK_SUBVOL="$ROOT_SUBVOL-blank"
     ROOT_SNAPSHOT="$SNAPSHOT_DIR_PATH/tmp@`date -Iseconds | cut -f1 -d"+" -`"
-
-    echo "Printing PATH"
-    echo $PATH
 
     # Create mountpoint
     echo "Creating directory $MNT_PATH"
