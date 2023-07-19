@@ -8,14 +8,27 @@ I'm in the middle of converting my Arch configuration over to Nix, so there will
 
 ## Initial setup
 ### Boot LiveCD
-1. Setup filesystem
-  - vfat - boot - 512M - /boot
-  - btrfs - nixos - max -
-    - /subvolumes/tmp - / # Root is cleaned each boot
-    - /subvolumes/tmp-blank - N/M # Snapshot which tmp is rolled back to each boot
-    - /subvolumes/safe - /persistent/safe # Is persisted and backed up
-    - /subvolumes/unsafe - /persistent/unsafe # Is persisted, but NOT backed up
-      - bind-mount - /persistent/unsafe/nix - /nix
+1. Setup filesystems
+
+#### Disk partitioning
+|Filesystem|Label|Size|Mountpoint|
+|-|-|-|-|
+| vfat | boot | 512M | `/boot` |
+| btrfs | nixos | 2G+ | `/mnt` |
+
+#### Subvolume mounts
+|Subvolume|Mountpoint|Comment|
+|-|-|-|
+| `/subvolumes/tmp` | `/` | Root is rolled back to a blank snapshot each boot |
+| `/subvolumes/tmp-blank` | Not mounted | Snapshot which tmp is rolled back to each boot |
+| `/subvolumes/safe` | `/persistent/safe` | Is persisted and backed up |
+| `/subvolumes/unsafe` | `/persistent/unsafe` | Is persisted, but **NOT** backed up |
+
+#### Bind mounts
+|Source|Mountpoint|Comment|
+|-|-|-|
+| `/persistent/unsafe/nix` | `/nix` | Bind mount for Nix store |
+
 2. Put the secrets file at `/persistent/safe/secrets/default.yaml` and the age keyfile at `/persistent/safe/keys/nixtop.txt`
 3. Build current config and output it at the new filesystem
 4. Reboot into the new filesystem with current configuration
