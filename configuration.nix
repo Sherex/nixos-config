@@ -12,6 +12,7 @@
       ./modules/sway
       ./sherex.nix
       ./modules/impermanence
+      ./modules/sops
     ];
 
   # Use the systemd-boot EFI boot loader.
