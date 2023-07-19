@@ -12,7 +12,7 @@ I'm in the middle of convert my Arch configuration over to Nix, so there will mo
     - /subvolumes/safe - /persistent/safe # Is persisted and backed up
     - /subvolumes/unsafe - /persistent/unsafe # Is persisted, but NOT backed up
       - bind-mount - /persistent/unsafe/nix - /nix
-2. Use `mkpasswd -m sha512crypt > /mnt/subvolumes/safe/sherex-password-hash` to create a new password. (Provided the `nixos` disk is mounted at `/mnt`)
+2. Put the secrets file at `/persistent/safe/secrets/default.yaml` and the age keyfile at `/persistent/safe/keys/nixtop.txt`
 3. Build current config and output it at the new filesystem
 4. Reboot into the new filesystem with current configuration
 
