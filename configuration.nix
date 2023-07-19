@@ -46,7 +46,7 @@
   users.users.sherex = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    passwordFile = config.sops.secrets."user/password".path;
+    passwordFile = "/persistent/safe/sherex-password-hash";
     packages = with pkgs; [
       qutebrowser
     ];
