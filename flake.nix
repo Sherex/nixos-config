@@ -16,7 +16,6 @@
   };
 
   outputs = { self, nixpkgs, home-manager, impermanence, sops-nix }@attrs: {
-
     nixosConfigurations.NixTop = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = attrs;
@@ -27,5 +26,7 @@
         { nix.registry.nixpkgs.flake = nixpkgs; }
       ];
     };
+
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
   };
 }
