@@ -1,6 +1,10 @@
-# NixOS Configuration
+<p align="center">
+  <img src="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nixos-white.png" width="500px" alt="NixOS logo"/>
+</p>
+<h1 align="center">Configuration</h1>
+
 This repo contains my configuration for my laptop running NixOS.  
-I'm in the middle of convert my Arch configuration over to Nix, so there will most likely be inconsistencies until I migrate my dotfiles and add them to this repo.
+I'm in the middle of converting my Arch configuration over to Nix, so there will most likely be inconsistencies until I migrate my dotfiles and add them to this repo.
 
 ## Initial setup
 ### Boot LiveCD
