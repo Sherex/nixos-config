@@ -5,15 +5,14 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ./modules/swap
-      ./modules/sway
-      ./sherex.nix
-      ./modules/impermanence
-      ./modules/sops
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ./modules/swap
+    ./modules/sway
+    ./sherex.nix
+    ./modules/impermanence
+    ./modules/sops
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -21,7 +20,7 @@
 
   networking.hostName = "NixTop";
   # Pick only one of the below networking options.
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   time.timeZone = "Europe/Oslo";

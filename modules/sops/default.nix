@@ -5,7 +5,8 @@ let
     owner = config.users.users.${user}.name;
     path = "${config.users.users.${user}.home}/${toString path}";
   });
-in {
+in
+{
   imports = [ sops-nix.nixosModules.sops ];
 
   environment.systemPackages = with pkgs; [

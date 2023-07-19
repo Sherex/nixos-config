@@ -10,7 +10,8 @@ let
     swapFileSize = "8g";
   };
   paths = builtins.mapAttrs (key: loc: toString loc) locations;
-in {
+in
+{
   boot.initrd.postDeviceCommands = pkgs.lib.mkAfter ''
     # Create mountpoint
     echo "Creating directory ${paths.rootMountPoint}"
@@ -43,13 +44,13 @@ in {
     umount ${paths.rootMountPoint}
   '';
 
-  fileSystems."${paths.swapSubvolMountPoint}" =
-    { device = "${paths.driveDevicePath}";
-      fsType = "btrfs";
-      options = [ "subvol=${dirOf paths.swapFileLocation}" ];
-    };
+  fileSystems."${paths.swapSubvolMountPoint}" = {
+    device = "${paths.driveDevicePath}";
+    fsType = "btrfs";
+    options = [ "subvol=${dirOf paths.swapFileLocation}" ];
+  };
 
-  swapDevices = [ {
+  swapDevices = [{
     device = "${paths.swapSubvolMountPoint}/${baseNameOf paths.swapFileLocation}";
-  } ];
+  }];
 }

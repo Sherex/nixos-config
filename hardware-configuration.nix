@@ -4,47 +4,47 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=subvolumes/tmp" "compress=zstd:1" "noatime" ];
-      neededForBoot = true;
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "btrfs";
+    options = [ "subvol=subvolumes/tmp" "compress=zstd:1" "noatime" ];
+    neededForBoot = true;
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-label/boot";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/boot";
+    fsType = "vfat";
+  };
 
-  fileSystems."/persistent/unsafe" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=subvolumes/unsafe" "compress=zstd:1" "noatime" ];
-      neededForBoot = true;
-    };
+  fileSystems."/persistent/unsafe" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "btrfs";
+    options = [ "subvol=subvolumes/unsafe" "compress=zstd:1" "noatime" ];
+    neededForBoot = true;
+  };
 
-  fileSystems."/persistent/safe" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=subvolumes/safe" "compress=zstd:1" "noatime" ];
-      neededForBoot = true;
-    };
+  fileSystems."/persistent/safe" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "btrfs";
+    options = [ "subvol=subvolumes/safe" "compress=zstd:1" "noatime" ];
+    neededForBoot = true;
+  };
 
-  fileSystems."/nix" =
-    { device = "/persistent/unsafe/nix";
-      fsType = "none";
-      options = [ "bind" ];
-      neededForBoot = true;
-    };
+  fileSystems."/nix" = {
+    device = "/persistent/unsafe/nix";
+    fsType = "none";
+    options = [ "bind" ];
+    neededForBoot = true;
+  };
 
   swapDevices = [ ];
 

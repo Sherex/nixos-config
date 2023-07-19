@@ -4,10 +4,10 @@
   imports = [ home-manager.nixosModule ];
 
   home-manager.users.sherex = { pkgs, ... }: {
-   home.file."./.config/nvim/" = {
-     source = ./config;
-     recursive = true;
-   };
+    home.file."./.config/nvim/" = {
+      source = ./config;
+      recursive = true;
+    };
 
     programs.neovim = {
       enable = true;

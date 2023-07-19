@@ -31,14 +31,14 @@
       enable = true;
       enableCompletion = true;
       profileExtra = lib.mkMerge [
-      	# TODO: Move this to sway.nix by injecting to bash like home-manager does
+        # TODO: Move this to sway.nix by injecting to bash like home-manager does
         "sway"
       ];
       initExtra = lib.mkMerge [
-	"source ${pkgs.complete-alias.outPath}/bin/complete_alias"
-	"complete -F _complete_alias \"\${!BASH_ALIASES[@]}\""
-	# BUG: The PS1 variable is overwritten somewhere if defined in sessionVariables
-	"export PS1='\\[\\033[0;32m\\]\\[\\033[0m\\033[0;32m\\]\\h:\\[\\033[0;35m\\]\\w\\[\\033[0;32m\\]\\n\\[\\033[0m\\033[0;36m\\]\\[\\033[0m\\033[0;32m\\] ▶\\[\\033[0m\\] '"
+        "source ${pkgs.complete-alias.outPath}/bin/complete_alias"
+        "complete -F _complete_alias \"\${!BASH_ALIASES[@]}\""
+        # BUG: The PS1 variable is overwritten somewhere if defined in sessionVariables
+        "export PS1='\\[\\033[0;32m\\]\\[\\033[0m\\033[0;32m\\]\\h:\\[\\033[0;35m\\]\\w\\[\\033[0;32m\\]\\n\\[\\033[0m\\033[0;36m\\]\\[\\033[0m\\033[0;32m\\] ▶\\[\\033[0m\\] '"
       ];
       shellAliases = {
         ls = "ls --color=auto";
@@ -80,7 +80,7 @@
         ## NixOS
         nos = "sudo nixos-rebuild --flake .# switch";
         nob = "sudo nixos-rebuild --flake .# build";
-        esecret="esecret() (sudo SOPS_AGE_KEY_FILE=/persistent/safe/keys/nixtop.txt sops \"/persistent/safe/secrets/$1\") && esecret";
+        esecret = "esecret() (sudo SOPS_AGE_KEY_FILE=/persistent/safe/keys/nixtop.txt sops \"/persistent/safe/secrets/$1\") && esecret";
       };
       sessionVariables = {
         PS1 = "\\[\\033[0;32m\\]\\[\\033[0m\\033[0;32m\\]\\h:\\[\\033[0;35m\\]\\w\\[\\033[0;32m\\]\\n\\[\\033[0m\\033[0;36m\\]\\[\\033[0m\\033[0;32m\\] ▶\\[\\033[0m\\] ";
@@ -111,38 +111,38 @@
           "<Ctrl+e>" = "edit-url";
           "D" = "tab-close -n";
           "E" = ":edit-text";
-	  "stf" = "spawn firefox {url}";
-	  "stm" = "spawn kdeconnec-cli -n 'Pixel 7' --share {url}";
-	  "stp" = "spawn mpv {url}";
-	  "<F1>" = lib.mkMerge [
+          "stf" = "spawn firefox {url}";
+          "stm" = "spawn kdeconnec-cli -n 'Pixel 7' --share {url}";
+          "stp" = "spawn mpv {url}";
+          "<F1>" = lib.mkMerge [
             "config-cycle tabs.show never always"
             "config-cycle statusbar.show in-mode always"
             "config-cycle scrolling.bar never always"
           ];
-	};
+        };
       };
       settings = {
         auto_save.session = true;
-	colors = {
-	  webpage = {
-	    darkmode.enabled = true;
-	    preferred_color_scheme = "dark";
-	  };
-	};
-	content = {
-	  autoplay = true;
-	  javascript.can_access_clipboard = true;
-	  pdfjs = false;
-	};
-	editor.command = ["kitty" "nvim" "-f" "'{file}'" "-c" "normal {line}G{column0}l"];
-	tabs = {
-	  background = false;
-	  new_position.unrelated = "next";
-	  position = "top";
-	  select_on_remove = "last-used";
-	  show = "always";
-	  show_switching_delay = 800;
-	};
+        colors = {
+          webpage = {
+            darkmode.enabled = true;
+            preferred_color_scheme = "dark";
+          };
+        };
+        content = {
+          autoplay = true;
+          javascript.can_access_clipboard = true;
+          pdfjs = false;
+        };
+        editor.command = [ "kitty" "nvim" "-f" "'{file}'" "-c" "normal {line}G{column0}l" ];
+        tabs = {
+          background = false;
+          new_position.unrelated = "next";
+          position = "top";
+          select_on_remove = "last-used";
+          show = "always";
+          show_switching_delay = 800;
+        };
       };
     };
     programs.vscode = {
