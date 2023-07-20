@@ -16,6 +16,13 @@ in
   imports = [ home-manager.nixosModule ];
 
   home-manager.users.sherex = { pkgs, ... }: {
+    # Keybinds for opening the tab in chromium
+    programs.qutebrowser.keyBindings.normal = {
+      "stc" = "spawn chromium {url}";
+      "stC" = "spawn chromium --incognito {url}";
+    };
+
+    # Enable Wayland support in Chromium
     programs.bash.sessionVariables.NIXOS_OZONE_WL = "1";
     programs.chromium = {
       enable = true;
