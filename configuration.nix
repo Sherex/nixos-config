@@ -35,6 +35,8 @@
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     use-xdg-base-directories = true;
+    trusted-users = [ "@nix-trusted" ];
+    allowed-users = [ "@nix-allowed" ];
   };
   nixpkgs.config.allowUnfree = true;
 
@@ -45,9 +47,17 @@
   # sound.enable = true;
   # hardware.pulseaudio.enable = true;
 
+  users.groups = {
+    nix-trusted = {};
+    nix-allowed = {};
+  };
+
   users.users.sherex = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [
+      config.users.groups.wheel.name
+      config.users.groups.nix-allowed.name
+    ];
     passwordFile = "/persistent/safe/sherex-password-hash";
     packages = with pkgs; [
       qutebrowser
