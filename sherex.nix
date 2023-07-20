@@ -23,6 +23,7 @@
     home.stateVersion = "22.11";
     home.packages = with pkgs; [
       httpie
+      unar
       teams
     ];
     programs.git = {
