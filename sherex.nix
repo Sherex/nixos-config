@@ -3,6 +3,7 @@
 {
   imports = [
     home-manager.nixosModule
+    ./modules/power-management
     ./modules/bash
     ./modules/neovim
     ./modules/foot
