@@ -199,6 +199,26 @@ require("lazy").setup({
     "gpanders/editorconfig.nvim",
     config = false,
   },
+
+  {
+    "rcarriga/nvim-notify",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function ()
+      vim.opt.termguicolors = true
+      vim.notify = require("notify").setup({
+        background_colour = "#000000",
+        render = "compact",
+        timeout = 1000,
+      })
+    end,
+    keys = {
+      {
+        "<leader>n",
+        "<cmd>Telescope notify<cr>",
+        desc = "Open notifications log in Telescope"
+      },
+    },
+  },
 })
 
 -- Set colorscheme
