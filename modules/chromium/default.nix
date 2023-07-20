@@ -38,6 +38,12 @@ in
             sha256 = "sha256:106p3zqliyp7zbcnd3q8b11k606cy5rvi6bnvg4y2bwkynj55rsa";
             version = "4.9.64";
           })
+          (createChromiumExtension {
+            # Vimium - https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb
+            id = "dbepggeogbaibhgnhhndojpepiihcmeb";
+            sha256 = "sha256:0830rhd4rp1x5pn83cpnr8nmgr5za4v09676mm8gzk1a024yc661";
+            version = "1.67.7";
+          })
         ];
     };
   };
