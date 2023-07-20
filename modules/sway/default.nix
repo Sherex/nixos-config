@@ -107,8 +107,11 @@ in
     wrapperFeatures.gtk = true;
   };
 
-  # put config in store and symlink it to .config
   home-manager.users.sherex = { pkgs, ... }: {
+    # Start sway on login
+    programs.bash.profileExtra = "sway";
+
+    # put config in store and symlink it to .config
     xdg.configFile."sway" = {
       source = ./config;
       recursive = true;

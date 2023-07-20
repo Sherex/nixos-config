@@ -12,10 +12,6 @@
     programs.bash = {
       enable = true;
       enableCompletion = true;
-      profileExtra = lib.mkMerge [
-        # TODO: Move this to sway.nix by injecting to bash like home-manager does
-        "sway"
-      ];
       initExtra = lib.mkMerge [
         "source ${pkgs.complete-alias.outPath}/bin/complete_alias"
         "complete -F _complete_alias \"\${!BASH_ALIASES[@]}\""
@@ -26,7 +22,6 @@
         ls = "ls --color=auto";
         dyff = "diff --color=auto --side-by-side";
         diff = "diff --color=auto --side-by-side --suppress-common-lines";
-        e = "swaymsg exec ";
         snapc = "snapper create -t single -c timeline -d";
         lsblk = "lsblk -o NAME,MAJ:MIN,RM,FSTYPE,LABEL,SIZE,FSAVAIL,RO,MOUNTPOINT,UUID";
         mpv = "mpv --hr-seek=yes";
@@ -38,7 +33,6 @@
         htop = "echo -e \"Other cmd: btop\\n\" && htop";
         vim = "nvim";
         v = "vim ./";
-        sc = "$EDITOR $HOME/.config/sway/config.d/";
         ssh = "TERM=xterm-256color ssh";
         serve = "miniserve --upload-files --mkdir --enable-tar-gz --enable-zip --show-wget-footer ";
         snapcp = "$HOME/.config/sway/scripts.d/snapshot-pre-post.sh";
