@@ -7,6 +7,7 @@
     ./modules/neovim
     ./modules/foot
     ./modules/qutebrowser
+    ./modules/chromium
   ];
 
   # Install packages to /etc/profiles instead of ~/.nix-profile
