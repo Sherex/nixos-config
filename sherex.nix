@@ -11,6 +11,7 @@
     ./modules/chromium
     ./modules/email
     ./modules/rofi
+    ./modules/i3status-rust
   ];
 
   # Install packages to /etc/profiles instead of ~/.nix-profile

@@ -1,0 +1,90 @@
+[theme]
+theme = "plain"
+
+[icons]
+icons = "awesome5"
+
+[icons.overrides]
+backup_icon = ""
+
+[[block]]
+block = "disk_space"
+format = "$icon $used/$total ($available free)"
+path = "/"
+info_type = "available"
+alert_unit = "GB"
+interval = 20
+warning = 20.0
+alert = 10.0
+
+## Show actual backupsize on BorgBase.com
+# [[block]]
+# block = "custom"
+# json = true
+# command = ''' echo "{\"icon\":\"backup_icon\", \"text\": \"`cat /home/sherex/.cache/userscripts/borgmatic-info.json | jq .[0].cache.stats.unique_csize | numfmt --to=si`\"}" '''
+# on_click = "xdg-open https://www.borgbase.com/repositories"
+# interval = 60
+
+[[block]]
+block = "memory"
+format = " $icon $mem_used_percents.eng(w:1) "
+format_alt = " $icon_swap $swap_free.eng(w:3,u:B,p:M)/$swap_total.eng(w:3,u:B,p:M)($swap_used_percents.eng(w:2)) "
+interval = 30
+warning_mem = 70
+critical_mem = 90
+
+[[block]]
+block = "cpu"
+interval = 1
+format = "$barchart $utilization $frequency"
+
+[[block]]
+block = "net"
+format = "$ip $speed_down $graph_down"
+interval = 1
+
+[[block]]
+block = "sound"
+step_width = 1
+
+[[block]]
+block = "music"
+format = " $icon {$combo.str(max_w:20,rot_interval:0.5) $play $next |}"
+
+[[block]]
+block = "hueshift"
+hue_shifter = "gammastep"
+step = 50
+click_temp = 2500
+
+[[block]]
+block = "backlight"
+
+[[block]]
+block = "toggle"
+format = "🔒"
+command_state = "/home/sherex/.config/sway/scripts.d/lockscreen-toggle.sh status"
+command_on = "/home/sherex/.config/sway/scripts.d/lockscreen-toggle.sh enable"
+command_off = "/home/sherex/.config/sway/scripts.d/lockscreen-toggle.sh disable"
+interval = 10
+
+[[block]]
+block = "kdeconnect"
+
+[[block]]
+block = "battery"
+driver = "upower"
+format = "$percentage $time $power"
+full_format = "$percentage $time $power"
+charging_format = "$percentage $time $power"
+empty_format = "$percentage $time $power"
+not_charging_format = "$percentage $time $power"
+
+[[block]]
+block = "time"
+interval = 1
+
+[block.format]
+full = " $timestamp.datetime(f:'%T %d/%m', l:fr_BE) "
+short = " $timestamp.datetime(f:%R) "
+
