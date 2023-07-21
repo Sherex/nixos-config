@@ -14,6 +14,8 @@ in
     sops
   ];
 
+  users.users.sherex.extraGroups = [ config.users.groups.keys.name ];
+
   sops = {
     # TODO: Define paths in a central place and based on hostname
 
