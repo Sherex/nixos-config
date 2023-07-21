@@ -7,7 +7,7 @@ let
     swapSubvolLocation = /subvolumes/swap;
     swapFileLocation = swapSubvolLocation + /swapfile;
     swapSubvolMountPoint = /swap;
-    swapFileSize = "8g";
+    swapFileSize = "16g";
   };
   paths = builtins.mapAttrs (key: loc: toString loc) locations;
 in
@@ -53,4 +53,10 @@ in
   swapDevices = [{
     device = "${paths.swapSubvolMountPoint}/${baseNameOf paths.swapFileLocation}";
   }];
+
+  # Hibernation
+  boot.resumeDevice = paths.driveDevicePath;
+  # TODO: This needs to be specified in a more dynamic way
+  # Update with "sudo btrfs inspect-internal map-swapfile -r /swap/swapfile"
+  boot.kernelParams = [ "resume_offset=4768391" ]; 
 }
