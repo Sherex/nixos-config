@@ -22,6 +22,8 @@
   };
   home-manager.users.sherex = { pkgs, ... }: {
     home.stateVersion = "22.11";
+    xdg.mimeApps.enable = true;
+    xdg.mimeApps.defaultApplications."x-scheme-handler/msteams" = [ "teams.desktop" ];
     home.packages = with pkgs; [
       httpie
       unar
