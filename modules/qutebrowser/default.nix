@@ -27,6 +27,7 @@
       };
       settings = {
         auto_save.session = true;
+        completion.web_history.exclude = [ "file://tmp/aerc*" ];
         colors = {
           webpage = {
             darkmode.enabled = true;

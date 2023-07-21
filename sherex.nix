@@ -9,6 +9,7 @@
     ./modules/foot
     ./modules/qutebrowser
     ./modules/chromium
+    ./modules/email
   ];
 
   # Install packages to /etc/profiles instead of ~/.nix-profile
