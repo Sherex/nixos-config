@@ -59,7 +59,6 @@ in
     slurp # screenshot functionality
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
     rofi-wayland # wayland clone of dmenu
-    mako # notification system developed by swaywm maintainer
     i3status-rust
     gammastep # Used by a block in i3status-rust
     #(import ./i3status-rust.nix) # i3status-rust at nixpkgs is still at 0.22 # https://github.com/NixOS/nixpkgs/pull/217546
@@ -114,6 +113,10 @@ in
     xdg.configFile."sway" = {
       source = ./config;
       recursive = true;
+    };
+
+    services.mako = {
+      enable = true;
     };
   };
 }
