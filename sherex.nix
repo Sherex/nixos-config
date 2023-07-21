@@ -10,6 +10,7 @@
     ./modules/qutebrowser
     ./modules/chromium
     ./modules/email
+    ./modules/rofi
   ];
 
   # Install packages to /etc/profiles instead of ~/.nix-profile
