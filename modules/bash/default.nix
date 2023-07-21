@@ -9,6 +9,12 @@
   # https://nix-community.github.io/home-manager/options.html#opt-programs.bash.enableCompletion
   environment.pathsToLink = [ "/share/bash-completion" ];
   home-manager.users.sherex = { pkgs, ... }: {
+    home.packages = with pkgs; [
+      ripgrep
+      fd
+      bat
+      miniserve
+    ];
     programs.bash = {
       enable = true;
       enableCompletion = true;
@@ -26,8 +32,6 @@
         lsblk = "lsblk -o NAME,MAJ:MIN,RM,FSTYPE,LABEL,SIZE,FSAVAIL,RO,MOUNTPOINT,UUID";
         mpv = "mpv --hr-seek=yes";
         cat = "bat";
-        du = "dust";
-        df = "duf";
         find = "fd";
         dig = "echo -e \"Other cmd: dog\\n\" && dig";
         htop = "echo -e \"Other cmd: btop\\n\" && htop";
@@ -71,6 +75,11 @@
         USERSCRIPTS_CACHE = "$HOME/.cache/userscripts";
         PROJECTS_DIRECTORY = "$HOME/documents/git-reps";
       };
+    };
+    programs.mcfly = {
+      enable = true;
+      keyScheme = "vim";
+      fuzzySearchFactor = 3;
     };
   };
 }

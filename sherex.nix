@@ -25,6 +25,7 @@
     home.packages = with pkgs; [
       httpie
       unar
+      feh
       teams
     ];
     programs.git = {

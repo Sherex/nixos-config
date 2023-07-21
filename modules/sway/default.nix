@@ -61,13 +61,8 @@ in
     rofi-wayland # wayland clone of dmenu
     i3status-rust
     gammastep # Used by a block in i3status-rust
-    #(import ./i3status-rust.nix) # i3status-rust at nixpkgs is still at 0.22 # https://github.com/NixOS/nixpkgs/pull/217546
-    mcfly
     complete-alias
     btop # Top alt.
-    fd # Find alt.
-    bat # Cat alt.
-    ripgrep # Grep alt.
   ];
 
   fonts.fonts = with pkgs; [
