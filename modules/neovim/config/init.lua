@@ -233,7 +233,7 @@ require("lazy").setup({
     config = function ()
       local lspconfig = require("lspconfig")
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      local servers = { "lua_ls", "nil_ls" } -- "rust_analyzer", "pyright", "tsserver" }
+      local servers = { "lua_ls", "nil_ls", "jsonls"} -- "rust_analyzer", "pyright", "tsserver" }
       for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup {
           capabilities = capabilities,
@@ -320,6 +320,23 @@ require("lazy").setup({
         sources = {
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
+        },
+      }
+    end,
+  },
+
+  {
+    "b0o/schemastore.nvim",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+    },
+    config = function ()
+      require("lspconfig").jsonls.setup {
+        settings = {
+          json = {
+            schemas = require('schemastore').json.schemas(),
+            validate = { enable = true },
+          },
         },
       }
     end,
