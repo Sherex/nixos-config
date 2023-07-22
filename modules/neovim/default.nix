@@ -14,10 +14,12 @@
       defaultEditor = true;
       vimAlias = true;
       viAlias = true;
-      extraPackages = [
-        pkgs.gcc # Treesitter dependency
-        pkgs.tree-sitter # Treesitter dependency
-        pkgs.nodejs # Treesitter dependency
+      extraPackages = with pkgs; [
+        gcc # Treesitter dependency
+        tree-sitter # Treesitter dependency
+        nodejs # Treesitter dependency
+        lua-language-server # LSP
+        nil # LSP
       ];
     };
   };
