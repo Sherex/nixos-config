@@ -16,7 +16,7 @@ in
     hideMounts = true;
     directories = [
       "/home"
-      #"/var/lib/bluetooth"
+      "/var/lib/bluetooth"
     ];
     files = [
       "/etc/adjtime"

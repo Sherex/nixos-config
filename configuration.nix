@@ -12,6 +12,7 @@
     ./sherex.nix
     ./modules/impermanence
     ./modules/sops
+    ./modules/bluetooth
   ];
 
   # Use the systemd-boot EFI boot loader.

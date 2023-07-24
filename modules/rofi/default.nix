@@ -18,9 +18,13 @@
       };
       plugins = with pkgs; [
         rofi-calc
-        rofi-bluetooth
       ];
     };
+    home.packages = with pkgs; [
+      # TODO: When sway is configured using home-manager,
+      #       then enable rofi-bluetooth in the bluetooth module
+      rofi-bluetooth
+    ];
   };
 }
 
