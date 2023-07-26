@@ -21,6 +21,7 @@
         lua-language-server # LSP
         nil # LSP
         vscode-langservers-extracted # LSP
+        terraform-lsp # LSP
       ];
     };
   };

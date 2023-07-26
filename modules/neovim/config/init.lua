@@ -237,6 +237,7 @@ require("lazy").setup({
         "lua_ls",
         "nil_ls",
         "jsonls",
+        "terraform_lsp",
       }
       for _, lsp in ipairs(servers) do
         -- TODO: Setup can only be called once per LSP
