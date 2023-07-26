@@ -233,8 +233,13 @@ require("lazy").setup({
     config = function ()
       local lspconfig = require("lspconfig")
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      local servers = { "lua_ls", "nil_ls", "jsonls"} -- "rust_analyzer", "pyright", "tsserver" }
+      local servers = {
+        "lua_ls",
+        "nil_ls",
+        "jsonls",
+      }
       for _, lsp in ipairs(servers) do
+        -- TODO: Setup can only be called once per LSP
         lspconfig[lsp].setup {
           capabilities = capabilities,
         }
