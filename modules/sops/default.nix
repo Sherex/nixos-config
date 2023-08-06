@@ -15,6 +15,8 @@ in
   ];
 
   users.users.sherex.extraGroups = [ config.users.groups.keys.name ];
+  home-manager.users.sherex.programs.bash.shellAliases.esecret =
+    "esecret() (sudo SOPS_AGE_KEY_FILE=${config.sops.age.keyFile} sops \"/persistent/safe/secrets/$1\") && esecret";
 
   sops = {
     # TODO: Define paths in a central place and based on hostname
