@@ -12,6 +12,7 @@
     ./modules/email
     ./modules/rofi
     ./modules/i3status-rust
+    ./modules/ssh
   ];
 
   # Install packages to /etc/profiles instead of ~/.nix-profile

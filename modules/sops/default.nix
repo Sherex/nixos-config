@@ -1,11 +1,5 @@
 { config, pkgs, lib, sops-nix, ... }:
 
-let
-  placeInHome = (user: path: {
-    owner = config.users.users.${user}.name;
-    path = "${config.users.users.${user}.home}/${toString path}";
-  });
-in
 {
   imports = [ sops-nix.nixosModules.sops ];
 
@@ -39,8 +33,6 @@ in
 
     secrets = {
       "user/password".neededForUsers = true;
-      "user/ssh/private-key" = placeInHome "sherex" ".ssh/id_ed25519";
-      "user/ssh/public-key" = placeInHome "sherex" ".ssh/id_ed25519.pub";
     };
   };
 }
