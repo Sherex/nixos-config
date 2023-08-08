@@ -1,15 +1,25 @@
 { config, pkgs, lib, home-manager, ... }:
 
 let
-  placeInHome = (user: path: {
-    owner = config.users.users.${user}.name;
-    path = "${config.users.users.${user}.home}/${toString path}";
+  username = "sherex";
+  user = config.users.users.${username};
+  placeInHome = (path: {
+    owner = user.name;
+    path = "${user.home}/${toString path}";
   });
 in
 {
+  # TODO: Figure out a way to execute this or otherwise create the .ssh diretory before sops creates it.'
+  #       If Sops wins the race; home-manager does not have the permission to create the config file.
+  #environment.postBuild = ''
+  #  install --directory --mode 00700 \
+  #  --owner ${user.name} --group ${user.group} \
+  #  ${user.home}/.ssh
+  #'';
+
   sops.secrets = {
-    "user/ssh/private-key" = placeInHome "sherex" ".ssh/id_ed25519";
-    "user/ssh/public-key" = placeInHome "sherex" ".ssh/id_ed25519.pub";
+    "user/ssh/private-key" = placeInHome ".ssh/id_ed25519";
+    "user/ssh/public-key" = placeInHome ".ssh/id_ed25519.pub";
   };
 
   home-manager.users.sherex = { pkgs, ... }: {
