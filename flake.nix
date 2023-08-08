@@ -20,7 +20,7 @@
       system = "x86_64-linux";
       specialArgs = attrs;
       modules = [
-        ./configuration.nix
+        ./systems/nixtop/configuration.nix
         # This fixes nixpkgs (for e.g. "nix shell") to match the system nixpkgs
         # Source: https://ayats.org/blog/channels-to-flakes/
         { nix.registry.nixpkgs.flake = nixpkgs; }

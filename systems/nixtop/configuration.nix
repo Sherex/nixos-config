@@ -2,9 +2,9 @@
 
 {
   imports = [
-    ./systems/common.nix
-    ./hardware-configuration.nix
-    ./modules/bluetooth
+    ./hardware.nix
+    ../common.nix
+    ../../modules/bluetooth
   ];
 
   networking.hostName = "NixTop";
