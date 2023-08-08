@@ -27,6 +27,17 @@
       ];
     };
 
+    nixosConfigurations.Archy = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = attrs;
+      modules = [
+        ./systems/archy/configuration.nix
+        # This fixes nixpkgs (for e.g. "nix shell") to match the system nixpkgs
+        # Source: https://ayats.org/blog/channels-to-flakes/
+        { nix.registry.nixpkgs.flake = nixpkgs; }
+      ];
+    };
+
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
   };
 }

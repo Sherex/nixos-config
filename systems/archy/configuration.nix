@@ -2,29 +2,17 @@
 
 {
   imports = [
-    ./systems/common.nix
-    ./hardware-configuration.nix
-    ./modules/bluetooth
+    ./hardware.nix
+    ../common.nix
   ];
 
-  networking.hostName = "NixTop";
+  networking.hostName = "Archy";
 
-  networking.wireless.enable = true;
+  networking.wireless.enable = false;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
-  users.users.sherex = {
-    isNormalUser = true;
-    extraGroups = [
-      config.users.groups.wheel.name
-      config.users.groups.nix-allowed.name
-    ];
-    passwordFile = "/persistent/safe/sherex-password-hash";
-    packages = with pkgs; [
-      qutebrowser
-    ];
-  };
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
@@ -33,3 +21,4 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.11"; # Did you read the comment?
 }
+
