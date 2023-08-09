@@ -4,9 +4,11 @@
 # for a more complex example.
 keys:
   - &sherex age1ewxj2m564tvpsajmwn7cakzgc0g4wd2hf9p2u24g2pfuuvzh6g6s3wc9av
+  - &work age1hh0nuq4ms45j94pd02qfyxmcqswqyj6rq9a3txm0svafjcz2eg3st0z3f0
 
 creation_rules:
   - path_regex: (/mnt)?/persistent/safe/secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
     - age:
       - *sherex
+      - *work
