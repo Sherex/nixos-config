@@ -2,7 +2,7 @@
 
 let
   locations = rec {
-    driveDevicePath = /dev/disk/by-label/nixos;
+    driveDevicePath = config.fileSystems."/".device;
     rootMountPoint = /mnt;
     swapSubvolLocation = /subvolumes/swap;
     swapFileLocation = swapSubvolLocation + /swapfile;

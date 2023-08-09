@@ -25,7 +25,7 @@
     defaultSopsFile = "/persistent/safe/secrets/default.yaml";
     defaultSopsFormat = "yaml";
 
-    age.keyFile = /persistent/safe/keys/nixtop.txt;
+    age.keyFile = "/persistent/safe/keys/${config.system.name}.txt";
     age.generateKey = true;
 
     # As the secret file is not in the Nix Store it can't be validated

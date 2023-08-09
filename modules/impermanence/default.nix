@@ -1,10 +1,11 @@
 { config, pkgs, lib, home-manager, impermanence, ... }:
 
 let
-  persistent = {
-    safe = "/persistent/safe";
-    unsafe = "/persistent/unsafe";
+  locations = rec {
+    driveDevicePath = config.fileSystems."/".device;
+    rootMountPoint = /mnt;
   };
+  paths = builtins.mapAttrs (key: loc: toString loc) locations;
 in
 {
   imports = [
@@ -67,8 +68,8 @@ in
   # Source (but quite modified):
   # https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html#darling-erasure
   boot.initrd.postDeviceCommands = pkgs.lib.mkBefore ''
-    DRIVE_PATH="/dev/disk/by-label/nixos"
-    MNT_PATH="/mnt"
+    DRIVE_PATH="${paths.driveDevicePath}"
+    MNT_PATH="${paths.rootMountPoint}"
     BIN_PATH="${pkgs.coreutils.outPath + "/bin"}"
     PATH="$PATH:$BIN_PATH"
     SUBVOL_DIR_PATH="$MNT_PATH/subvolumes"
