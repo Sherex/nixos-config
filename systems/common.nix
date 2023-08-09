@@ -7,6 +7,7 @@
     ../sherex.nix
     ../modules/impermanence
     ../modules/sops
+    ../modules/borg
   ];
 
   # Use the systemd-boot EFI boot loader.
