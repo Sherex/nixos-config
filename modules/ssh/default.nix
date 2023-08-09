@@ -33,12 +33,12 @@ in
         Hostname      github.com
         User          git
         IdentityFile  ~/.ssh/id_ed25519
-
-      Host contabo
-        Hostname      {{ssh.contabo.domain}}
-        Port          {{ssh.contabo.port}}
-        IdentityFile  ~/.ssh/id_ed25519
     '';
+    #  Host contabo
+    #    Hostname      {{ssh.contabo.domain}}
+    #    Port          {{ssh.contabo.port}}
+    #    IdentityFile  ~/.ssh/id_ed25519
+    #'';
   };
 }
 
