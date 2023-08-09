@@ -65,7 +65,7 @@ in
     btop # Top alt.
   ];
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     font-awesome_5
     # Note: Not sure if this works as I can't figure out how to clean the local cache.
     #       Tried nix-collect-garbage -d and deleting /root/.cache/nix
