@@ -13,6 +13,7 @@
     ./modules/rofi
     ./modules/i3status-rust
     ./modules/ssh
+    ./modules/git
   ];
 
   # Install packages to /etc/profiles instead of ~/.nix-profile
@@ -37,12 +38,6 @@
       unar
       feh
     ];
-    programs.git = {
-      enable = true;
-      # TODO: Use variables for name and email
-      userName = "Ingar Helgesen";
-      userEmail = "ingar@i-h.no";
-    };
     programs.vscode = {
       enable = true;
       extensions = with pkgs.vscode-extensions; [
