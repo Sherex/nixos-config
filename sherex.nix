@@ -14,6 +14,7 @@
     ./modules/i3status-rust
     ./modules/ssh
     ./modules/git
+    ./modules/vscode
   ];
 
   # Install packages to /etc/profiles instead of ~/.nix-profile
@@ -38,12 +39,6 @@
       unar
       feh
     ];
-    programs.vscode = {
-      enable = true;
-      extensions = with pkgs.vscode-extensions; [
-        vscodevim.vim
-      ];
-    };
     programs.home-manager.enable = true;
   };
 }
