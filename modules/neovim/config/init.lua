@@ -347,6 +347,12 @@ require("lazy").setup({
       }
     end,
   },
+
+  {
+    "kylechui/nvim-surround",
+    event = "VeryLazy",
+    config = true;
+  },
 })
 
 -- Set colorscheme
