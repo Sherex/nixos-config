@@ -27,9 +27,6 @@
       config.users.groups.nix-allowed.name
     ];
     passwordFile = "/persistent/safe/sherex-password-hash";
-    packages = with pkgs; [
-      qutebrowser
-    ];
   };
   home-manager.users.sherex = { pkgs, ... }: {
     home.stateVersion = "22.11";
