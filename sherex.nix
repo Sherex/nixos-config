@@ -36,7 +36,6 @@
       httpie
       unar
       feh
-      teams
     ];
     programs.git = {
       enable = true;
