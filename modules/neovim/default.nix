@@ -19,8 +19,8 @@
         tree-sitter # Treesitter dependency
         nodejs # Treesitter dependency
         lua-language-server # LSP
-        nil # LSP
-        vscode-langservers-extracted # LSP
+        nil # LSP: nix
+        vscode-langservers-extracted # LSP: json, yaml
         terraform-lsp # LSP
         nodePackages.typescript # LSP: tsserver
         nodePackages.typescript-language-server # LSP: tsserver
