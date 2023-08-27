@@ -22,6 +22,8 @@
         nil # LSP
         vscode-langservers-extracted # LSP
         terraform-lsp # LSP
+        nodePackages.typescript # LSP: tsserver
+        nodePackages.typescript-language-server # LSP: tsserver
       ];
     };
   };
