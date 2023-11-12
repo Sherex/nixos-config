@@ -28,7 +28,7 @@
       config.users.groups.wheel.name
       config.users.groups.nix-allowed.name
     ];
-    passwordFile = "/persistent/safe/sherex-password-hash";
+    hashedPasswordFile = "/persistent/safe/sherex-password-hash";
   };
   home-manager.users.sherex = { pkgs, ... }: {
     home.stateVersion = "22.11";
