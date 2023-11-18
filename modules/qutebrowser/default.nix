@@ -36,7 +36,7 @@
         };
         content = {
           autoplay = true;
-          javascript.can_access_clipboard = true;
+          javascript.clipboard = "access";
           pdfjs = false;
         };
         # TODO: Insert correct terminal and editor commands based on current environment
@@ -49,6 +49,7 @@
           show = "always";
           show_switching_delay = 800;
         };
+        scrolling.smooth = true;
       };
     };
   };
