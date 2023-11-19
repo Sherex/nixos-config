@@ -7,6 +7,7 @@
     ../sherex.nix
     ../modules/impermanence
     ../modules/sops
+    ../modules/borg
   ];
 
   boot.loader.efi = {
