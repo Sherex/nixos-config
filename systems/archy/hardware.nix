@@ -1,6 +1,14 @@
 { config, lib, pkgs, modulesPath, ... }:
 
-{
+let
+  arch = {
+    boot-label = "arch";
+    root-uuid = "97AB-1155";
+  };
+  winshit = {
+    root-uuid = "AECC7078CC703CA1";
+  };
+in {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
@@ -56,4 +64,28 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  boot.loader.grub.extraEntries = ''
+    menuentry 'Arch Linux' {
+      set gfxpayload=keep
+      insmod gzio
+      insmod part_gpt
+      insmod fat
+      insmod search_fs_uuid
+      search --no-floppy --fs-uuid --set=root ${arch.root-uuid}
+      echo    'Loading Linux linux ...'
+      linux   /archyboi-boot/vmlinuz-linux root=LABEL=${arch.boot-label} rw rootflags=subvol=subvol/root  loglevel=3 quiet intel_iommu=on pcie_acs_override=downstream
+      echo    'Loading initial ramdisk ...'
+      initrd  /archyboi-boot/intel-ucode.img /archyboi-boot/initramfs-linux.img
+     }
+
+    menuentry "WinShit" {
+      insmod part_gpt
+      insmod fat
+      insmod search_fs_uuid
+      insmod chain
+      search --fs-uuid --set=root ${winshit.root-uuid}
+      chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+    }
+  '';
 }
