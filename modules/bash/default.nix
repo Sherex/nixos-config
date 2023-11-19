@@ -41,6 +41,10 @@
         snapcp = "$HOME/.config/sway/scripts.d/snapshot-pre-post.sh";
         new-project = "curl -sSL https://github.com/Sherex/ts-template/raw/main/create.sh | bash -s ";
 
+        ## Reboot options
+        arch = "sudo ${pkgs.grub2.outPath}/bin/grub-reboot 'Arch Linux' && reboot";
+        winshit = "sudo ${pkgs.grub2.outPath}/bin/grub-reboot 'WinShit' && reboot";
+
         ## Services mgmt
         sstart = "sudo systemctl start";
         sstatus = "sudo systemctl status";
