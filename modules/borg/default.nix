@@ -43,6 +43,7 @@ in
     patterns = [
       "- .cache"
       "- .npm"
+      "- .local/state/lesshst" # Permission issues with ACLs
     ];
     encryption = {
       mode = "repokey-blake2";
