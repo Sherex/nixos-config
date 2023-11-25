@@ -4,6 +4,7 @@
   imports = [
     ./hardware.nix
     ../common.nix
+    ../../modules/gaming
   ];
 
   networking.hostName = "Archy";
