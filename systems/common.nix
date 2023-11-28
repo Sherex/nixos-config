@@ -18,6 +18,7 @@
     enable = true;
     efiSupport = true;
     devices = [ "nodev" ];
+    default = "saved";
   };
 
   time.timeZone = "Europe/Oslo";
