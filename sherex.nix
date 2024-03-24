@@ -38,6 +38,8 @@
       httpie
       unar
       feh
+      numbat
+      devbox
     ];
     programs.home-manager.enable = true;
   };
