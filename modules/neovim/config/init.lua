@@ -238,6 +238,7 @@ require("lazy").setup({
         "jsonls",
         "terraform_lsp",
         "tsserver",
+        "volar", -- Vue
         "yamlls",
       }
       for _, lsp in ipairs(servers) do

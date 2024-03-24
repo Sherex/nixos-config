@@ -24,6 +24,7 @@
         terraform-lsp # LSP
         nodePackages.typescript # LSP: tsserver
         nodePackages.typescript-language-server # LSP: tsserver
+        nodePackages.volar # LSP: volar (Vue)
         yaml-language-server # LSP: yamlls
       ];
     };
