@@ -5,7 +5,6 @@
     ./hardware.nix
     ../common.nix
     ../../modules/bluetooth
-    ../../modules/teams
   ];
 
   networking.hostName = "NixTop";
