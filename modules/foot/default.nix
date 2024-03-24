@@ -9,7 +9,7 @@
       enable = true;
       settings = {
         main = {
-          font = "monospace:size=10";
+          font = "monospace:size=11";
         };
         cursor = {
           color = "111111 cccccc";
