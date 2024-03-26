@@ -363,6 +363,14 @@ require("lazy").setup({
     event = "VeryLazy",
     config = true;
   },
+
+  {
+    "elihunter173/dirbuf.nvim",
+    keys = {
+      { "<leader>eE", "<cmd>Dirbuf<cr>", desc = "Open Dirbuf" },
+    },
+  },
+
 })
 
 -- Set colorscheme
