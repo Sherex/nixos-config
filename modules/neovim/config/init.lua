@@ -48,9 +48,16 @@ require("lazy").setup({
 
   "folke/neodev.nvim",
 
-  "folke/trouble.nvim",
+  {
+    "folke/trouble.nvim",
+    lazy = false,
+    keys = {
+      { "<leader>te", "<cmd>TroubleToggle<cr>", desc = "Toggle Trouble window" },
+      { "gr", "<cmd>Trouble lsp_references<cr>", desc = "Show references for word under cursor" },
+    },
+  },
 
-  { 
+  {
     "nvim-tree/nvim-tree.lua",
     keys = {
       { "<leader>ee", "<cmd>NvimTreeToggle<cr>", desc = "Toggle NvimTree" },
