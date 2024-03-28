@@ -291,6 +291,24 @@ require("lazy").setup({
   },
 
   {
+    "windwp/nvim-autopairs",
+    dependencies = {
+      "hrsh7th/nvim-cmp",
+    },
+    event = "InsertEnter",
+    config = true,
+    init = function ()
+      -- Insert `(` after select function or method item
+      local cmp = require 'cmp'
+      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+      cmp.event:on(
+        'confirm_done',
+        cmp_autopairs.on_confirm_done()
+      )
+    end,
+  },
+
+  {
     "hrsh7th/nvim-cmp",
     dependencies = {
       "L3MON4D3/LuaSnip",
