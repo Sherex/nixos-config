@@ -45,10 +45,8 @@ let
 in
 {
   environment.systemPackages = with pkgs; [
-    sway
     dbus-sway-environment
     configure-gtk
-    wayland
     xdg-utils # for opening default programs when clicking links
     glib # gsettings
     dracula-theme # gtk theme
@@ -100,10 +98,12 @@ in
     wrapperFeatures.gtk = true;
   };
 
-  home-manager.users.sherex = { pkgs, ... }: {
-    # Start sway on login
-    programs.bash.profileExtra = "sway";
+  # Autostart Sway on login
+  environment.loginShellInit = ''
+    [[ "$(tty)" == /dev/tty1 ]] && sway
+  '';
 
+  home-manager.users.sherex = { pkgs, ... }: {
     # put config in store and symlink it to .config
     xdg.configFile."sway" = {
       source = ./config;
