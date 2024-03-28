@@ -8,6 +8,7 @@
     ../modules/impermanence
     ../modules/sops
     ../modules/borg
+    ../modules/sshd
   ];
 
   boot.loader.efi = {
@@ -65,8 +66,6 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  services.openssh.enable = true;
 }
 
 

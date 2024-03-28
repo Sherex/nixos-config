@@ -24,7 +24,7 @@ in
 
   # Set an ACL on directory to allow borg to read everything below
   systemd.tmpfiles.rules = [
-    "A /persistent/safe - - - - user:${config.users.users.borg.name}:r-x"
+    "A /persistent/safe - - - - user:${config.users.users.borg.name}:r-X"
   ];
 
   sops.secrets = {
