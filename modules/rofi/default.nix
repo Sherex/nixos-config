@@ -9,7 +9,7 @@
       enable = true;
       font = "hack 10";
       terminal = "${config.home-manager.users.sherex.programs.bash.sessionVariables.TERMINAL}";
-      theme = toString ./themes/iceberg-dark.rasi;
+      theme = toString ./themes/default/iceberg-dark.rasi;
       extraConfig = {
         modi = "combi";
         show-icons = true;
