@@ -396,6 +396,12 @@ require("lazy").setup({
     },
   },
 
+  {
+    "echasnovski/mini.comment",
+    config = true;
+    event = "VeryLazy",
+  },
+
 })
 
 -- Set colorscheme
