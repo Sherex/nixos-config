@@ -459,6 +459,48 @@ require("lazy").setup({
     }
   },
 
+  {
+    "echasnovski/mini.map",
+    config = function ()
+      local map = require('mini.map')
+      map.setup({
+        integrations = {
+          map.gen_integration.builtin_search(),
+          map.gen_integration.gitsigns(),
+          map.gen_integration.diagnostic(),
+        },
+
+        symbols = {
+          encode = nil,
+          scroll_line = '█',
+          scroll_view = '┃',
+        },
+
+        window = {
+          focusable = false,
+          side = 'right',
+          show_integration_count = true,
+          width = 10,
+          winblend = 25,
+          zindex = 10,
+        },
+      })
+    end,
+    keys = {
+      {
+        "<leader>mm", desc = "Toggle MiniMap window", function ()
+          MiniMap.toggle()
+        end
+      },
+      {
+        "<leader>mf", desc = "Toggle MiniMap focus", function ()
+          MiniMap.open()
+          MiniMap.toggle_focus()
+        end
+      },
+    },
+  },
+
 })
 
 -- Set colorscheme
