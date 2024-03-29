@@ -33,7 +33,7 @@ vim.g.maplocalleader = " "
 --- A wrapper to configure a source for nvim_cmp
 --- @param name string
 --- @param option table?
-local function configure_cmp_source (name, option)
+local function configure_cmp_source(name, option)
   local cmp = require('cmp')
   local config = cmp.get_config()
   table.insert(config.sources, {
@@ -57,7 +57,7 @@ require("lazy").setup({
     end,
   },
 
-  { "folke/neoconf.nvim", cmd = "Neoconf" },
+  { "folke/neoconf.nvim",       cmd = "Neoconf" },
 
   "folke/neodev.nvim",
 
@@ -65,15 +65,15 @@ require("lazy").setup({
     "folke/trouble.nvim",
     lazy = false,
     keys = {
-      { "<leader>te", "<cmd>TroubleToggle<cr>", desc = "Toggle Trouble window" },
-      { "gr", "<cmd>Trouble lsp_references<cr>", desc = "Show references for word under cursor" },
+      { "<leader>te", "<cmd>TroubleToggle<cr>",          desc = "Toggle Trouble window" },
+      { "gr",         "<cmd>Trouble lsp_references<cr>", desc = "Show references for word under cursor" },
     },
   },
 
   {
     "nvim-tree/nvim-tree.lua",
     keys = {
-      { "<leader>ee", "<cmd>NvimTreeToggle<cr>", desc = "Toggle NvimTree" },
+      { "<leader>ee", "<cmd>NvimTreeToggle<cr>",   desc = "Toggle NvimTree" },
       { "<leader>ef", "<cmd>NvimTreeFindFile<cr>", desc = "Find file in NvimTree" },
     },
     opts = {
@@ -114,10 +114,10 @@ require("lazy").setup({
     "nvim-telescope/telescope.nvim",
     dependencies = { 'nvim-lua/plenary.nvim' },
     keys = {
-      { "<leader>tt", "<cmd>Telescope<cr>", desc = "Open Telescope" },
-      { "gs", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
-      { "gS", "<cmd>Telescope grep_string<cr>", desc = "Grep string under cursor" },
-      { "<leader>f", function () require('telescope.builtin').find_files({ hidden = true }) end, desc = "Find file" },
+      { "<leader>tt", "<cmd>Telescope<cr>",                                                       desc = "Open Telescope" },
+      { "gs",         "<cmd>Telescope live_grep<cr>",                                             desc = "Live grep" },
+      { "gS",         "<cmd>Telescope grep_string<cr>",                                           desc = "Grep string under cursor" },
+      { "<leader>f",  function() require('telescope.builtin').find_files({ hidden = true }) end,  desc = "Find file" },
     },
   },
 
@@ -203,13 +203,13 @@ require("lazy").setup({
       {
         "<A-3>",
         "<cmd>ToggleTerm size=40 direction=float<cr>",
-        mode = {"n", "t"},
+        mode = { "n", "t" },
         desc = "Toggle floating terminal"
       },
       {
         "<A-2>",
         "<cmd>ToggleTerm size=20 direction=horizontal<cr>",
-        mode = {"n", "t"},
+        mode = { "n", "t" },
         desc = "Toggle horizontal terminal"
       },
     },
@@ -223,7 +223,7 @@ require("lazy").setup({
   {
     "rcarriga/nvim-notify",
     dependencies = { "nvim-telescope/telescope.nvim" },
-    config = function ()
+    config = function()
       vim.opt.termguicolors = true
       vim.notify = require("notify").setup({
         background_colour = "#000000",
@@ -250,7 +250,7 @@ require("lazy").setup({
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
     },
-    config = function ()
+    config = function()
       local lspconfig = require("lspconfig")
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local servers = {
@@ -272,25 +272,25 @@ require("lazy").setup({
       lspconfig.lua_ls.setup {
         capabilities = capabilities,
         settings = {
-            Lua = {
-              runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = 'LuaJIT',
-              },
-              diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = {'vim'},
-              },
-              workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
-              },
-              -- Do not send telemetry data containing a randomized but unique identifier
-              telemetry = {
-                enable = false,
-              },
+          Lua = {
+            runtime = {
+              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+              version = 'LuaJIT',
+            },
+            diagnostics = {
+              -- Get the language server to recognize the `vim` global
+              globals = { 'vim' },
+            },
+            workspace = {
+              -- Make the server aware of Neovim runtime files
+              library = vim.api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+              enable = false,
             },
           },
+        },
       }
     end,
   },
@@ -306,7 +306,7 @@ require("lazy").setup({
       "hrsh7th/nvim-cmp",
       "L3MON4D3/LuaSnip",
     },
-    init = function ()
+    init = function()
       configure_cmp_source('luasnip')
     end,
   },
@@ -314,7 +314,7 @@ require("lazy").setup({
   {
     "hrsh7th/cmp-nvim-lsp-signature-help",
     dependencies = { "hrsh7th/nvim-cmp" },
-    init = function ()
+    init = function()
       configure_cmp_source('nvim_lsp_signature_help')
     end,
   },
@@ -323,7 +323,7 @@ require("lazy").setup({
     name = "cmp-async-path",
     url = "https://codeberg.org/FelipeLema/cmp-async-path.git",
     dependencies = { "hrsh7th/nvim-cmp" },
-    init = function ()
+    init = function()
       configure_cmp_source('async_path')
     end,
   },
@@ -333,7 +333,7 @@ require("lazy").setup({
     dependencies = { "hrsh7th/nvim-cmp" },
     event = "InsertEnter",
     config = true,
-    init = function ()
+    init = function()
       -- Insert `(` after select function or method item
       local cmp_autopairs = require('nvim-autopairs.completion.cmp')
       require('cmp').event:on(
@@ -348,7 +348,7 @@ require("lazy").setup({
     dependencies = {
       "L3MON4D3/LuaSnip",
     },
-    config = function ()
+    config = function()
       local luasnip = require 'luasnip'
       local cmp = require 'cmp'
       cmp.setup {
@@ -359,7 +359,7 @@ require("lazy").setup({
         },
         mapping = cmp.mapping.preset.insert({
           ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
-          ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Down
+          ['<C-d>'] = cmp.mapping.scroll_docs(4),  -- Down
           -- C-b (back) C-f (forward) for snippet placeholder navigation.
           ['<C-Space>'] = cmp.mapping.complete(),
           ['<CR>'] = cmp.mapping.confirm {
@@ -397,7 +397,7 @@ require("lazy").setup({
     dependencies = {
       "neovim/nvim-lspconfig",
     },
-    config = function ()
+    config = function()
       require("lspconfig").jsonls.setup {
         settings = {
           json = {
@@ -412,7 +412,7 @@ require("lazy").setup({
   {
     "kylechui/nvim-surround",
     event = "VeryLazy",
-    config = true;
+    config = true,
   },
 
   {
@@ -469,7 +469,7 @@ require("lazy").setup({
       "folke/tokyonight.nvim",
     },
     lazy = false,
-    config = function ()
+    config = function()
       local colors = require("tokyonight.colors").setup()
       local opts = {
         handle = {
@@ -495,4 +495,3 @@ require("lazy").setup({
 
 -- Set colorscheme
 vim.cmd.colorscheme("tokyonight")
-
