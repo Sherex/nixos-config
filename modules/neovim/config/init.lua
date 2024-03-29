@@ -491,6 +491,17 @@ require("lazy").setup({
     end
   },
 
+  {
+    "j-hui/fidget.nvim",
+    opts = {
+      notification = {
+        window = {
+          winblend = 0,
+        },
+      },
+    },
+  },
+
 })
 
 -- Set colorscheme
