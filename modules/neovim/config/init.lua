@@ -30,6 +30,19 @@ vim.opt.relativenumber = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+--- A wrapper to configure a source for nvim_cmp
+--- @param name string
+--- @param option table?
+local function configure_cmp_source (name, option)
+  local cmp = require('cmp')
+  local config = cmp.get_config()
+  table.insert(config.sources, {
+    name = name,
+    option = option,
+  })
+  cmp.setup(config)
+end
+
 -- TODO: Move to own modules
 require("lazy").setup({
   {
@@ -293,20 +306,30 @@ require("lazy").setup({
 
   {
     "hrsh7th/cmp-nvim-lsp-signature-help",
+    dependencies = { "hrsh7th/nvim-cmp" },
+    init = function ()
+      configure_cmp_source('nvim_lsp_signature_help')
+    end,
+  },
+
+  {
+    name = "cmp-async-path",
+    url = "https://codeberg.org/FelipeLema/cmp-async-path.git",
+    dependencies = { "hrsh7th/nvim-cmp" },
+    init = function ()
+      configure_cmp_source('async_path')
+    end,
   },
 
   {
     "windwp/nvim-autopairs",
-    dependencies = {
-      "hrsh7th/nvim-cmp",
-    },
+    dependencies = { "hrsh7th/nvim-cmp" },
     event = "InsertEnter",
     config = true,
     init = function ()
       -- Insert `(` after select function or method item
-      local cmp = require 'cmp'
       local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-      cmp.event:on(
+      require('cmp').event:on(
         'confirm_done',
         cmp_autopairs.on_confirm_done()
       )
@@ -318,7 +341,6 @@ require("lazy").setup({
     dependencies = {
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-nvim-lsp-signature-help",
     },
     config = function ()
       local luasnip = require 'luasnip'
@@ -360,7 +382,6 @@ require("lazy").setup({
         sources = {
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
-          { name = 'nvim_lsp_signature_help' },
         },
       }
     end,
