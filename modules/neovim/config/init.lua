@@ -302,6 +302,13 @@ require("lazy").setup({
 
   {
     "saadparwaiz1/cmp_luasnip",
+    dependencies = {
+      "hrsh7th/nvim-cmp",
+      "L3MON4D3/LuaSnip",
+    },
+    init = function ()
+      configure_cmp_source('luasnip')
+    end,
   },
 
   {
@@ -340,7 +347,6 @@ require("lazy").setup({
     "hrsh7th/nvim-cmp",
     dependencies = {
       "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
     },
     config = function ()
       local luasnip = require 'luasnip'
@@ -381,7 +387,6 @@ require("lazy").setup({
         }),
         sources = {
           { name = 'nvim_lsp' },
-          { name = 'luasnip' },
         },
       }
     end,
