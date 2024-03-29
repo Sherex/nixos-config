@@ -424,8 +424,39 @@ require("lazy").setup({
 
   {
     "echasnovski/mini.comment",
-    config = true;
     event = "VeryLazy",
+    config = true,
+  },
+
+  {
+    "echasnovski/mini.sessions",
+    lazy = false,
+    opts = {
+      autoread = false,
+      autowrite = true,
+    },
+  },
+
+  {
+    "echasnovski/mini.starter",
+    lazy = false,
+    opts = {
+      autoopen = true,
+      evaluate_single = true,
+    },
+  },
+
+  {
+    "echasnovski/mini.statusline",
+    lazy = false,
+    opts = {
+      -- Content of statusline as functions which return statusline string. See
+      -- `:h statusline` and code of default contents (used instead of `nil`).
+      content = {
+        active = nil,
+        inactive = nil,
+      },
+    }
   },
 
 })
