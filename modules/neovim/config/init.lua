@@ -247,6 +247,7 @@ require("lazy").setup({
         "tsserver",
         "volar", -- Vue
         "yamlls",
+        "bashls",
       }
       for _, lsp in ipairs(servers) do
         -- TODO: Setup can only be called once per LSP

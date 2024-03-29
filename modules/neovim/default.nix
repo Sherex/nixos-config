@@ -26,6 +26,8 @@
         nodePackages.typescript-language-server # LSP: tsserver
         nodePackages.volar # LSP: volar (Vue)
         yaml-language-server # LSP: yamlls
+        nodePackages.bash-language-server # LSP: bash
+        shellcheck # linter for shell scripts
       ];
     };
   };
