@@ -292,6 +292,10 @@ require("lazy").setup({
   },
 
   {
+    "hrsh7th/cmp-nvim-lsp-signature-help",
+  },
+
+  {
     "windwp/nvim-autopairs",
     dependencies = {
       "hrsh7th/nvim-cmp",
@@ -314,6 +318,7 @@ require("lazy").setup({
     dependencies = {
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
     },
     config = function ()
       local luasnip = require 'luasnip'
@@ -355,6 +360,7 @@ require("lazy").setup({
         sources = {
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
+          { name = 'nvim_lsp_signature_help' },
         },
       }
     end,
