@@ -53,7 +53,7 @@ format = " $icon {$combo.str(max_w:20,rot_interval:0.5) $play $next |}"
 
 [[block]]
 block = "hueshift"
-hue_shifter = "gammastep"
+hue_shifter = "wl_gammarelay_rs"
 step = 50
 click_temp = 2500
 
