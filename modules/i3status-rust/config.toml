@@ -44,6 +44,11 @@ format = "$ip $speed_down $graph_down"
 interval = 1
 
 [[block]]
+block = "external_ip"
+format = " $ip $country_flag "
+use_ipv4 = true
+
+[[block]]
 block = "sound"
 step_width = 1
 
