@@ -8,7 +8,6 @@
   home-manager.users.sherex = { pkgs, ... }: {
     services.kdeconnect = {
       enable = true;
-      indicator = true;
     };
   };
 }

@@ -15,7 +15,6 @@
     ./modules/ssh
     ./modules/git
     ./modules/vscode
-    ./modules/kde-connect
   ];
 
   # Install packages to /etc/profiles instead of ~/.nix-profile

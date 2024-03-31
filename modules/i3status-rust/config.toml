@@ -74,9 +74,6 @@ command_off = "/home/sherex/.config/sway/scripts.d/lockscreen-toggle.sh disable"
 interval = 10
 
 [[block]]
-block = "kdeconnect"
-
-[[block]]
 block = "battery"
 driver = "upower"
 format = "$percentage $time $power"
