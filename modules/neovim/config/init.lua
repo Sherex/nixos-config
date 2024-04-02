@@ -510,6 +510,14 @@ require("lazy").setup({
     },
   },
 
+  {
+    "ggandor/leap.nvim",
+    config = true,
+    keys = {
+      { "s", "<Plug>(leap)", desc = "Leap search" },
+    },
+  },
+
 })
 
 -- Set colorscheme
