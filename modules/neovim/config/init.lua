@@ -502,6 +502,14 @@ require("lazy").setup({
     },
   },
 
+  {
+    "chentoast/marks.nvim",
+    opts = {
+      default_mappings = false,
+      builtin_marks = { ".", "<", ">", "^", "[", "]" },
+    },
+  },
+
 })
 
 -- Set colorscheme
