@@ -5,6 +5,7 @@
     ./hardware.nix
     ../common.nix
     ../../modules/gaming
+    ../../modules/virtualization
   ];
 
   networking.hostName = "Archy";
