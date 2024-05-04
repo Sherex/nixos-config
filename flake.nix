@@ -33,6 +33,8 @@
 
     nixosConfigurations.Archy = nixosSystem nixpkgs attrs "archy";
 
+    nixosConfigurations.Nixxy = nixosSystem nixpkgs attrs "nixxy";
+
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
   };
 }

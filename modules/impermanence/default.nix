@@ -55,9 +55,9 @@ in
     Defaults lecture = never
   '';
 
-  home-manager.users.sherex = { pkgs, ... }: {
+  #home-manager.users.sherex = { pkgs, ... }: {
     # TODO: Use home-manager for user file persistance?
-  };
+  #};
 
   # Source (but quite modified):
   # https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html#darling-erasure
