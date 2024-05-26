@@ -9,6 +9,7 @@
     ../modules/sops
     ../modules/borg
     ../modules/sshd
+    ../modules/vpn
   ];
 
   boot.loader.efi = {
