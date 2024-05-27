@@ -88,4 +88,40 @@ in {
       chainloader /EFI/Microsoft/Boot/bootmgfw.efi
     }
   '';
+
+  systemd.services.sound-blaster-unmute = {
+    description = "Unmutes the Sound Blaster soundcard after startup";
+    enable = true;
+
+    # These dependencies are just approximations of where in the boot process
+    # this should start and are not hard requirements.
+    wantedBy = [ "alsa-store.service" ];
+    after = [ "multi-user.target" ];
+
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = "5s";
+    };
+
+    # Max 30 restart attempts within 1 hour
+    startLimitBurst = 30;
+    startLimitIntervalSec = 3600;
+
+    path = [ pkgs.alsa-utils ];
+    script = ''
+      set -e
+
+      # Fail if card is unmuted (it will eventually be muted by some ghost service starting after login)
+      amixer --card 2 get Front | grep -E 'Front (Left|Right).+\[off\]'
+
+      echo "--------"
+
+      amixer --card 2 set Front unmute
+
+      echo "--------"
+
+      # Fail if card is still muted
+      amixer --card 2 get Front | grep -E 'Front (Left|Right).+\[on\]'
+    '';
+  };
 }
