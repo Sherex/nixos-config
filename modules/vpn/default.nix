@@ -8,5 +8,11 @@
       "/etc/mullvad-vpn"
     ];
   };
+
+  environment.persistence."/persistent/unsafe" = {
+    directories = [
+      "/var/cache/mullvad-vpn"
+    ];
+  };
 }
 
