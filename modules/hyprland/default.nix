@@ -1,6 +1,10 @@
 { config, pkgs, lib, home-manager, ... }:
 
-{
+let
+  background_image = {
+    path = "~/media/images/backgrounds/current.img";
+  };
+in {
   environment.systemPackages = with pkgs; [
     xdg-utils # for opening default programs when clicking links
     glib # gsettings
@@ -209,6 +213,18 @@
 
     services.mako = {
       enable = true;
+    };
+
+    services.hyprpaper = {
+      enable = true;
+      settings = {
+        preload = [
+          background_image.path
+        ];
+        wallpaper = [
+          ",${background_image.path}"
+        ];
+      };
     };
   };
 }
