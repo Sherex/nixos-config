@@ -3,7 +3,7 @@
 {
   imports = [
     ../modules/swap
-    ../modules/sway
+    ../modules/hyprland
     ../sherex.nix
     ../modules/impermanence
     ../modules/sops
