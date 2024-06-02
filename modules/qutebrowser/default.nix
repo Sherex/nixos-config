@@ -37,7 +37,7 @@
         content = {
           autoplay = true;
           javascript.clipboard = "access";
-          pdfjs = false;
+          pdfjs = true;
         };
         # TODO: Insert correct terminal and editor commands based on current environment
         editor.command = [ "foot" "nvim" "-f" "{file}" "-c" "normal {line}G{column0}l" ];
@@ -50,6 +50,7 @@
           show_switching_delay = 800;
         };
         scrolling.smooth = true;
+        session.lazy_restore = true;
       };
     };
   };
