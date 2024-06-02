@@ -8,3 +8,6 @@ client.unfocused "#00000000" "#00000000" "#00000000"
 gaps inner 20
 #gaps outer -20
 smart_gaps on
+
+# Display [XW] in the title of XWayland windows
+for_window [shell="xwayland"] title_format "[XW] %title"

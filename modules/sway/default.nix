@@ -99,7 +99,7 @@ in
 
   # Autostart Sway on login
   environment.loginShellInit = ''
-    [[ "$(tty)" == /dev/tty1 ]] && sway
+    [[ "$(tty)" == /dev/tty1 ]] && sway --unsupported-gpu
   '';
 
   home-manager.users.sherex = { pkgs, ... }: {
