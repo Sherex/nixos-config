@@ -140,7 +140,7 @@ in {
         # https://wiki.hyprland.org/Configuring/Variables/#input
         input = {
           kb_layout = "no";
-          follow_mouse = 3;
+          follow_mouse = 1;
         };
 
 
