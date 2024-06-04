@@ -50,6 +50,11 @@ in {
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
+  # Autostart Hyprland on login
+  environment.loginShellInit = ''
+    [[ "$(tty)" == /dev/tty1 ]] && hyprland
+  '';
+
   home-manager.users.sherex = { pkgs, ... }: {
     wayland.windowManager.hyprland = {
       enable = true;
