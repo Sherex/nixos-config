@@ -16,7 +16,6 @@ in {
     grim # screenshot functionality
     slurp # screenshot functionality
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
-    rofi-wayland # wayland clone of dmenu
     wl-gammarelay-rs # Used by a block in i3status-rust
     complete-alias
     btop # Top alt.
@@ -60,7 +59,7 @@ in {
       enable = true;
       settings = {
         "$terminal" = "foot";
-        "$menu" = "rofi -show combi";
+        "$menu" = "${pkgs.rofi-wayland}/bin/rofi -show combi";
 
         env = [
           "XCURSOR_SIZE,24"
@@ -215,6 +214,7 @@ in {
 
         windowrulev2 = [
           "suppressevent maximize, class:.*"
+          "stayfocused, title:.*(rofi).*"
         ];
       };
     };
