@@ -3,6 +3,11 @@
 {
   imports = [ home-manager.nixosModule ];
 
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+  };
+
   home-manager.users.sherex = { pkgs, ... }: {
     home.file."./.config/nvim/" = {
       source = ./config;
