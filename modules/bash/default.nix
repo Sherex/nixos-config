@@ -41,6 +41,9 @@
         snapcp = "$HOME/.config/sway/scripts.d/snapshot-pre-post.sh";
         new-project = "curl -sSL https://github.com/Sherex/ts-template/raw/main/create.sh | bash -s ";
 
+        ## Shortcuts
+        ec = "$EDITOR -S /etc/nixos/Session.vim";
+
         ## Reboot options
         arch = "sudo ${pkgs.grub2.outPath}/bin/grub-reboot 'Arch Linux' && reboot";
         winshit = "sudo ${pkgs.grub2.outPath}/bin/grub-reboot 'WinShit' && reboot";
