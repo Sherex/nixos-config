@@ -91,7 +91,7 @@ in {
 
   systemd.services.sound-blaster-unmute = {
     description = "Unmutes the Sound Blaster soundcard after startup";
-    enable = true;
+    enable = false; # A little buggy on restart
 
     # These dependencies are just approximations of where in the boot process
     # this should start and are not hard requirements.

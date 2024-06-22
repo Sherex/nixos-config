@@ -31,6 +31,8 @@ in {
 
   services.pipewire = {
     enable = true;
+    jack.enable = false;
+    wireplumber.enable = true;
     alsa.enable = true;
     pulse.enable = true;
   };
