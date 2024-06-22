@@ -4,6 +4,7 @@
   imports = [
     ../modules/swap
     ../modules/hyprland
+    ../modules/sound
     ../sherex.nix
     ../modules/impermanence
     ../modules/sops
@@ -44,10 +45,6 @@
     allowed-users = [ "@nix-allowed" ];
   };
   nixpkgs.config.allowUnfree = true;
-
-  # Enable sound.
-  sound.enable = true;
-  # hardware.pulseaudio.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

@@ -29,14 +29,6 @@ in {
     (nerdfonts.override { fonts = [ "Hack" ]; })
   ];
 
-  services.pipewire = {
-    enable = true;
-    jack.enable = false;
-    wireplumber.enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
-  };
-
   # xdg-desktop-portal works by exposing a series of D-Bus interfaces
   # known as portals under a well-known name
   # (org.freedesktop.portal.Desktop) and object path
