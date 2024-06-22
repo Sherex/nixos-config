@@ -154,7 +154,7 @@ in {
           # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
           "$mainMod, return, exec, $terminal"
           "$mainMod, Q, killactive,"
-          "$mainMod SHIFT, PAUSE, exit,"
+          "$mainMod SHIFT, END, exit,"
           "$mainMod, E, exec, $fileManager"
           "$mainMod SHIFT, V, togglefloating,"
           "$mainMod, V, cyclenext, floating"
