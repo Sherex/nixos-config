@@ -224,6 +224,10 @@ in {
           "suppressevent maximize, class:.*"
           "stayfocused, title:.*(rofi).*"
         ];
+
+        debug = {
+          disable_logs = false;
+        };
       };
     };
 
