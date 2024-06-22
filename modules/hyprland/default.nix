@@ -58,7 +58,7 @@ in {
     wayland.windowManager.hyprland = {
       enable = true;
       settings = {
-        "$terminal" = "foot";
+        "$terminal" = "${pkgs.foot}/bin/foot";
         "$menu" = "${pkgs.rofi-wayland}/bin/rofi -show combi";
 
         env = [
@@ -73,6 +73,8 @@ in {
 
         exec-once = [
           "$terminal"
+          "[workspace special:monitoring silent] $terminal ${pkgs.btop}/bin/btop"
+          "[workspace special:monitoring silent] $terminal ${pkgs.nvtopPackages.nvidia}/bin/nvtop"
         ];
 
         general = { 
@@ -196,9 +198,13 @@ in {
           "$mainMod SHIFT, 9, movetoworkspacesilent, 9"
           "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
 
-          # Example special workspace (scratchpad)
+          # Scratchpad
           "$mainMod, S, togglespecialworkspace, magic"
           "$mainMod SHIFT, S, movetoworkspacesilent, special:magic"
+
+          # Monitoring workspace
+          "$mainMod, M, togglespecialworkspace, monitoring"
+          "$mainMod SHIFT, M, movetoworkspacesilent, special:monitoring"
 
           # Scroll through existing workspaces with mainMod + scroll
           "$mainMod, mouse_down, workspace, e+1"
