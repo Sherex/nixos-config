@@ -96,20 +96,17 @@ in {
         };
 
         decoration = {
-          rounding = 10;
+          rounding = 0;
 
           # Change transparency of focused and unfocused windows
           active_opacity = 1.0;
           inactive_opacity = 1.0;
 
-          drop_shadow = true;
-          shadow_range = 4;
-          shadow_render_power = 3;
-          "col.shadow" = "rgba(1a1a1aee)";
+          drop_shadow = false;
 
           # https://wiki.hyprland.org/Configuring/Variables/#blur
           blur = {
-            enabled = true;
+            enabled = false;
             size = 3;
             passes = 1;
             
@@ -126,12 +123,12 @@ in {
         dwindle = {
           pseudotile = true;
           preserve_split = true;
+          no_gaps_when_only = 1;
         };
 
         # https://wiki.hyprland.org/Configuring/Master-Layout/
         master = {
           new_status = "master";
-          no_gaps_when_only = 1;
         };
 
         # https://wiki.hyprland.org/Configuring/Variables/#input
