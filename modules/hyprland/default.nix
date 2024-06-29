@@ -131,6 +131,7 @@ in {
         # https://wiki.hyprland.org/Configuring/Master-Layout/
         master = {
           new_status = "master";
+          no_gaps_when_only = 1;
         };
 
         # https://wiki.hyprland.org/Configuring/Variables/#input
