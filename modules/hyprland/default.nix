@@ -221,6 +221,25 @@ in {
           disable_logs = false;
         };
       };
+
+      extraConfig = ''
+        # Resize windows
+        bind = $mainMod, R, submap, resize
+
+        submap = resize
+        binde = $mainMod, h, resizeactive, -20 0
+        binde = $mainMod, l, resizeactive, 20 0
+        binde = $mainMod, k, resizeactive, 0 -20
+        binde = $mainMod, j, resizeactive, 0 20
+
+        binde = $mainMod SHIFT, h, resizeactive, -200 0
+        binde = $mainMod SHIFT, l, resizeactive, 200 0
+        binde = $mainMod SHIFT, k, resizeactive, 0 -200
+        binde = $mainMod SHIFT, j, resizeactive, 0 200
+
+        bind = , escape, submap, reset
+        submap = reset
+      '';
     };
 
     services.mako = {
