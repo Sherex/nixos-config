@@ -130,7 +130,7 @@ in {
 
         # https://wiki.hyprland.org/Configuring/Master-Layout/
         master = {
-          new_is_master = true;
+          new_status = "master";
         };
 
         # https://wiki.hyprland.org/Configuring/Variables/#input
