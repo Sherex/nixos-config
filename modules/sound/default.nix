@@ -1,10 +1,6 @@
 { config, pkgs, lib, home-manager, ... }:
 
 {
-  sound = {
-    mediaKeys.enable = true;
-  };
-
   services.pipewire = {
     enable = true;
     jack.enable = false;
