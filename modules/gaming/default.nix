@@ -8,5 +8,11 @@
   programs.steam = {
     enable = true;
   };
+
+  home-manager.users.sherex = { pkgs, ... }: {
+    home.packages = with pkgs; [
+      discord
+    ];
+  };
 }
 
