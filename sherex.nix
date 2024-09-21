@@ -40,7 +40,13 @@
       feh
       numbat
       devbox
+      distrobox
     ];
     programs.home-manager.enable = true;
+  };
+
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
   };
 }
