@@ -22,9 +22,14 @@ in
     "user/ssh/public-key" = placeInHome ".ssh/id_ed25519.pub";
   };
 
+  programs.ssh = {
+    startAgent = true;
+  };
+
   home-manager.users.sherex = { pkgs, ... }: {
     programs.ssh = {
       enable = true;
+      addKeysToAgent = "yes";
       matchBlocks = {
         "github.com-test github.com github gh" = {
           hostname      = "github.com";
