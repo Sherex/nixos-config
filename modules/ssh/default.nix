@@ -23,22 +23,18 @@ in
   };
 
   home-manager.users.sherex = { pkgs, ... }: {
-    home.packages = with pkgs; [
-      openssh
-    ];
+    programs.ssh = {
+      enable = true;
+      matchBlocks = {
+        "github.com-test github.com github gh" = {
+          hostname      = "github.com";
+          user          = "git";
+          identityFile  = "~/.ssh/id_ed25519";
+        };
+      };
+    };
+
     programs.bash.shellAliases.ssh = "TERM=xterm-256color ssh";
-    # TODO: Use templating for inserting secrets
-    home.file."./.ssh/config".text = ''
-      Host github.com-test github.com github gh
-        Hostname      github.com
-        User          git
-        IdentityFile  ~/.ssh/id_ed25519
-    '';
-    #  Host contabo
-    #    Hostname      {{ssh.contabo.domain}}
-    #    Port          {{ssh.contabo.port}}
-    #    IdentityFile  ~/.ssh/id_ed25519
-    #'';
   };
 }
 
