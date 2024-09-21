@@ -4,6 +4,7 @@
   imports = [
     ./hardware.nix
     ../common-server.nix
+    ../../modules/minecraft-servers
   ];
 
   networking.hostName = "Nixxy";
