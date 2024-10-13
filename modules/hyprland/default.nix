@@ -50,6 +50,7 @@ in {
 
   # Autostart Hyprland on login
   environment.loginShellInit = ''
+    export XCURSOR_THEME="Vanilla-DMZ"
     [[ "$(tty)" == /dev/tty1 ]] && hyprland
   '';
   # Hint Electron apps to use Wayland
