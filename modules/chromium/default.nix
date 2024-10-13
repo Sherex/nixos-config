@@ -30,6 +30,7 @@ in
       commandLineArgs = [
         "--force-dark-mode"
         "--enable-features=WebUIDarkMode"
+        "--ozone-platform-hint=auto"
       ];
       extensions =
         [

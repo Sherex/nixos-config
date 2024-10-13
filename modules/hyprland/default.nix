@@ -47,6 +47,8 @@ in {
   environment.loginShellInit = ''
     [[ "$(tty)" == /dev/tty1 ]] && hyprland
   '';
+  # Hint Electron apps to use Wayland
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   home-manager.users.sherex = { pkgs, ... }: {
     wayland.windowManager.hyprland = {
