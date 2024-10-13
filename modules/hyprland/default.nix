@@ -38,17 +38,13 @@ in {
   services.dbus.enable = true;
   xdg.portal = {
     enable = true;
-    wlr.enable = true;
     xdgOpenUsePortal = true;
     config = {
       # gtk portal needed to make gtk apps happy
       common.default = ["gtk"];
-      hyprland.default = ["gtk" "hyprland"];
     };
     extraPortals = [
       pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal-wlr
-      pkgs.xdg-desktop-portal-hyprland
     ];
   };
 
@@ -58,6 +54,8 @@ in {
   '';
   # Hint Electron apps to use Wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  programs.hyprland.enable = true;
 
   home-manager.users.sherex = { pkgs, ... }: {
     wayland.windowManager.hyprland = {
