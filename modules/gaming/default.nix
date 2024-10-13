@@ -11,7 +11,7 @@
 
   home-manager.users.sherex = { pkgs, ... }: {
     home.packages = with pkgs; [
-      discord
+      vesktop
     ];
   };
 }

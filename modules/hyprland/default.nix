@@ -39,8 +39,17 @@ in {
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    # gtk portal needed to make gtk apps happy
-    config.common.default = [ "gtk" ];
+    xdgOpenUsePortal = true;
+    config = {
+      # gtk portal needed to make gtk apps happy
+      common.default = ["gtk"];
+      hyprland.default = ["gtk" "hyprland"];
+    };
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-wlr
+      pkgs.xdg-desktop-portal-hyprland
+    ];
   };
 
   # Autostart Hyprland on login
