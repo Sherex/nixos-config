@@ -20,6 +20,7 @@
       config.users.groups.nix-allowed.name
     ];
     hashedPasswordFile = "/persistent/safe/sherex-password-hash";
+    linger = true;
   };
   home-manager.users.sherex = { pkgs, ... }: {
     home.stateVersion = "22.11";
