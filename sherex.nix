@@ -8,7 +8,7 @@
     ./modules/neovim
     ./modules/foot
     ./modules/qutebrowser
-    ./modules/chromium
+    ./modules/librewolf
     ./modules/email
     ./modules/rofi
     ./modules/i3status-rust
