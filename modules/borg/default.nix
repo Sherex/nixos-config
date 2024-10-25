@@ -45,6 +45,9 @@ in
       "- .npm"
       "- .local/state/lesshst" # Permission issues with ACLs
     ];
+    extraCreateArgs = [
+      "--exclude-if-present .no-backup"
+    ];
     encryption = {
       mode = "repokey-blake2";
       passCommand = "cat ${toString config.sops.secrets."user/borg/passphrase".path}";
@@ -57,6 +60,12 @@ in
     repo = borgRepo;
     compression = "auto,zstd";
     startAt = "hourly";
+    prune.keep = {
+      within = "3d";
+      daily = 7;
+      weekly = 4;
+      monthly = -1;
+    };
   };
 }
 
