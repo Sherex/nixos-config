@@ -51,7 +51,7 @@ in {
   # Autostart Hyprland on login
   environment.loginShellInit = ''
     export XCURSOR_THEME="Vanilla-DMZ"
-    [[ "$(tty)" == /dev/tty1 ]] && hyprland
+    [[ "$(tty)" == /dev/tty1 ]] && ${pkgs.hyprland}/bin/Hyprland
   '';
   # Hint Electron apps to use Wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
