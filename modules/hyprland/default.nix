@@ -59,6 +59,12 @@ in {
   programs.hyprland.enable = true;
 
   home-manager.users.sherex = { pkgs, ... }: {
+    # Default to allow re-using screen sharing token.
+    # (ie. applications only need to ask once when first showing a preview of the screen)
+    xdg.configFile."hypr/xdph.conf".text = ''
+      allow_token_by_default = true
+    '';
+
     wayland.windowManager.hyprland = {
       enable = true;
       settings = {
