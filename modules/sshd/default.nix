@@ -1,6 +1,8 @@
 { config, pkgs, lib, home-manager, ... }:
 
 {
+  users.groups.ssh-password-auth = {};
+
   services.openssh = {
     enable = true;
     hostKeys = [
@@ -10,9 +12,15 @@
 
     settings = {
       PermitRootLogin = "no";
-      PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
     };
+
+    extraConfig = ''
+      Match Group ${config.users.groups.ssh-password-auth.name}
+      PasswordAuthentication yes
+      Match all
+      PasswordAuthentication no
+    '';
   };
 }
 
