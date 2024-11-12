@@ -1,5 +1,8 @@
 { config, pkgs, lib, home-manager, ... }:
 
+let 
+  miniservePort = 8080;
+in
 {
   imports = [
     home-manager.nixosModule
@@ -37,7 +40,7 @@
         htop = "echo -e \"Other cmd: btop\\n\" && htop";
         vim = "nvim";
         v = "vim ./";
-        serve = "miniserve --upload-files --mkdir --enable-tar-gz --enable-zip --show-wget-footer ";
+        serve = "${pkgs.miniserve}/bin/miniserve --port ${toString miniservePort} --upload-files --mkdir --enable-tar-gz --enable-zip --show-wget-footer ";
         snapcp = "$HOME/.config/sway/scripts.d/snapshot-pre-post.sh";
         new-project = "curl -sSL https://github.com/Sherex/ts-template/raw/main/create.sh | bash -s ";
 
@@ -87,5 +90,7 @@
       fuzzySearchFactor = 3;
     };
   };
+
+  networking.firewall.allowedTCPPorts = [ miniservePort ];
 }
 
