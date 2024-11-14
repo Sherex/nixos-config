@@ -4,7 +4,7 @@ let
   borgId = "vf5v43p8";
   borgDomain = "${borgId}.repo.borgbase.com";
   borgRepo = "ssh://${borgId}@${borgDomain}/./repo";
-  borgPublicKey = "ssh-ed25519 SHA256:yufQ7QKrcSOCj43GdTD8vfNmJwJH6RcTgpLQQKjXc5Y";
+  borgPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMS3185JdDy7ffnr0nLWqVy8FaAQeVh1QYUSiNpW5ESq";
   setOwner = username:
     let
       user = config.users.users.${username};
@@ -22,11 +22,6 @@ in
     home = "/home/borg";
   };
 
-  # Set an ACL on directory to allow borg to read everything below
-  systemd.tmpfiles.rules = [
-    "A /persistent/safe - - - - user:${config.users.users.borg.name}:r-X"
-  ];
-
   sops.secrets = {
     "user/borg/passphrase" = setOwner config.users.users.borg.name;
     "user/borg/private-key" = setOwner config.users.users.borg.name;
@@ -36,6 +31,7 @@ in
     publicKey = borgPublicKey;
   };
 
+  systemd.services."borgbackup-job-safe".serviceConfig.AmbientCapabilities = "CAP_DAC_READ_SEARCH";
   services.borgbackup.jobs.safe = {
     user = config.users.users.borg.name;
     group = config.users.users.borg.group;
@@ -43,10 +39,11 @@ in
     patterns = [
       "- .cache"
       "- .npm"
-      "- .local/state/lesshst" # Permission issues with ACLs
+      "- .config/borg/security"
     ];
     extraCreateArgs = [
-      "--exclude-if-present .no-backup"
+      "--exclude-if-present"
+      ".no-backup"
     ];
     encryption = {
       mode = "repokey-blake2";
