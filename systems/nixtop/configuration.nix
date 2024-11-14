@@ -5,6 +5,7 @@
     ./hardware.nix
     ../common.nix
     ../../modules/bluetooth
+    ../../modules/hibernate
   ];
 
   networking.hostName = "NixTop";
