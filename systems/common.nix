@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -14,12 +14,12 @@
   ];
 
   boot.loader.efi = {
-    canTouchEfiVariables = true;
+    canTouchEfiVariables = lib.mkDefault true;
     efiSysMountPoint = config.fileSystems."/boot".mountPoint;
   };
   boot.loader.grub = {
     enable = true;
-    efiSupport = true;
+    efiSupport = lib.mkDefault true;
     devices = [ "nodev" ];
     default = "saved";
   };

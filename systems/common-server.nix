@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -10,13 +10,14 @@
     ../modules/sshd
   ];
 
-  #boot.loader.efi = {
-  #  canTouchEfiVariables = true;
-  #  efiSysMountPoint = config.fileSystems."/boot".mountPoint;
-  #};
+  boot.loader.efi = {
+    canTouchEfiVariables = lib.mkDefault true;
+    # This is handled by Disko, but not all systems are converted yet
+    efiSysMountPoint = lib.mkDefault config.fileSystems."/boot".mountPoint;
+  };
   boot.loader.grub = {
     enable = true;
-    efiSupport = false;
+    efiSupport = lib.mkDefault true;
     devices = [ "nodev" ];
     default = "saved";
   };

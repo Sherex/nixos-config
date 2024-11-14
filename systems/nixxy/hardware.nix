@@ -10,6 +10,10 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  # Contabo firmware only support Legacy/BIOS
+  boot.loader.efi.canTouchEfiVariables = false;
+  boot.loader.grub.efiSupport = false;
+
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixxy";
     fsType = "btrfs";
