@@ -14,9 +14,14 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, impermanence, sops-nix, nixpkgs-borgbackup }@attrs:
+  outputs = { self, nixpkgs, home-manager, impermanence, sops-nix, nixpkgs-borgbackup, disko }@attrs:
   let
     nixosSystem = nixpkgs: attrs: name:
       nixpkgs.lib.nixosSystem {
@@ -28,6 +33,7 @@
             imports = [ (nixpkgs-borgbackup.outPath + "/nixos/modules/services/backup/borgbackup.nix") ];
           }
           ./systems/${name}/configuration.nix
+          disko.nixosModules.disko
           # This fixes nixpkgs (for e.g. "nix shell") to match the system nixpkgs
           # Source: https://ayats.org/blog/channels-to-flakes/
           { nix.registry.nixpkgs.flake = nixpkgs; }
@@ -39,6 +45,8 @@
     nixosConfigurations.Archy = nixosSystem nixpkgs attrs "archy";
 
     nixosConfigurations.Nixxy = nixosSystem nixpkgs attrs "nixxy";
+
+    nixosConfigurations.Nixxer = nixosSystem nixpkgs attrs "nixxer";
 
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
   };

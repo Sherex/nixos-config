@@ -13,6 +13,11 @@ in
     impermanence.nixosModule
   ];
 
+  fileSystems."/".neededForBoot = true;
+  fileSystems."/persistent/safe".neededForBoot = true;
+  fileSystems."/persistent/unsafe".neededForBoot = true;
+  fileSystems."/nix".neededForBoot = true;
+
   environment.persistence."/persistent/safe" = {
     hideMounts = true;
     directories = [
