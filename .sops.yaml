@@ -5,6 +5,7 @@
 keys:
   - &sherex age1ewxj2m564tvpsajmwn7cakzgc0g4wd2hf9p2u24g2pfuuvzh6g6s3wc9av
   - &work age1hh0nuq4ms45j94pd02qfyxmcqswqyj6rq9a3txm0svafjcz2eg3st0z3f0
+  - &nixtop age1jpt6ap3r9uv9gg2zpctuxuk87rgwypu7wzswc629e6qv7a0mea9qsvhfjj
 
 creation_rules:
   - path_regex: (/mnt)?/persistent/safe/secrets/[^/]+\.(yaml|json|env|ini)$
@@ -12,3 +13,4 @@ creation_rules:
     - age:
       - *sherex
       - *work
+      - *nixtop
