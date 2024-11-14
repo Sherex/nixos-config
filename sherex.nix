@@ -22,6 +22,21 @@
   # Make home-manager use the global pkgs option
   home-manager.useGlobalPkgs = true;
 
+  systemd.services.set-initial-user-password = {
+    enable = true;
+    description = "Sets the initial user password for sherex if it has no usable password";
+    before = [ "getty.target" ];
+    path = [ "/run/current-system/sw" ];
+    script = ''
+      # Check if the user has a usable password
+      PASS_STATUS="$(passwd --status sherex | cut -d' ' -f2)"
+      [[ $PASS_STATUS = 'P' ]] && exit 0
+
+      echo this-is-temporary | passwd --stdin sherex
+    '';
+    wantedBy = [ "multi-user.target" ];
+  };
+
   users.users.sherex = {
     isNormalUser = true;
     extraGroups = [
