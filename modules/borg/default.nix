@@ -36,10 +36,10 @@ in
     user = config.users.users.borg.name;
     group = config.users.users.borg.group;
     paths = "/persistent/safe";
-    patterns = [
-      "- .cache"
-      "- .npm"
-      "- .config/borg/security"
+    exclude = [
+      ".cache"
+      ".npm"
+      "/persistent/safe/home/borg/.config/borg/security/*/nonce"
     ];
     extraCreateArgs = [
       "--exclude-if-present"
