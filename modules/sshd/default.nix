@@ -13,6 +13,7 @@
     settings = {
       PermitRootLogin = "no";
       KbdInteractiveAuthentication = false;
+      GatewayPorts = "clientspecified";
     };
 
     extraConfig = ''
