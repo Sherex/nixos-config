@@ -30,6 +30,7 @@
 
   users.users.sherex = {
     isNormalUser = true;
+    createHome = true;
     extraGroups = [
       config.users.groups.wheel.name
       config.users.groups.nix-allowed.name
