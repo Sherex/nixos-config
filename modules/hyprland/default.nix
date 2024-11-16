@@ -118,7 +118,9 @@ in {
           active_opacity = 1.0;
           inactive_opacity = 1.0;
 
-          drop_shadow = false;
+          shadow = {
+            enabled = false;
+          };
 
           # https://wiki.hyprland.org/Configuring/Variables/#blur
           blur = {
@@ -139,7 +141,6 @@ in {
         dwindle = {
           pseudotile = true;
           preserve_split = true;
-          no_gaps_when_only = 1;
         };
 
         # https://wiki.hyprland.org/Configuring/Master-Layout/
@@ -226,9 +227,18 @@ in {
           "$mainMod, mouse:273, resizewindow"
         ];
 
+        workspace = [
+          "w[tv1], gapsout:0, gapsin:0" # Smart gaps: https://wiki.hyprland.org/Configuring/Workspace-Rules/#smart-gaps
+          "f[1], gapsout:0, gapsin:0" # Smart gaps
+        ];
+
         windowrulev2 = [
           "suppressevent maximize, class:.*"
           "stayfocused, title:.*(rofi).*"
+          "bordersize 0, floating:0, onworkspace:w[tv1]" # Smart gaps
+          "rounding 0, floating:0, onworkspace:w[tv1]" # Smart gaps
+          "bordersize 0, floating:0, onworkspace:f[1]" # Smart gaps
+          "rounding 0, floating:0, onworkspace:f[1]" # Smart gaps
         ];
 
         debug = {
