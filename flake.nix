@@ -7,6 +7,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    home-manager-librewolf.url = "github:nix-community/home-manager?ref=pull/5684/head";
 
     impermanence.url = "github:nix-community/impermanence";
 
@@ -21,7 +22,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, impermanence, sops-nix, nixpkgs-borgbackup, disko }@attrs:
+  outputs = { self, nixpkgs, home-manager, impermanence, sops-nix, nixpkgs-borgbackup, home-manager-librewolf, disko }@attrs:
   let
     nixosSystem = nixpkgs: attrs: name:
       nixpkgs.lib.nixosSystem {
