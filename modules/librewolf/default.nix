@@ -25,6 +25,7 @@
         "webgl.disabled" = false;
         "privacy.clearOnShutdown.history" = false;
         "privacy.clearOnShutdown.downloads" = false;
+        "identity.fxaccounts.enabled" = true;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       };
       profiles.default.userChrome = ''
