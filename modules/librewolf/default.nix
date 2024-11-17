@@ -25,7 +25,25 @@
         "webgl.disabled" = false;
         "privacy.clearOnShutdown.history" = false;
         "privacy.clearOnShutdown.downloads" = false;
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       };
+      profiles.default.userChrome = ''
+        @namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
+
+        #navigator-toolbox {
+            height: 35px !important;
+            min-height: 0px !important;
+            overflow: hidden !important;
+        }
+
+        #navigator-toolbox:hover,
+        #navigator-toolbox:focus,
+        #navigator-toolbox:focus-within,
+        #navigator-toolbox:active {
+            height: auto !important;
+            overflow: visible !important;
+        }
+      '';
     };
   };
 }
