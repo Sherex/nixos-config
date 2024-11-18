@@ -43,6 +43,7 @@
     extraGroups = [
       config.users.groups.wheel.name
       config.users.groups.nix-allowed.name
+      config.users.groups.nix-trusted.name
     ];
     hashedPasswordFile = "/persistent/safe/sherex-password-hash";
   };
