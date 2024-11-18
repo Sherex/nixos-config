@@ -8,6 +8,7 @@
     #../modules/sops
     #../modules/borg
     ../modules/sshd
+    ../modules/tailscale
   ];
 
   boot.loader.efi = {
@@ -54,6 +55,8 @@
     fakeroot
     killall
   ];
+
+  services.resolved.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

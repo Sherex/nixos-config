@@ -5,6 +5,7 @@
     ./hardware.nix
     ../common-server.nix
     ../../modules/minecraft-servers
+    ../../modules/headscale
   ];
 
   networking.hostName = "Nixxy";
