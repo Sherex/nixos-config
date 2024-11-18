@@ -4,9 +4,13 @@
   imports = [
     ./hardware.nix
     ../common-server.nix
-    ../../modules/minecraft-servers
     ../../modules/headscale
   ];
+
+  networking.firewall = {
+    allowedTCPPorts = [ 25565 ];
+    allowedUDPPorts = [ 25565 ];
+  };
 
   networking.hostName = "Nixxy";
 
