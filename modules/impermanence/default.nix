@@ -4,6 +4,7 @@ let
   locations = rec {
     driveDevicePath = config.fileSystems."/".device;
     rootMountPoint = /mnt;
+    hibernationFlagFilePath = "/swap/hibernation-flag";
   };
   paths = builtins.mapAttrs (key: loc: toString loc) locations;
 in
@@ -72,6 +73,7 @@ in
     BIN_PATH="${pkgs.coreutils.outPath + "/bin"}"
     PATH="$PATH:$BIN_PATH"
     SUBVOL_DIR_PATH="$MNT_PATH/subvolumes"
+    HIBERNATION_FILE_PATH="$SUBVOL_DIR_PATH${paths.hibernationFlagFilePath}"
     SNAPSHOT_DIR_PATH="$SUBVOL_DIR_PATH/snapshots"
     ROOT_SUBVOL="$SUBVOL_DIR_PATH/tmp"
     ROOT_BLANK_SUBVOL="$ROOT_SUBVOL-blank"
@@ -86,30 +88,59 @@ in
     echo "Mounting BTRFS root"
     mount -o subvol=/ $DRIVE_PATH $MNT_PATH
 
-    # Ensure directories exist
-    echo "Ensure $SUBVOL_DIR_PATH $SNAPSHOT_DIR_PATH exists"
-    mkdir -p "$SUBVOL_DIR_PATH" "$SNAPSHOT_DIR_PATH"
+    if [ ! -f "$HIBERNATION_FILE_PATH" ]; then
 
-    # Snapshot the existing root subvolume
-    btrfs subvolume snapshot -r "$ROOT_SUBVOL" "$ROOT_SNAPSHOT"
+      # Ensure directories exist
+      echo "Ensure $SUBVOL_DIR_PATH $SNAPSHOT_DIR_PATH exists"
+      mkdir -p "$SUBVOL_DIR_PATH" "$SNAPSHOT_DIR_PATH"
 
-    # Delete all subvolumes inside the root subvolume
-    echo "Searching for subvolumes inside $ROOT_SUBVOL"
-    # Why in the world doesn't it return the absolute path??
-    # And why is not relative to cwd either??!
-    btrfs subvolume list -o $ROOT_SUBVOL |
-    cut -f9 -d' ' |
-    while read subvolume; do
-      echo "Deleting $subvolume subvolume..."
-      btrfs subvolume delete "$MNT_PATH/$subvolume"
-    done &&
-    echo "Deleting $ROOT_SUBVOL subvolume..." &&
-    btrfs subvolume delete $ROOT_SUBVOL
+      # Snapshot the existing root subvolume
+      btrfs subvolume snapshot -r "$ROOT_SUBVOL" "$ROOT_SNAPSHOT"
 
-    echo "Restoring blank $ROOT_SUBVOL subvolume..."
-    btrfs subvolume snapshot $ROOT_BLANK_SUBVOL $ROOT_SUBVOL
+      # Delete all subvolumes inside the root subvolume
+      echo "Searching for subvolumes inside $ROOT_SUBVOL"
+      # Why in the world doesn't it return the absolute path??
+      # And why is not relative to cwd either??!
+      btrfs subvolume list -o $ROOT_SUBVOL |
+      cut -f9 -d' ' |
+      while read subvolume; do
+        echo "Deleting $subvolume subvolume..."
+        btrfs subvolume delete "$MNT_PATH/$subvolume"
+      done &&
+      echo "Deleting $ROOT_SUBVOL subvolume..." &&
+      btrfs subvolume delete $ROOT_SUBVOL
 
+      echo "Restoring blank $ROOT_SUBVOL subvolume..."
+      btrfs subvolume snapshot $ROOT_BLANK_SUBVOL $ROOT_SUBVOL
+
+    else
+      echo "System is resuming from hibernation, skipping root refresh..."
+    fi
+
+    echo "Unmounting BTRFS root"
     umount $MNT_PATH
   '';
+
+  systemd.services.set-hibernation-flag = {
+    enable = true;
+    description = "Places a file in /swap to indicate that the system will hibernate";
+    before = [ "systemd-hibernate.service" ];
+    path = [ "/run/current-system/sw" ];
+    script = ''
+      touch ${paths.hibernationFlagFilePath}
+    '';
+    requiredBy = [ "hibernate.target" ];
+  };
+
+  systemd.services.remove-hibernation-flag = {
+    enable = true;
+    description = "Removes a file in /swap placed there by the service set-hibernation-flag.service";
+    after = [ "systemd-hibernate.service" ];
+    path = [ "/run/current-system/sw" ];
+    script = ''
+      rm -f ${paths.hibernationFlagFilePath}
+    '';
+    wantedBy = [ "hibernate.target" ];
+  };
 }
 
