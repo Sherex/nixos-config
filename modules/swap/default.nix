@@ -20,25 +20,27 @@ in
     echo "Mounting BTRFS root"
     mount -o subvol=/ "${paths.driveDevicePath}" "${paths.rootMountPoint}"
 
-    [[ -f ${paths.swapFileLocation} ]] \
-    && echo "Swap file exists; early return" \
-    && exit 0
+    if [ ! -f "${paths.rootMountPoint + paths.swapFileLocation}" ]; then
 
-    # Ensure subvol parent directory exists
-    echo "Ensure ${dirOf (paths.rootMountPoint + paths.swapSubvolLocation)} exists"
-    mkdir -p "${dirOf (paths.rootMountPoint + paths.swapSubvolLocation)}"
+      # Ensure subvol parent directory exists
+      echo "Ensure ${dirOf (paths.rootMountPoint + paths.swapSubvolLocation)} exists"
+      mkdir -p "${dirOf (paths.rootMountPoint + paths.swapSubvolLocation)}"
 
-    # Create swap subvolume
-    btrfs subvolume create "${paths.rootMountPoint + paths.swapSubvolLocation}"
+      # Create swap subvolume
+      btrfs subvolume create "${paths.rootMountPoint + paths.swapSubvolLocation}"
 
-    # Ensure swapfile parent directory exists
-    # (in case the swapfile lives in a subdirectory in the subvolume)
-    echo "Ensure ${dirOf (paths.rootMountPoint + paths.swapFileLocation)} exists"
-    mkdir -p "${dirOf (paths.rootMountPoint + paths.swapFileLocation)}"
+      # Ensure swapfile parent directory exists
+      # (in case the swapfile lives in a subdirectory in the subvolume)
+      echo "Ensure ${dirOf (paths.rootMountPoint + paths.swapFileLocation)} exists"
+      mkdir -p "${dirOf (paths.rootMountPoint + paths.swapFileLocation)}"
 
-    # Create a BTRFS compatible swapfile
-    echo "Create swapfile at ${paths.rootMountPoint + paths.swapFileLocation}"
-    btrfs filesystem mkswapfile --size "${paths.swapFileSize}" ${paths.rootMountPoint + paths.swapFileLocation}
+      # Create a BTRFS compatible swapfile
+      echo "Create swapfile at ${paths.rootMountPoint + paths.swapFileLocation}"
+      btrfs filesystem mkswapfile --size "${paths.swapFileSize}" ${paths.rootMountPoint + paths.swapFileLocation}
+
+    else
+      echo "Swap file exists at ${paths.rootMountPoint + paths.swapFileLocation}, skipping creation..."
+    fi
 
     # Unmount BTRFS root
     umount ${paths.rootMountPoint}
