@@ -18,11 +18,13 @@
     canTouchEfiVariables = lib.mkDefault true;
     efiSysMountPoint = config.fileSystems."/boot".mountPoint;
   };
+  boot.loader.timeout = 1;
   boot.loader.grub = {
     enable = true;
     efiSupport = lib.mkDefault true;
     devices = [ "nodev" ];
     default = "saved";
+    memtest86.enable = true;
   };
 
   time.timeZone = "Europe/Oslo";
