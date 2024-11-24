@@ -24,6 +24,10 @@ in {
           region_id = 999;
           stun_listen_addr = "${config.services.headscale.address}:${toString derpPort}";
         };
+        policy = {
+          mode = "file";
+          path = ./headscale-acl.jsonc;
+        };
       };
     };
 
