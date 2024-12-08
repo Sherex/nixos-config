@@ -6,6 +6,7 @@
     ./disko.nix
     ../common-server.nix
     ../../modules/minecraft-servers
+    ../../modules/vpn-wireguard
   ];
 
   networking.hostName = "Nixxer";
