@@ -6,6 +6,7 @@
     ./disko.nix
     ../common-server.nix
     ../../modules/containers/minecraft-servers.nix
+    ../../modules/containers/satisfactory-servers.nix
     ../../modules/vpn-wireguard
   ];
 
