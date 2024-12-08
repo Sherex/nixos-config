@@ -5,7 +5,7 @@
     ./hardware.nix
     ./disko.nix
     ../common-server.nix
-    ../../modules/minecraft-servers
+    ../../modules/containers/minecraft-servers.nix
     ../../modules/vpn-wireguard
   ];
 
