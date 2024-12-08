@@ -58,7 +58,12 @@
     killall
   ];
 
-  services.resolved.enable = true;
+  services.resolved = {
+    enable = true;
+    fallbackDns = [
+      "1.1.1.1"
+    ];
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
