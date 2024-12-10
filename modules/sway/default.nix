@@ -67,7 +67,7 @@ in
     # Note: Not sure if this works as I can't figure out how to clean the local cache.
     #       Tried nix-collect-garbage -d and deleting /root/.cache/nix
     # TODO: Figure out how to use non-monospaced font for Symbols
-    (nerdfonts.override { fonts = [ "Hack" ]; })
+    nerd-fonts.hack
   ];
 
   # xdg-desktop-portal works by exposing a series of D-Bus interfaces
