@@ -81,7 +81,7 @@ in {
         exec-once = [
           "$terminal"
           "[workspace special:monitoring silent] $terminal ${pkgs.btop}/bin/btop"
-          "[workspace special:monitoring silent] $terminal ${pkgs.nvtopPackages.nvidia}/bin/nvtop"
+          "[workspace special:monitoring silent] $terminal nvtop"
         ];
 
         general = { 
