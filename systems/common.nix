@@ -58,6 +58,7 @@
     powertop
     fakeroot
     killall
+    efibootmgr
   ];
 
   services.resolved = {

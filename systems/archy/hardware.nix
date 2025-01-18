@@ -65,6 +65,11 @@ in {
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
+  # The Z370 Gaming PLUS has an idiotic way of handling UEFI boot and requires the bootloader to reside at the fallback location.
+  # SRC:https://wiki.archlinux.org/title/GRUB/EFI_examples#B150_PC_MATE_/_B250_PC_MATE_/_H110I_PRO_/_Z370_GAMING_PLUS_/_MPG_B760I_EDGE_WIFI
+  boot.loader.grub.efiInstallAsRemovable = true;
+  boot.loader.efi.canTouchEfiVariables = false;
+
   boot.loader.grub.extraEntries = ''
     menuentry 'Arch Linux' {
       set gfxpayload=keep
