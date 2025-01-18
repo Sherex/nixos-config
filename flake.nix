@@ -1,7 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-borgbackup.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -21,17 +20,13 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, impermanence, sops-nix, nixpkgs-borgbackup, disko }@attrs:
+  outputs = { self, nixpkgs, home-manager, impermanence, sops-nix, disko }@attrs:
   let
     nixosSystem = nixpkgs: attrs: name:
       nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
         modules = [
-          {
-            disabledModules = [ "services/backup/borgbackup.nix" ];
-            imports = [ (nixpkgs-borgbackup.outPath + "/nixos/modules/services/backup/borgbackup.nix") ];
-          }
           ./systems/${name}/configuration.nix
           disko.nixosModules.disko
           # This fixes nixpkgs (for e.g. "nix shell") to match the system nixpkgs
