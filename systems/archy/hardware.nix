@@ -19,7 +19,7 @@ in {
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-label/arch";
+    device = "/dev/disk/by-label/nixos";
     fsType = "btrfs";
     options = [ "subvol=subvolumes/tmp" "compress=zstd:1" "noatime" ];
     neededForBoot = true;
@@ -31,14 +31,14 @@ in {
   };
 
   fileSystems."/persistent/unsafe" = {
-    device = "/dev/disk/by-label/arch";
+    device = "/dev/disk/by-label/nixos";
     fsType = "btrfs";
     options = [ "subvol=subvolumes/unsafe" "compress=zstd:1" "noatime" ];
     neededForBoot = true;
   };
 
   fileSystems."/persistent/safe" = {
-    device = "/dev/disk/by-label/arch";
+    device = "/dev/disk/by-label/nixos";
     fsType = "btrfs";
     options = [ "subvol=subvolumes/safe" "compress=zstd:1" "noatime" ];
     neededForBoot = true;
