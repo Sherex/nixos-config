@@ -84,10 +84,35 @@ in
         PROJECTS_DIRECTORY = "$HOME/documents/git-reps";
       };
     };
-    programs.mcfly = {
+    programs.fzf = {
       enable = true;
-      keyScheme = "vim";
-      fuzzySearchFactor = 3;
+      fileWidgetCommand = "fd --type f";
+      fileWidgetOptions = [
+        "--preview 'head {}'"
+      ];
+      historyWidgetOptions = [
+        "--sort"
+        "--exact"
+      ];
+      changeDirWidgetCommand = "fd --type d";
+      changeDirWidgetOptions = [
+        "--preview '${pkgs.tree}/bin/tree -C {} | head -200'"
+      ];
+      colors = {
+        "fg" = "#3dab1b";
+        "fg+" = "#ff00b7";
+        "info" = "#87afaf";
+        "prompt" = "#d7005f";
+        "pointer" = "#ff00b7";
+        "marker" = "#87ff00";
+        "spinner" = "#ff00b7";
+        "header" = "#87afaf";
+      };
+      defaultCommand = "fd --type f";
+      defaultOptions = [
+        "--height 40%"
+        "--border"
+      ];
     };
   };
 
