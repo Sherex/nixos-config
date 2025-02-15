@@ -45,6 +45,7 @@
       config.users.groups.wheel.name
       config.users.groups.nix-allowed.name
       config.users.groups.nix-trusted.name
+      config.users.groups.input.name
     ];
     hashedPasswordFile = "/persistent/safe/sherex-password-hash";
   };

@@ -8,6 +8,10 @@ let
     hyprlock = "${pkgs.hyprlock.outPath}/bin/hyprlock";
   };
 in {
+  imports = [
+    ../waybar
+  ];
+
   environment.systemPackages = with pkgs; [
     xdg-utils # for opening default programs when clicking links
     glib # gsettings
