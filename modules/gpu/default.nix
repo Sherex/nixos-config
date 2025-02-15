@@ -3,6 +3,7 @@
 {
   imports = [
     ./amd.nix
+    ./nvidia.nix
   ];
 
   hardware.graphics = {
@@ -12,6 +13,7 @@
 
   environment.systemPackages = with pkgs; [
     gpu-viewer
+    clinfo
   ];
 }
 
