@@ -15,6 +15,7 @@
     ./modules/ssh
     ./modules/git
     ./modules/vscode
+    ./modules/containerization
   ];
 
   # Install packages to /etc/profiles instead of ~/.nix-profile

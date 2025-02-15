@@ -7,6 +7,8 @@
 
   services.xserver.videoDrivers = ["nvidia"];
 
+  hardware.nvidia-container-toolkit.enable = true;
+
   hardware.nvidia = {
     # https://wiki.archlinux.org/title/Kernel_mode_setting
 
