@@ -16,7 +16,7 @@
         spacing = 4;
         modules-left = [ "hyprland/workspaces" "idle_inhibitor" "pulseaudio" "backlight" "network" ];
         modules-center = [ "hyprland/window" ];
-        modules-right = [ "hyprland/submap" "hyprland/language" "cpu" "memory" "temperature" "battery" "tray" "clock" ];
+        modules-right = [ "load" "cpu" "memory" "temperature" "battery" "tray" "clock" ];
         "hyprland/workspaces" = {
           disable-scroll = true;
           on-click = "activate";
@@ -41,22 +41,9 @@
                 deactivated = "";
             };
         };
-        "keyboard-state" = {
-          numlock = false;
-          capslock = false;
-          format = "{name} {icon}";
-          format-icons = {
-            locked = "";
-            unlocked = "";
-          };
-        };
         "hyprland/window" = {
           max-length = 50;
           separate-outputs = true;
-        };
-        "hyprland/language" = {
-          format = "{}";
-          max-length = 18;
         };
         clock = {
           interval = 1;
@@ -84,7 +71,11 @@
         };
         "cpu" = {
           format = "{usage}% ";
-          tooltip = false;
+          tooltip = true;
+        };
+        "load" = {
+            interval = 1;
+            format = "load: {load1} {load5} {load15}";
         };
         "memory" = {
           format = "{}% ";
