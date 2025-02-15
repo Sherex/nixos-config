@@ -108,6 +108,11 @@ in {
           disable_splash_rendering = true;
         };
 
+        ecosystem = {
+          no_update_news = true;
+          no_donation_nag = true;
+        };
+
         decoration = {
           rounding = 0;
 
