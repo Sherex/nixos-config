@@ -14,9 +14,9 @@
         position = "top";
         height = 24;
         spacing = 4;
-        modules-left = [ "hyprland/workspaces" "idle_inhibitor" "pulseaudio" "backlight" "network" ];
+        modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "hyprland/window" ];
-        modules-right = [ "load" "cpu" "memory" "temperature" "battery" "tray" "clock" ];
+        modules-right = [ "idle_inhibitor" "pulseaudio" "backlight" "network" "load" "cpu" "memory" "temperature" "battery" "tray" "clock" ];
         "hyprland/workspaces" = {
           disable-scroll = true;
           on-click = "activate";
