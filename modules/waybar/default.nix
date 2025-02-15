@@ -16,7 +16,7 @@
         spacing = 4;
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "hyprland/window" ];
-        modules-right = [ "idle_inhibitor" "pulseaudio" "backlight" "network" "load" "cpu" "memory" "temperature" "battery" "tray" "clock" ];
+        modules-right = [ "idle_inhibitor" "pulseaudio" "backlight" "network" "custom/vpn" "load" "cpu" "memory" "temperature" "battery" "tray" "clock" ];
         "hyprland/workspaces" = {
           disable-scroll = true;
           on-click = "activate";
@@ -112,6 +112,23 @@
           format-source = "{volume}% ";
           format-source-muted = "";
           on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
+        };
+        "custom/vpn" = {
+          exec = pkgs.writeShellScript "vpn_status.sh" ''
+            response=$(curl -s https://ipv4.am.i.mullvad.net/json)
+
+            if echo "$response" | grep -Eq '"mullvad_exit_ip":\s*true'; then
+              echo '{"text": "VPN:🔒 ", "class": "connected"}'
+            else
+              echo '{"text": "VPN:❌ ", "class": "disconnected"}'
+            fi
+          '';
+          on-click = "true"; # NOOP; Triggers exec when clicked
+          exec-on-event = true;
+          interval = 600;
+          return-type = "json";
+          format = "{}";
+          tooltip = false;
         };
       }];
       style = ''
@@ -251,6 +268,14 @@
 
         #mpd.paused {
             color: #33cc33;
+        }
+
+        #custom-vpn.connected {
+          color: #00FF00;
+        }
+
+        #custom-vpn.disconnected {
+          color: #FF0000;
         }
       '';
     };
