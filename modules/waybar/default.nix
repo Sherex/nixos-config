@@ -14,9 +14,9 @@
         position = "top";
         height = 24;
         spacing = 4;
-        modules-left = [ "hyprland/workspaces" ];
+        modules-left = [ "hyprland/workspaces" "custom/wl-gammarelay-temperature" "custom/wl-gammarelay-brightness" "custom/wl-gammarelay-gamma" "pulseaudio" "idle_inhibitor" ];
         modules-center = [ "hyprland/window" ];
-        modules-right = [ "idle_inhibitor" "pulseaudio" "network" "custom/vpn" "cpu" "memory" "temperature" "battery" "tray" "clock" ];
+        modules-right = [ "network" "custom/vpn" "cpu" "memory" "temperature" "battery" "tray" "clock" ];
         "hyprland/workspaces" = {
           disable-scroll = true;
           on-click = "activate";
@@ -125,6 +125,21 @@
           return-type = "json";
           format = "{}";
           tooltip = false;
+        };
+        "custom/wl-gammarelay-temperature" = {
+            format = "{} ";
+            exec = "${pkgs.wl-gammarelay-rs}/bin/wl-gammarelay-rs watch {t}";
+            on-scroll-up = "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateTemperature n +100";
+            on-scroll-down = "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateTemperature n -100";
+            on-click = "busctl --user set-property rs.wl-gammarelay / rs.wl.gammarelay Temperature q 2500";
+            on-click-right = "busctl --user set-property rs.wl-gammarelay / rs.wl.gammarelay Temperature q 6500";
+        };
+        "custom/wl-gammarelay-brightness" = {
+            format = "{}% ";
+            exec = "${pkgs.wl-gammarelay-rs}/bin/wl-gammarelay-rs watch {bp}";
+            on-scroll-up = "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateBrightness d +0.02";
+            on-scroll-down = "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateBrightness d -0.02";
+            on-click-right = "busctl --user set-property rs.wl-gammarelay / rs.wl.gammarelay Brightness d 1";
         };
       }];
       style = ''
@@ -272,6 +287,14 @@
 
         #custom-vpn.disconnected {
           color: #FF0000;
+        }
+
+        #custom-wl-gammarelay-temperature {
+          color: #FD5E53;
+        }
+
+        #custom-wl-gammarelay-brightness {
+          color: #DDDDDD;
         }
       '';
     };
