@@ -16,7 +16,7 @@
         spacing = 4;
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "hyprland/window" ];
-        modules-right = [ "idle_inhibitor" "pulseaudio" "backlight" "network" "custom/vpn" "load" "cpu" "memory" "temperature" "battery" "tray" "clock" ];
+        modules-right = [ "idle_inhibitor" "pulseaudio" "network" "custom/vpn" "cpu" "memory" "temperature" "battery" "tray" "clock" ];
         "hyprland/workspaces" = {
           disable-scroll = true;
           on-click = "activate";
@@ -72,10 +72,6 @@
         "cpu" = {
           format = "{usage}% ";
           tooltip = true;
-        };
-        "load" = {
-            interval = 1;
-            format = "load: {load1} {load5} {load15}";
         };
         "memory" = {
           format = "{}% ";
