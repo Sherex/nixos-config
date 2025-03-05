@@ -61,6 +61,7 @@
       numbat
       devbox
       distrobox
+      moonlight-qt
     ];
 
     home.pointerCursor = {

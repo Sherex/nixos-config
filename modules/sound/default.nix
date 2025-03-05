@@ -11,6 +11,9 @@
 
   home-manager.users.sherex = { pkgs, ... }: {
     services.easyeffects.enable = true;
+    home.packages = with pkgs; [
+      alsa-utils
+    ];
   };
 }
 
