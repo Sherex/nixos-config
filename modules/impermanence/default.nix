@@ -10,7 +10,6 @@ let
 in
 {
   imports = [
-    home-manager.nixosModule
     impermanence.nixosModule
   ];
 

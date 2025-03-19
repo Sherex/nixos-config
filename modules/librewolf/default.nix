@@ -1,7 +1,5 @@
 { config, pkgs, lib, home-manager, ... }:
 {
-  imports = [ home-manager.nixosModule ];
-
   home-manager.users.sherex = { pkgs, ... }: {
     # Keybinds for opening the tab in chromium
     programs.qutebrowser.keyBindings.normal = {

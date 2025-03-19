@@ -2,7 +2,6 @@
 
 {
   imports = [
-    home-manager.nixosModule
     ./modules/bash
     ./modules/neovim
     ./modules/git

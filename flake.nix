@@ -28,6 +28,7 @@
         specialArgs = attrs;
         modules = [
           ./systems/${name}/configuration.nix
+          home-manager.nixosModules.home-manager
           disko.nixosModules.disko
           # This fixes nixpkgs (for e.g. "nix shell") to match the system nixpkgs
           # Source: https://ayats.org/blog/channels-to-flakes/

@@ -1,8 +1,6 @@
 { config, pkgs, lib, home-manager, ... }:
 
 {
-  imports = [ home-manager.nixosModule ];
-
   home-manager.users.sherex = { pkgs, ... }: {
     xdg.mimeApps.defaultApplications."text/html" = [ "org.qutebrowser.qutebrowser.desktop" ];
     programs.bash.sessionVariables.BROWSER = "qutebrowser";

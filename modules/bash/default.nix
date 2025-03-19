@@ -4,10 +4,6 @@ let
   miniservePort = 8080;
 in
 {
-  imports = [
-    home-manager.nixosModule
-  ];
-
   # Enable bash-completion for system packages
   # https://nix-community.github.io/home-manager/options.html#opt-programs.bash.enableCompletion
   environment.pathsToLink = [ "/share/bash-completion" ];

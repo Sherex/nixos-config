@@ -1,8 +1,6 @@
 { config, pkgs, lib, home-manager, ... }:
 
 {
-  imports = [ home-manager.nixosModule ];
-
   # TODO: Add sway keybinds directly
   home-manager.users.sherex = { pkgs, ... }: {
     programs.rofi = {

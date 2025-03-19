@@ -1,8 +1,6 @@
 { config, pkgs, lib, home-manager, ... }:
 
 {
-  imports = [ home-manager.nixosModule ];
-
   home-manager.users.sherex = { pkgs, ... }: {
     programs.i3status-rust = {
       enable = true;

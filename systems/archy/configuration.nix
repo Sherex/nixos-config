@@ -38,7 +38,7 @@
     modprobe -i vfio-pci
   '';
 
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
 
   # Enable CUPS to print documents.

@@ -1,8 +1,6 @@
 { config, pkgs, lib, home-manager, ... }:
 
 {
-  imports = [ home-manager.nixosModule ];
-
   programs.neovim = {
     enable = true;
     defaultEditor = true;
