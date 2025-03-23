@@ -15,6 +15,7 @@
     ./modules/git
     ./modules/vscode
     ./modules/containerization
+    ./modules/moonlight
   ];
 
   # Install packages to /etc/profiles instead of ~/.nix-profile
@@ -60,7 +61,6 @@
       numbat
       devbox
       distrobox
-      moonlight-qt
     ];
 
     home.pointerCursor = {
