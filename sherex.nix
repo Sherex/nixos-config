@@ -33,7 +33,7 @@
       PASS_STATUS="$(passwd --status sherex | cut -d' ' -f2)"
       [[ $PASS_STATUS = 'P' ]] && exit 0
 
-      echo this-is-temporary | passwd --stdin sherex
+      echo this-is-temporary | passwd --expire --stdin sherex
     '';
     wantedBy = [ "multi-user.target" ];
   };
