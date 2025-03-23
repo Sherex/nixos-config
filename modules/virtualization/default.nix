@@ -18,6 +18,10 @@
   virtualisation.libvirtd = {
     enable = true;
     qemu.swtpm.enable = true;
+    extraConfig = ''
+      unix_sock_group = "libvirtd";
+      unix_sock_rw_perms = "0770";
+    '';
   };
 
   programs.virt-manager.enable = true;
