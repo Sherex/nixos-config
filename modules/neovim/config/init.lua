@@ -30,6 +30,9 @@ vim.opt.relativenumber = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Enable window title
+vim.opt.title = true
+
 --- A wrapper to configure a source for nvim_cmp
 --- @param name string
 --- @param option table?

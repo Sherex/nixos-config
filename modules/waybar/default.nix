@@ -22,7 +22,7 @@
           on-click = "activate";
           on-scroll-up = "hyprctl dispatch workspace m-1 > /dev/null";
           on-scroll-down = "hyprctl dispatch workspace m+1 > /dev/null";
-          format = "{name}";
+          format = "{name} <span color='#33ccff'>{windows}</span>";
           format-icons = {
             "1" = "";
             "2" = "";
@@ -32,6 +32,15 @@
             urgent = "";
             focused = "";
             default = "";
+          };
+          format-window-separator = "  ";
+          window-rewrite-default = "";
+          window-rewrite = {
+            "title<.*youtube.*>" = "";
+            "foot" = "";
+            "title<.*(vim|code).*>" = "";
+            "steam" = "";
+            "class<.*(firefox|librewolf|chrome|qutebrowser).*>" = "";
           };
         };
         "idle_inhibitor" = {
@@ -175,10 +184,9 @@
             padding: 0 5px;
             background-color: transparent;
             color: #00ff00;
-        }
-
-        #workspaces button:hover {
-            background: #222;
+            padding-left: 8px;
+            padding-right: 8px;
+            border-right: 1px solid #00ff00;
         }
 
         #workspaces button.focused {
@@ -188,6 +196,14 @@
 
         #workspaces button.urgent {
             background-color: #550000;
+        }
+
+        #workspaces button.active {
+            background-color: #222;
+        }
+
+        #workspaces button:hover {
+            background: #444;
         }
 
         #clock,
