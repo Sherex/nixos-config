@@ -4,7 +4,6 @@
   imports = [
     ./hardware.nix
     ../common.nix
-    ../../modules/gpu
     ../../modules/gaming
     ../../modules/virtualization
   ];

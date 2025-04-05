@@ -1,16 +1,17 @@
 { config, pkgs, lib, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
-    nvtopPackages.amd
-  ];
+  config = lib.mkIf (builtins.elem "amd" config.hardware.graphics.drivers) {
+    environment.systemPackages = with pkgs; [
+      nvtopPackages.amd
+    ];
 
-  services.xserver.videoDrivers = ["amdgpu"];
+    services.xserver.videoDrivers = ["amdgpu"];
 
-  hardware.amdgpu = {
-    opencl.enable = true;
-    amdvlk.enable = true;
+    hardware.amdgpu = {
+      opencl.enable = true;
+      amdvlk.enable = true;
+    };
+
   };
-
 }
-

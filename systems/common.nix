@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../modules/gpu
     ../modules/swap
     ../modules/hyprland
     ../modules/sound

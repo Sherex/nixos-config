@@ -129,4 +129,10 @@ in {
       amixer --card 2 get Front | grep -E 'Front (Left|Right).+\[on\]'
     '';
   };
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    drivers = [ "amd" ];
+  };
 }
