@@ -16,6 +16,7 @@
         "privacy.clearOnShutdown.downloads" = false;
         "privacy.resistFingerprinting" = false;
         "privacy.fingerprintingProtection" = true;
+        "privacy.fingerprintingProtection.overrides" = "+AllTargets,-CSSPrefersColorScheme";
         "identity.fxaccounts.enabled" = true;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       };
