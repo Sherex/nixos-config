@@ -2,10 +2,6 @@
 
 {
   config = lib.mkIf (builtins.elem "nvidia" config.hardware.graphics.drivers) {
-    environment.systemPackages = with pkgs; [
-      nvtopPackages.nvidia
-    ];
-
     services.xserver.videoDrivers = ["nvidia"];
 
     hardware.nvidia-container-toolkit.enable = true;

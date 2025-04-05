@@ -17,9 +17,20 @@ in {
   };
 
   config = lib.mkIf hasAnyDriverDeclared {
+    nixpkgs.config.packageOverrides = pkgs: {
+      # Build a custom version of nvtop with support just for my enabled GPUs
+      nvtopPackages.custom = pkgs.nvtopPackages.amd.override (
+        { amd = false; } //
+        (builtins.listToAttrs (map (gpu: {
+            name = gpu;
+            value = true;
+          }) cfg.drivers))
+      );
+    };
     environment.systemPackages = with pkgs; [
       gpu-viewer
       clinfo
+      nvtopPackages.custom
     ];
   };
 
