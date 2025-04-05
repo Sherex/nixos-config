@@ -11,6 +11,7 @@ let
 in {
   options.hardware.graphics.drivers = lib.mkOption {
     type = lib.types.listOf (lib.types.enum (builtins.attrNames gpuDriverModules));
+    default = [];
     description = ''
       List of GPU drivers to enable. Possible values: ${builtins.concatStringsSep ", " (builtins.attrNames gpuDriverModules)}.
     '';
