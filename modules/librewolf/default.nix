@@ -14,6 +14,8 @@
         "webgl.disabled" = false;
         "privacy.clearOnShutdown.history" = false;
         "privacy.clearOnShutdown.downloads" = false;
+        "privacy.resistFingerprinting" = false;
+        "privacy.fingerprintingProtection" = true;
         "identity.fxaccounts.enabled" = true;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       };
