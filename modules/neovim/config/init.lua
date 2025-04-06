@@ -265,6 +265,7 @@ require("lazy").setup({
         "yamlls",
         "bashls",
         "denols",
+        "lemminx",
       }
       for _, lsp in ipairs(servers) do
         -- TODO: Setup can only be called once per LSP
