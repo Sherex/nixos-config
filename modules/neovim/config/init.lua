@@ -499,6 +499,7 @@ require("lazy").setup({
     "hrsh7th/nvim-cmp",
     dependencies = {
       "L3MON4D3/LuaSnip",
+      "olimorris/codecompanion.nvim",
     },
     config = function()
       local luasnip = require 'luasnip'
@@ -538,10 +539,50 @@ require("lazy").setup({
           end, { 'i', 's' }),
         }),
         sources = {
-          { name = 'nvim_lsp' },
+          {
+            name = 'nvim_lsp',
+            per_filetype = {
+              codecompanion = { "codecompanion" },
+            },
+          },
         },
       }
     end,
+  },
+
+  {
+    "olimorris/codecompanion.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = {
+      display = {
+        chat = {
+          show_settings = true,
+        },
+      },
+      strategies = {
+        chat = {
+          adapter = "ollama",
+        },
+        inline = {
+          adapter = "ollama",
+        },
+        cmd = {
+          adapter = "ollama",
+        }
+      },
+      adapters = {
+        ollama = function()
+          return require("codecompanion.adapters").extend("ollama", {
+            env = {
+              url = "http://archy:11434",
+            },
+          })
+        end,
+      },
+    },
   },
 
   {
