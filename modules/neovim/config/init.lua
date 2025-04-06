@@ -62,6 +62,7 @@ require("lazy").setup({
       local wk = require("which-key")
       wk.register({
         ["<leader>e"] = { name = "+NvimTree" },
+        ["<leader>l"] = { name = "+Lsp" },
       })
     end,
   },
@@ -116,6 +117,72 @@ require("lazy").setup({
     opts = {
       current_line_blame = true,
       numhl = true,
+    },
+  },
+
+  {
+    "nvimdev/lspsaga.nvim",
+    opts = {
+      code_action = {
+        extend_gitsigns = true,
+      },
+      hover = {
+        open_link = 'gx',     -- key for opening links
+        --open_cmd = '!xdg-open', -- cmd for opening links
+      },
+      symbol_in_winbar = {
+        enable = true,
+      },
+      ui = {
+        code_action = "✨",
+      }
+    },
+    event = 'LspAttach',
+    dependencies = {
+        'nvim-treesitter/nvim-treesitter', -- optional
+        'nvim-tree/nvim-web-devicons',     -- optional
+    },
+    keys = {
+      {
+        "ga",
+        "<cmd>Lspsaga code_action<cr>",
+        desc = "Select code action"
+      },
+      {
+        "<leader>lr",
+        "<cmd>Lspsaga finder ref+imp<cr>",
+        desc = "Find method ref/impl"
+      },
+      {
+        "<leader>lR",
+        "<cmd>Lspsaga finder def+ref+imp<cr>",
+        desc = "Find method ref/impl"
+      },
+      {
+        "<leader>lo",
+        "<cmd>Lspsaga outline<cr>",
+        desc = "Show buffer outline"
+      },
+      {
+        "<leader>lr",
+        "<cmd>Lspsaga rename<cr>",
+        desc = "Rename symbol under cursor in buffer"
+      },
+      {
+        "<C-h>",
+        "<cmd>Lspsaga hover_doc<cr>",
+        desc = "Show hover documentation ('gx' for URLs)"
+      },
+      {
+        "<leader>lj",
+        "<cmd>Lspsaga diagnostic_jump_next<cr>",
+        desc = "Jump to next diagnostic"
+      },
+      {
+        "<leader>lk",
+        "<cmd>Lspsaga diagnostic_jump_prev<cr>",
+        desc = "Jump to previous diagnostic"
+      },
     },
   },
 
@@ -337,7 +404,7 @@ require("lazy").setup({
             EnableImportCompletion = true,
             -- Only run analyzers against open files when 'enableRoslynAnalyzers' is
             -- true
-            AnalyzeOpenDocumentsOnly = true,
+            AnalyzeOpenDocumentsOnly = nil,
           },
           Sdk = {
             -- Specifies whether to include preview versions of the .NET SDK when
