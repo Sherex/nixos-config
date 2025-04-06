@@ -600,7 +600,7 @@ require("lazy").setup({
     "echasnovski/mini.sessions",
     lazy = false,
     opts = {
-      autoread = false,
+      autoread = true,
       autowrite = true,
     },
   },
