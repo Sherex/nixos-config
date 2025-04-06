@@ -26,6 +26,12 @@ vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 
+-- Set tabs to spaces as default
+vim.opt.expandtab = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+
 -- Set leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
