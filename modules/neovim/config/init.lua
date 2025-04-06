@@ -60,9 +60,9 @@ require("lazy").setup({
       vim.o.timeout = true
       vim.o.timeoutlen = 300
       local wk = require("which-key")
-      wk.register({
-        ["<leader>e"] = { name = "+NvimTree" },
-        ["<leader>l"] = { name = "+Lsp" },
+      wk.add({
+        { "<leader>e", group = "NvimTree" },
+        { "<leader>l", group = "Lsp" },
       })
     end,
   },
@@ -364,7 +364,7 @@ require("lazy").setup({
         "nil_ls",
         "jsonls",
         "terraform_lsp",
-        "tsserver",
+        "ts_ls",
         "volar", -- Vue
         "yamlls",
         "bashls",
