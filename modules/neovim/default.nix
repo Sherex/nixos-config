@@ -32,6 +32,7 @@
         nodePackages.bash-language-server # LSP: bash
         shellcheck # linter for shell scripts
         lemminx # LSP: XML
+        omnisharp-roslyn # LSP: .NET
       ];
     };
   };
