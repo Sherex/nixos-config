@@ -534,6 +534,9 @@ require("lazy").setup({
     ft = { "markdown", "codecompanion" },
     opts = {
       completions = { lsp = { enabled = true } },
+      code = {
+        disable_background = true,
+      },
     },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
