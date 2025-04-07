@@ -61,8 +61,12 @@ require("lazy").setup({
       vim.o.timeoutlen = 300
       local wk = require("which-key")
       wk.add({
+        -- Groups
         { "<leader>e", group = "NvimTree" },
         { "<leader>l", group = "Lsp" },
+
+        -- Misc keybinds
+        { "gf", function() vim.lsp.buf.format() end, desc = "Format buffer" },
       })
     end,
   },
