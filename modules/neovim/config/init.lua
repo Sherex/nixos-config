@@ -257,9 +257,18 @@ require("lazy").setup({
 
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = {
-      auto_install = true,
-    },
+    build = ":TSUpdate",
+      config = function ()
+        require("nvim-treesitter.configs").setup({
+          ensure_installed = { "c", "c_sharp", "xml", "lua", "vim", "vimdoc", "query", "elixir", "heex", "javascript", "html" },
+          sync_install = false,
+          auto_install = true,
+          highlight = { enable = true },
+          indent = { enable = true },
+          ignore_install = {},
+          modules = {},
+        })
+      end
   },
 
   {
