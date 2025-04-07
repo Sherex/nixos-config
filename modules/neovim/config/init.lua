@@ -522,7 +522,13 @@ require("lazy").setup({
 
   {
     "MeanderingProgrammer/render-markdown.nvim",
-    ft = { "markdown", "codecompanion" }
+    ft = { "markdown", "codecompanion" },
+    opts = {
+      completions = { lsp = { enabled = true } },
+    },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
   },
 
   {
