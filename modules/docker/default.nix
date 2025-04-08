@@ -26,6 +26,7 @@ in
 
     wantedBy = [ "default.target" ];
 
+    path = [ pkgs.e2fsprogs ];
     script = ''
       set -e
 
@@ -35,6 +36,8 @@ in
       [[ ! "$DOCKER_DATA_IMAGE_SIZE" =~ ^[0-9]+$ ]] && \
         echo "Second argument image size can only contain numbers in bytes" && \
         exit 1
+
+      mkdir -p "$(dirname $DOCKER_DATA_IMAGE)"
 
       echo "Checking if $DOCKER_DATA_IMAGE exists"
       [[ -f "$DOCKER_DATA_IMAGE" ]] && \
