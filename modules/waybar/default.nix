@@ -146,8 +146,9 @@
         "custom/wl-gammarelay-brightness" = {
             format = "{}% ";
             exec = "${pkgs.wl-gammarelay-rs}/bin/wl-gammarelay-rs watch {bp}";
-            on-scroll-up = "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateBrightness d +0.02";
-            on-scroll-down = "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateBrightness d -0.02";
+            on-scroll-up = "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateBrightness d +0.05";
+            on-scroll-down = "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateBrightness d -0.05";
+            on-click = "busctl --user set-property rs.wl-gammarelay / rs.wl.gammarelay Brightness d 0.6";
             on-click-right = "busctl --user set-property rs.wl-gammarelay / rs.wl.gammarelay Brightness d 1";
         };
       }];
