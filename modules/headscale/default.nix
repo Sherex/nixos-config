@@ -12,6 +12,9 @@ in {
       settings = {
         unix_socket_permission = "0770";
         server_url = "https://${domain}";
+        prefixes = {
+          v4 = "100.70.0.0/16";
+        };
         dns = {
           magic_dns = true;
           base_domain = "i.i-h.no";
