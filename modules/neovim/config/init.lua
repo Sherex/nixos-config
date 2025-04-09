@@ -345,11 +345,9 @@ require("lazy").setup({
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local servers = {
         "nil_ls",
-        "jsonls",
         "terraform_lsp",
         "ts_ls",
         "volar", -- Vue
-        "yamlls",
         "bashls",
         "denols",
         "lemminx",
@@ -388,6 +386,7 @@ require("lazy").setup({
       }
 
       require'lspconfig'.omnisharp.setup {
+        capabilities = capabilities,
         cmd = { "OmniSharp" },
 
         settings = {
@@ -588,12 +587,25 @@ require("lazy").setup({
     "b0o/schemastore.nvim",
     dependencies = {
       "neovim/nvim-lspconfig",
+      "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
-      require("lspconfig").jsonls.setup {
+      local lspconfig = require("lspconfig")
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      lspconfig.jsonls.setup {
+        capabilities = capabilities,
         settings = {
           json = {
             schemas = require('schemastore').json.schemas(),
+            validate = { enable = true },
+          },
+        },
+      }
+      lspconfig.yamlls.setup {
+        capabilities = capabilities,
+        settings = {
+          yaml = {
+            schemas = require('schemastore').yaml.schemas(),
             validate = { enable = true },
           },
         },
