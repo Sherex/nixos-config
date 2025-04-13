@@ -367,5 +367,74 @@ in {
       };
     };
   };
+
+  systemd.user.services.hyprland-tagger-mover = {
+    enable = true;
+    description = "A utility service for hyprland to tag and move windows launched from specific directories.";
+    after = [ "hyprland-session.target" ];
+    wantedBy = [ "default.target" ];
+    path = with pkgs; [ bash jq hyprland socat ];
+    script = ''
+      # Declare the TAGS associative array with space-separated directories as values
+      declare -A TAGS
+      TAGS=(
+          ["game"]="/persistent/unsafe/games/ /mnt-d/games"
+      )
+
+      # Associative array to define which assigs tags to workspaces and
+      # is used to move the window to that workspace
+      declare -A TAGS2WORKSPACES
+      TAGS2WORKSPACES=(
+          ["game"]="2"
+      )
+
+      # Function to check if a path is in any of the directories for a specific tag
+      path_is_in() {
+          local target_path="$1"
+          local tag="$2"
+
+          # Loop through directories for the given tag (split by space)
+          for dir in ''${TAGS[$tag]}; do
+              if [[ "$target_path" == "$dir"* ]]; then
+                  return 0  # Path matches this tag's directory
+              fi
+          done
+          return 1  # Path does not match
+      }
+
+      EVENT_SOCKET="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock"
+
+      echo "Listening on: $EVENT_SOCKET"
+      socat -U - "UNIX-CONNECT:$EVENT_SOCKET" | while read -r line; do
+          [[ "$line" != openwindow* ]] && continue
+
+          # Extract event name and data
+          window_address="0x$(echo "$line" | sed -E 's/^.*?>>(\w+),.*/\1/')"
+          window="$(hyprctl clients -j | jq --arg window_address "$window_address" '.[] | select(.address == $window_address)')"
+
+          pid="$(echo "$window" | jq -r '.pid')"
+          window_title="$(echo "$window" | jq -r '.title')"
+
+          proc_path=$(readlink -f "/proc/$pid/exe" 2>/dev/null)
+
+          # Check each tag and see if the process path matches the directories for that tag
+          for tag in "''${!TAGS[@]}"; do
+              if path_is_in "$proc_path" "$tag"; then
+                  hyprctl dispatch tagwindow "+$tag" "pid:$pid"
+                  echo "Tagged window '$window_title' from $proc_path as $tag"
+
+                  # Stop if there are no workspaces assigned to this tag
+                  assigned_workspace=''${TAGS2WORKSPACES[$tag]}
+                  [[ -z $assigned_workspace ]] && break
+
+                  hyprctl dispatch movetoworkspacesilent "$assigned_workspace,address:$window_address"
+                  echo "Moved window '$window_title' to workspace $assigned_workspace"
+                  break
+              fi
+          done
+
+      done
+    '';
+  };
 }
 
