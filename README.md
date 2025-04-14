@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nixos-white.png" width="500px" alt="NixOS logo"/>
+  <img src="https://raw.githubusercontent.com/sherex/nixos-config/main/assets/nixos-white.svg" width="500px" alt="NixOS logo"/>
 </p>
 <h1 align="center">Configuration</h1>
 
