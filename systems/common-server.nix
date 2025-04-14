@@ -3,7 +3,7 @@
 {
   imports = [
     ../modules/swap
-    ../sherex-server.nix
+    ../users/sherex-server.nix
     ../modules/impermanence
     #../modules/sops
     #../modules/borg

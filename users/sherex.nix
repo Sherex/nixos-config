@@ -2,9 +2,20 @@
 
 {
   imports = [
-    ./modules/bash
-    ./modules/neovim
-    ./modules/git
+    ../modules/power-management
+    ../modules/bash
+    ../modules/neovim
+    ../modules/foot
+    ../modules/qutebrowser
+    ../modules/librewolf
+    ../modules/email
+    ../modules/rofi
+    ../modules/i3status-rust
+    ../modules/ssh
+    ../modules/git
+    ../modules/vscode
+    ../modules/containerization
+    ../modules/moonlight
   ];
 
   # Install packages to /etc/profiles instead of ~/.nix-profile
@@ -22,7 +33,7 @@
       PASS_STATUS="$(passwd --status sherex | cut -d' ' -f2)"
       [[ $PASS_STATUS = 'P' ]] && exit 0
 
-      echo this-is-temporary | passwd --stdin sherex
+      echo this-is-temporary | passwd --expire --stdin sherex
     '';
     wantedBy = [ "multi-user.target" ];
   };
@@ -34,17 +45,48 @@
       config.users.groups.wheel.name
       config.users.groups.nix-allowed.name
       config.users.groups.nix-trusted.name
+      config.users.groups.input.name
     ];
     hashedPasswordFile = "/persistent/safe/sherex-password-hash";
-    linger = true;
   };
   home-manager.users.sherex = { pkgs, ... }: {
     home.stateVersion = "22.11";
+    programs.home-manager.enable = true;
+    xdg.mimeApps.enable = true;
+    xdg.mimeApps.defaultApplications."x-scheme-handler/msteams" = [ "teams.desktop" ];
     home.packages = with pkgs; [
+      httpie
       unar
+      feh
       numbat
       devbox
+      distrobox
     ];
-    programs.home-manager.enable = true;
+
+    home.pointerCursor = {
+      gtk.enable = true;
+      name = "Vanilla-DMZ";
+      package = pkgs.vanilla-dmz;
+      size = 16;
+    };
+
+    gtk = {
+      enable = true;
+
+      theme = {
+        package = pkgs.flat-remix-gtk;
+        name = "Flat-Remix-GTK-Grey-Darkest";
+      };
+
+      iconTheme = {
+        package = pkgs.adwaita-icon-theme;
+        name = "Adwaita";
+      };
+
+      font = {
+        name = "Sans";
+        size = 11;
+      };
+    };
   };
 }

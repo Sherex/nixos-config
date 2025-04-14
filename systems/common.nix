@@ -6,7 +6,7 @@
     ../modules/swap
     ../modules/hyprland
     ../modules/sound
-    ../sherex.nix
+    ../users/sherex.nix
     ../modules/impermanence
     ../modules/sops
     ../modules/borg
