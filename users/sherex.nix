@@ -52,8 +52,6 @@
   home-manager.users.sherex = { pkgs, ... }: {
     home.stateVersion = "22.11";
     programs.home-manager.enable = true;
-    xdg.mimeApps.enable = true;
-    xdg.mimeApps.defaultApplications."x-scheme-handler/msteams" = [ "teams.desktop" ];
     home.packages = with pkgs; [
       httpie
       unar
@@ -86,6 +84,13 @@
       font = {
         name = "Sans";
         size = 11;
+      };
+    };
+    xdg = {
+      enable = true;
+      mimeApps = {
+        enable = true;
+        defaultApplications."x-scheme-handler/msteams" = [ "teams.desktop" ];
       };
     };
   };
