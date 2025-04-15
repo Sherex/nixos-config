@@ -33,6 +33,7 @@
         shellcheck # linter for shell scripts
         lemminx # LSP: XML
         omnisharp-roslyn # LSP: .NET
+        pyright # LSP: Python
       ];
     };
   };
