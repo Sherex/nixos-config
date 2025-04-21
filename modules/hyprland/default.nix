@@ -373,8 +373,19 @@ in {
     description = "A utility service for hyprland to tag and move windows launched from specific directories.";
     after = [ "hyprland-session.target" ];
     wantedBy = [ "default.target" ];
+    unitConfig = {
+      StartLimitIntervalSec = 10;
+    };
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = 3;
+      StartLimitBurst = 3;
+    };
     path = with pkgs; [ bash jq hyprland socat ];
     script = ''
+      [[ -z $XDG_RUNTIME_DIR ]] && echo "Missing required env variable: XDG_RUNTIME_DIR" && exit 1
+      [[ -z $HYPRLAND_INSTANCE_SIGNATURE ]] && echo "Missing required env variable: HYPRLAND_INSTANCE_SIGNATURE" && exit 1
+
       # Declare the TAGS associative array with space-separated directories as values
       declare -A TAGS
       TAGS=(
