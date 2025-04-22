@@ -51,6 +51,12 @@ in {
     neededForBoot = true;
   };
 
+  fileSystems."/media/storage" = {
+    device = "/dev/disk/by-label/storage";
+    fsType = "btrfs";
+    options = [ "compress=zstd:1" "noatime" ];
+  };
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
