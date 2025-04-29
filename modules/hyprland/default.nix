@@ -373,7 +373,7 @@ in {
     enable = true;
     description = "A utility service for hyprland to tag and move windows launched from specific directories.";
     after = [ "hyprland-session.target" ];
-    wantedBy = [ "default.target" ];
+    wantedBy = [ "default.target" "hyprland-session.target" ];
     unitConfig = {
       StartLimitIntervalSec = 10;
     };
