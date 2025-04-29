@@ -42,7 +42,7 @@ in {
     xdgOpenUsePortal = true;
     config = {
       # gtk portal needed to make gtk apps happy
-      common.default = ["gtk"];
+      common.default = ["gtk" "hyprland"];
     };
     extraPortals = [
       pkgs.xdg-desktop-portal-gtk
@@ -52,6 +52,7 @@ in {
 
   # Autostart Hyprland on login
   environment.loginShellInit = ''
+    export GTK_USE_PORTAL=1
     export XCURSOR_THEME="Vanilla-DMZ"
     [[ "$(tty)" == /dev/tty1 ]] && ${pkgs.hyprland}/bin/Hyprland
   '';
