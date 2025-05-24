@@ -34,12 +34,13 @@ in {
 
   # Autostart Hyprland on login
   environment.loginShellInit = ''
-    export GTK_USE_PORTAL=1
-    export XCURSOR_THEME="Vanilla-DMZ"
     [[ "$(tty)" == /dev/tty1 ]] && ${pkgs.hyprland}/bin/Hyprland
   '';
-  # Hint Electron apps to use Wayland
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1"; # Hint Electron apps to use Wayland
+    GTK_USE_PORTAL = "1"; # Not recommended, but fuck it. It's recommended to set it per application instead
+    XCURSOR_THEME = "Vanilla-DMZ";
+  };
 
   programs.hyprland.enable = true;
 
