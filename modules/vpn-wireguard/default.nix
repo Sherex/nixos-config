@@ -26,7 +26,7 @@
       table ip tailscale-wg {
         chain preraw {
           type filter hook prerouting priority raw; policy accept;
-          iifname "tailscale0" ip daddr != 100.64.0.0/16 mark set 51820;
+          iifname "tailscale0" ip daddr != 100.70.0.0/16 mark set 51820;
         }
       }
 
