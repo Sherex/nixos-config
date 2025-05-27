@@ -7,6 +7,7 @@
     ../common-server.nix
     ../../modules/containers/minecraft-servers.nix
     ../../modules/containers/satisfactory-servers.nix
+    ../../modules/containers/jellyfin.nix
     ../../modules/vpn-wireguard
   ];
 
