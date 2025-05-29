@@ -21,7 +21,7 @@
     enable = true;
     efiSupport = lib.mkDefault true;
     devices = [ "nodev" ];
-    default = "saved";
+    default = "0";
     memtest86.enable = true;
   };
 
