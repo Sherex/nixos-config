@@ -64,6 +64,37 @@ in {
           };
         };
       };
+      storage = {
+        type = "disk";
+        device = "/dev/disk/by-id/ata-WDC_WD1003FZEX-00K3CA0_WD-WCC6Y3XFH6PL";
+        content = {
+          type = "gpt";
+          partitions = {
+            storage = {
+              name = "storage";
+              size = "100%";
+              content = {
+                type = "btrfs";
+                #extraArgs = [ "-f" ]; # Override existing partition
+                # Subvolumes must set a mountpoint in order to be mounted,
+                # unless their parent is mounted
+                subvolumes = {
+                  "${subvolumes_path}/storage" = {
+                    mountpoint = "/persistent/unsafe/storage";
+                    mountOptions = [ "compress=zstd:1" "noatime" ];
+                  };
+                  "${subvolumes_path}/media" = {
+                    mountpoint = "/srv/containers/jellyfin/container-data/media";
+                    mountOptions = [ "compress=zstd:1" "noatime" ];
+                  };
+                };
+
+                mountpoint = "/partition-storage";
+              };
+            };
+          };
+        };
+      };
     };
   };
 }
