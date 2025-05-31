@@ -5,6 +5,7 @@
     ./hardware.nix
     ./disko.nix
     ../common-server.nix
+    ../../modules/gpu
     ../../modules/containers/minecraft-servers.nix
     ../../modules/containers/satisfactory-servers.nix
     ../../modules/containers/jellyfin.nix

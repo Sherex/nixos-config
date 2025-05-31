@@ -16,6 +16,7 @@
     ];
     devices = [
       "/dev/dri:/dev/dri"
+      "nvidia.com/gpu=all"
     ];
     environment = {
       PUID = "700";

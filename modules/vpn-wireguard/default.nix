@@ -6,7 +6,7 @@
     address = [ "10.71.151.118/32" "fc00:bbbb:bbbb:bb01::8:9775/128" ];
     # TODO: Use sops-nix
     privateKeyFile = "/root/wg-mullvad.key";
-    dns = [ "10.64.0.1" ];
+    dns = [ "194.242.2.2" ];
 
     postUp = ''
       # Source: https://www.reddit.com/r/Tailscale/comments/14wsf1f/comment/kgp09f2
@@ -58,10 +58,15 @@
 
     peers = [
       {
-        publicKey = "IhhpKphSFWpwja1P4HBctZ367G3Q53EgdeFGZro29Tc=";
+        publicKey = "ScQu/AqslSPwpXMIEyimrYZWTIdJJXLLeXrijWOF0SE=";
         allowedIPs = [ "0.0.0.0/0" "::0/0" ];
-        endpoint = "176.125.235.72:51820";
+        endpoint = "178.255.149.140:51820";
       }
+      # {
+      #   publicKey = "IhhpKphSFWpwja1P4HBctZ367G3Q53EgdeFGZro29Tc=";
+      #   allowedIPs = [ "0.0.0.0/0" "::0/0" ];
+      #   endpoint = "176.125.235.72:51820";
+      # }
     ];
   };
 
