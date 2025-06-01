@@ -6,6 +6,7 @@
     image = "linuxserver/jellyfin@sha256:70676df4e0ebce4438a6edddbaca2d0d0b8aa6bc45bbfdd9c6c42814a0f84b8c"; # :10.10.7
     ports = [
       "8096:8096/tcp"
+      "8097:8097/tcp"
       # "7359:7359/udp"
       # "1900:1900/udp"
     ];
@@ -31,8 +32,8 @@
   };
 
   networking.firewall = {
-    allowedTCPPorts = [ 8096 ];
-    #allowedUDPPorts = [ 8096 ];
+    allowedTCPPorts = [ 8096 8097 ];
+    #allowedUDPPorts = [ 8096 8097 ];
   };
 }
 
