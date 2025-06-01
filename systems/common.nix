@@ -60,6 +60,15 @@
     fakeroot
     killall
     efibootmgr
+    dool
+    dnsutils
+    lsof
+    ncdu
+    jq
+    screen
+    traceroute
+    tree
+    pciutils
   ];
 
   services.resolved = {
