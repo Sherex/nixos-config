@@ -9,6 +9,7 @@
     ../../modules/containers/minecraft-servers.nix
     ../../modules/containers/satisfactory-servers.nix
     ../../modules/containers/jellyfin.nix
+    ../../modules/containers/haproxy.nix
     ../../modules/vpn-wireguard
   ];
 
