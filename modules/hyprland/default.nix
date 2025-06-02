@@ -74,7 +74,8 @@ in {
       enable = true;
       settings = {
         "$terminal" = "${pkgs.foot}/bin/foot";
-        "$menu" = "${pkgs.rofi-wayland}/bin/rofi -show combi";
+        "$menu" = "${pkgs.rofi-wayland}/bin/rofi -modes combi -show combi";
+        "$ssh-menu" = "${pkgs.rofi-wayland}/bin/rofi -modes ssh -show ssh";
 
         env = [
           "XCURSOR_SIZE,24"
@@ -171,6 +172,7 @@ in {
         bind = [
           # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
           "$mainMod, return, exec, $terminal"
+          "$mainMod SHIFT, return, exec, $ssh-menu"
           "$mainMod, Q, killactive,"
           "$mainMod SHIFT, END, exit,"
           "$mainMod, E, exec, $fileManager"
