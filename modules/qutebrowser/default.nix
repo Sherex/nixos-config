@@ -1,4 +1,4 @@
-{ config, pkgs, lib, home-manager, ... }:
+{ config, pkgs, pkgs-stable, lib, home-manager, ... }:
 
 {
   home-manager.users.sherex = { pkgs, ... }: {
@@ -6,6 +6,7 @@
     programs.bash.sessionVariables.BROWSER = "qutebrowser";
     programs.qutebrowser = {
       enable = true;
+      package = pkgs-stable.qutebrowser;
       loadAutoconfig = true;
       aliases = { };
       keyBindings = {

@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -20,12 +21,18 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, impermanence, sops-nix, disko }@attrs:
+  outputs = { self, nixpkgs, home-manager, impermanence, sops-nix, disko, nixpkgs-stable }@attrs:
+
   let
     nixosSystem = nixpkgs: attrs: name:
-      nixpkgs.lib.nixosSystem {
+      nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = attrs;
+        specialArgs = attrs // {
+            pkgs-stable = import nixpkgs-stable {
+              inherit system;
+              config.allowUnfree = true;
+            };
+          };
         modules = [
           ./systems/${name}/configuration.nix
           home-manager.nixosModules.home-manager
