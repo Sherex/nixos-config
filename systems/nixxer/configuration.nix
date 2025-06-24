@@ -11,6 +11,8 @@
     ../../modules/containers/jellyfin.nix
     ../../modules/containers/haproxy.nix
     ../../modules/vpn-wireguard
+    ../../modules/kodi
+    ../../modules/sound
   ];
 
   networking.hostName = "Nixxer";
