@@ -38,6 +38,16 @@
     nix-allowed = {};
   };
 
+  users.groups.wheel-nopass = {};
+  security.sudo = {
+    extraRules = [
+      # Create a sudo group meant for temporary access to sudo without password requiring user password
+      { groups = [ config.users.groups.wheel-nopass.name ]; commands = [
+        { command = "ALL"; options = [ "SETENV" "NOPASSWD" ]; }
+      ]; }
+    ];
+  };
+
   # Nix Settings
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
