@@ -79,6 +79,8 @@ in {
         "$terminal" = "${pkgs.foot}/bin/foot";
         "$menu" = "${pkgs.rofi-wayland}/bin/rofi -modes combi -show combi";
         "$ssh-menu" = "${pkgs.rofi-wayland}/bin/rofi -modes ssh -show ssh";
+        "$playerctl" = "${pkgs.playerctl}/bin/playerctl";
+        "$wpctl" = "${pkgs.wireplumber}/bin/wpctl";
 
         env = [
           "XCURSOR_SIZE,24"
@@ -265,6 +267,18 @@ in {
           "$mainMod, mouse_down, workspace, e+1"
           "$mainMod, mouse_up, workspace, e-1"
 
+        ];
+
+        binde = [
+          # Media controls
+          ",XF86AudioStop, exec, $playerctl stop"
+          ",XF86AudioPlay, exec, $playerctl play-pause"
+          ",XF86AudioNext, exec, $playerctl next"
+          ",XF86AudioPrev, exec, $playerctl previous"
+
+          ",XF86AudioRaiseVolume, exec, $wpctl set-volume @DEFAULT_SINK@ 2%+"
+          ",XF86AudioLowerVolume, exec, $wpctl set-volume @DEFAULT_SINK@ 2%-"
+          ",XF86AudioMute, exec, $wpctl set-mute @DEFAULT_SINK@ toggle"
         ];
 
         bindm = [
