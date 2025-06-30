@@ -19,6 +19,7 @@ in {
     adwaita-icon-theme # default gnome cursors
     grim # screenshot functionality
     slurp # screenshot functionality
+    swappy # screenshot functionality
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
     wl-gammarelay-rs # Used by a block in i3status-rust
     complete-alias
@@ -267,6 +268,9 @@ in {
           "$mainMod, mouse_down, workspace, e+1"
           "$mainMod, mouse_up, workspace, e-1"
 
+          # Screenshot
+          ", Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
+          "CTRL, Print, exec, grim -g \"$(slurp -o)\" - | swappy -f -"
         ];
 
         binde = [
