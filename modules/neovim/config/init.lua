@@ -341,7 +341,6 @@ require("lazy").setup({
       "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
-      local lspconfig = require("lspconfig")
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local servers = {
         "nil_ls",
@@ -356,12 +355,13 @@ require("lazy").setup({
       }
       for _, lsp in ipairs(servers) do
         -- TODO: Setup can only be called once per LSP
-        lspconfig[lsp].setup {
+        vim.lsp.config(lsp, {
           capabilities = capabilities,
-        }
+        })
+        vim.lsp.enable(lsp)
       end
 
-      lspconfig.lua_ls.setup {
+      vim.lsp.config('lua_ls', {
         capabilities = capabilities,
         settings = {
           Lua = {
@@ -383,9 +383,9 @@ require("lazy").setup({
             },
           },
         },
-      }
+      })
 
-      require'lspconfig'.omnisharp.setup {
+      vim.lsp.config('omnisharp', {
         capabilities = capabilities,
         cmd = { "OmniSharp" },
 
@@ -427,7 +427,7 @@ require("lazy").setup({
             IncludePrereleases = true,
           },
         },
-    }
+    })
     end,
   },
 
@@ -590,9 +590,8 @@ require("lazy").setup({
       "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
-      local lspconfig = require("lspconfig")
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      lspconfig.jsonls.setup {
+      vim.lsp.config('jsonls', {
         capabilities = capabilities,
         settings = {
           json = {
@@ -600,8 +599,8 @@ require("lazy").setup({
             validate = { enable = true },
           },
         },
-      }
-      lspconfig.yamlls.setup {
+      })
+      vim.lsp.config('yamlls', {
         capabilities = capabilities,
         settings = {
           yaml = {
@@ -609,7 +608,7 @@ require("lazy").setup({
             validate = { enable = true },
           },
         },
-      }
+      })
     end,
   },
 
