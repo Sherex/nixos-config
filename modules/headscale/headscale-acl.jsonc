@@ -12,6 +12,12 @@
     "tag:trusted": ["group:trusted"],
     "tag:untrusted": ["group:trusted"],
   },
+  "nodeAttrs": [
+    {
+      "target": ["*"],
+      "ipPool": ["100.70.0.0/16"],
+    },
+  ],
   // hosts should be defined using its IP addresses and a subnet mask.
   // to define a single host, use a /32 mask. You cannot use DNS entries here,
   // as they're prone to be hijacked by replacing their IP addresses.
