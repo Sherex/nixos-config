@@ -214,6 +214,9 @@ in {
           "$mainMod, P, pseudo,"
           "$mainMod, W, togglesplit,"
 
+          # Screen-lock
+          "$mainMod, Z, exec, ${binaries.hyprlock}"
+
           # Move focus
           "$mainMod, h, hy3:movefocus, l"
           "$mainMod, l, hy3:movefocus, r"
@@ -405,7 +408,9 @@ in {
 
     services.hypridle = {
       enable = true;
-      settings = {
+      settings = let
+          earlylockfile = "$XDG_RUNTIME_DIR/hyprlock-early.lock";
+        in {
         general = {
             after_sleep_cmd = "hyprctl dispatch dpms on";
             ignore_dbus_inhibit = false;
@@ -413,6 +418,11 @@ in {
           };
 
           listener = [
+            {
+              timeout = 30;
+              on-timeout = "pidof hyprlock && hyprctl dispatch dpms off && touch ${earlylockfile}";
+              on-resume = "[[ -f '${earlylockfile}' ]] && hyprctl dispatch dpms on && rm ${earlylockfile}";
+            }
             {
               timeout = 900;
               on-timeout = binaries.hyprlock;
