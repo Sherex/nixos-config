@@ -24,9 +24,26 @@
       delete chain ip tailscale-wg preraw;
 
       table ip tailscale-wg {
+        set excluded_src {
+          type ipv4_addr
+          flags interval
+          elements = {}
+        }
+
+        set excluded_dst {
+          type ipv4_addr
+          flags interval
+          elements = {
+            100.70.0.0/16,
+            10.0.0.0/8,
+            192.168.0.0/16
+          }
+        }
+
         chain preraw {
           type filter hook prerouting priority raw; policy accept;
-          iifname "tailscale0" ip daddr != 100.70.0.0/16 mark set 51820;
+
+          iifname "tailscale0" && ip saddr != @excluded_src && ip daddr != @excluded_dst mark set 51820
         }
       }
 
