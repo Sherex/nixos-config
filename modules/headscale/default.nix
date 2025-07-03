@@ -18,7 +18,8 @@ in {
         dns = {
           magic_dns = true;
           base_domain = "i.i-h.no";
-          nameservers = { "global" = [ "1.1.1.1" ]; };
+          nameservers = { "global" = [ "10.1.0.1" "1.1.1.1" ]; };
+          override_local_dns = true;
         };
         logtail.enabled = false;
         log.level = "info";
