@@ -32,5 +32,11 @@
       "src": ["tag:trusted"],
       "dst": ["*:*"]
     },
-  ]
+  ],
+  "autoApprovers": {
+    "routes": {
+      "10.1.0.0/16": ["group:trusted", "tag:trusted"],
+    },
+    "exitNode": ["group:trusted", "tag:trusted"],
+  },
 }
