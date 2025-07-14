@@ -14,6 +14,9 @@ in {
   services.cage.user = "kodi";
   services.cage.program = "${kodi-wayland}/bin/kodi-standalone";
   services.cage.enable = true;
+  systemd.services.cage-tty1.serviceConfig = {
+    ExecStop = "${pkgs.killall}/bin/killall --exact --wait kodi.bin";
+  };
 
   nixpkgs.config.kodi.enableAdvancedLauncher = true;
 
