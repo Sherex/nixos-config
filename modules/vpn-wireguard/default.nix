@@ -27,7 +27,6 @@
         set excluded_src {
           type ipv4_addr
           flags interval
-          elements = {}
         }
 
         set excluded_dst {
@@ -43,7 +42,7 @@
         chain preraw {
           type filter hook prerouting priority raw; policy accept;
 
-          iifname "tailscale0" && ip saddr != @excluded_src && ip daddr != @excluded_dst mark set 51820
+          iifname "tailscale0" ip saddr != @excluded_src ip daddr != @excluded_dst mark set 51820
         }
       }
 
