@@ -22,6 +22,8 @@ in
         "complete -F _complete_alias \"\${!BASH_ALIASES[@]}\""
         # BUG: The PS1 variable is overwritten somewhere if defined in sessionVariables
         "export PS1='\\[\\033[0;32m\\]\\[\\033[0m\\033[0;32m\\]\\h:\\[\\033[0;35m\\]\\w\\[\\033[0;32m\\]\\n\\[\\033[0m\\033[0;36m\\]\\[\\033[0m\\033[0;32m\\] ▶\\[\\033[0m\\] '"
+        "# Script for more easily running arbitary packages from nixpkgs"
+        "${ builtins.readFile ./scripts/nix-run-pkgs.sh }"
       ];
       shellAliases = {
         ls = "ls --color=auto";
