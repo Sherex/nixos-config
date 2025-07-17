@@ -1,14 +1,16 @@
 nr() {
   local exec_prefix=""
   local exec_override=""
+  local exec_background=""
   local pkg=""
   OPTIND=1
 
   # Parse options
-  while getopts ":se:" opt; do
+  while getopts ":se:d" opt; do
     case $opt in
       s) exec_prefix="sudo" ;;
       e) exec_override="$OPTARG" ;;
+      d) exec_background="hyprctl dispatch exec" ;;
       \?) echo "Invalid option: -$OPTARG" >&2; return 1 ;;
       :) echo "Option -$OPTARG requires an argument." >&2; return 1 ;;
     esac
@@ -27,9 +29,9 @@ nr() {
   local args=("$@")  # Remaining args passed to the executable
 
   if [[ -n "$exec_prefix" || -n "$exec_override" ]]; then
-    nix shell "nixpkgs#$pkg" --command $exec_prefix "$exec" "${args[@]}"
+    $exec_background nix shell "nixpkgs#$pkg" --command $exec_prefix "$exec" "${args[@]}"
   else
-    nix run "nixpkgs#$pkg" -- "${args[@]}"
+    $exec_background nix run "nixpkgs#$pkg" -- "${args[@]}"
   fi
 }
 
