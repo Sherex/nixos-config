@@ -27,7 +27,6 @@
         terraform-lsp # LSP
         nodePackages.typescript # LSP: tsserver
         nodePackages.typescript-language-server # LSP: tsserver
-        vue-language-server # LSP: volar (Vue)
         yaml-language-server # LSP: yamlls
         nodePackages.bash-language-server # LSP: bash
         shellcheck # linter for shell scripts

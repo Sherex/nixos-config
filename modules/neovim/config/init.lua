@@ -346,7 +346,7 @@ require("lazy").setup({
         "nil_ls",
         "terraform_lsp",
         "ts_ls",
-        "volar", -- Vue
+        "vue_ls",
         "bashls",
         "denols",
         "lemminx",
