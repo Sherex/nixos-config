@@ -1,6 +1,11 @@
 # Selects a commit using fzf
 # Can be used like "git diff `gsc`..`gsc`"
 gsc() {
+  if ! git rev-parse --is-inside-work-tree 1>/dev/null; then
+    echo "Not inside a git repository" >&2
+    return 1
+  fi
+
   local selected
   selected=$(git log --oneline --decorate=short --color=always --date=relative \
               --pretty=format:'%C(auto)%h %C(blue)%ad%Creset %s %d' |
