@@ -54,6 +54,15 @@
         "# Wrapper command to add functionality to git commands"
         "source ${ ./scripts/git-wrapper.sh }"
       ];
+      shellAliases = {
+        gs = "git status";
+        ga = "git add";
+        gc = "git commit";
+        gcm = "git commit -m";
+        gl = "git log";
+        gcb = "git checkout -B";
+        gd = "git diff";
+      };
     };
   };
 }

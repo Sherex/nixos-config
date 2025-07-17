@@ -56,15 +56,6 @@ in
         sstop = "sudo systemctl stop";
         srestart = "sudo systemctl restart";
 
-        ## Git
-        gs = "git status";
-        ga = "git add";
-        gc = "git commit";
-        gcm = "git commit -m";
-        gl = "git log";
-        gcb = "git checkout -B";
-        gd = "git diff";
-
         ## NixOS
         nos = "sudo nixos-rebuild --flake .# switch";
         nob = "sudo nixos-rebuild --flake .# build";
