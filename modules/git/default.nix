@@ -57,11 +57,19 @@
       shellAliases = {
         gs = "git status";
         ga = "git add";
+        gap = "git add --patch";
+        grbase = "git rebase --interactive --autosquash";
+        gr = "git restore --patch";
+        grs = "git restore --patch --staged";
         gc = "git commit";
         gcm = "git commit -m";
+        gca = "git commit --amend";
+        gcf = "git commit --fixup={}";
+        gp = "git push";
         gl = "git log";
         gcb = "git checkout -B";
         gd = "git diff";
+        gds = "git diff --staged";
       };
     };
   };
