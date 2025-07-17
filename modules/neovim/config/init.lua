@@ -339,6 +339,7 @@ require("lazy").setup({
     "neovim/nvim-lspconfig",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
+      "b0o/schemastore.nvim",
     },
     config = function()
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -352,10 +353,13 @@ require("lazy").setup({
         "lemminx",
         "pyright",
         "hls",
-        "gopls"
+        "gopls",
+        "lua_ls",
+        "omnisharp",
+        "jsonls",
+        "yamlls",
       }
       for _, lsp in ipairs(servers) do
-        -- TODO: Setup can only be called once per LSP
         vim.lsp.config(lsp, {
           capabilities = capabilities,
         })
@@ -388,8 +392,6 @@ require("lazy").setup({
 
       vim.lsp.config('omnisharp', {
         capabilities = capabilities,
-        cmd = { "OmniSharp" },
-
         settings = {
           FormattingOptions = {
             -- Enables support for reading code style, naming convention and analyzer
@@ -428,7 +430,25 @@ require("lazy").setup({
             IncludePrereleases = true,
           },
         },
-    })
+      })
+      vim.lsp.config('jsonls', {
+        capabilities = capabilities,
+        settings = {
+          json = {
+            schemas = require('schemastore').json.schemas(),
+            validate = { enable = true },
+          },
+        },
+      })
+      vim.lsp.config('yamlls', {
+        capabilities = capabilities,
+        settings = {
+          yaml = {
+            schemas = require('schemastore').yaml.schemas(),
+            validate = { enable = true },
+          },
+        },
+      })
     end,
   },
 
@@ -586,31 +606,6 @@ require("lazy").setup({
 
   {
     "b0o/schemastore.nvim",
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "hrsh7th/cmp-nvim-lsp",
-    },
-    config = function()
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      vim.lsp.config('jsonls', {
-        capabilities = capabilities,
-        settings = {
-          json = {
-            schemas = require('schemastore').json.schemas(),
-            validate = { enable = true },
-          },
-        },
-      })
-      vim.lsp.config('yamlls', {
-        capabilities = capabilities,
-        settings = {
-          yaml = {
-            schemas = require('schemastore').yaml.schemas(),
-            validate = { enable = true },
-          },
-        },
-      })
-    end,
   },
 
   {
