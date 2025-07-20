@@ -151,6 +151,6 @@ in {
       done
       modprobe -i vfio-pci
     '';
-    hardware.graphics.drivers = [ "amd" ];
+    hardware.graphics.drivers = lib.mkForce [ "amd" ];
   };
 }
