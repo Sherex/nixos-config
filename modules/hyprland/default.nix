@@ -357,16 +357,16 @@ in {
         height = 100;
         margin = "10";
         padding = "5";
-        progressColor = "over #5588AAFF";
-        backgroundColor = "#000000";
-        textColor = "#00FF00";
-        borderColor = "#00FF00";
-        borderSize = 1;
-        borderRadius = 0;
+        progress-color = "over #5588AAFF";
+        background-color = "#000000";
+        text-color = "#00FF00";
+        border-color = "#00FF00";
+        border-size = 1;
+        border-radius = 0;
         icons = true;
-        maxIconSize = 64;
+        max-icon-size = 64;
         markup = true;
-        defaultTimeout = 10000;
+        default-timeout = 10000;
       };
     };
 
