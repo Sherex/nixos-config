@@ -17,6 +17,7 @@ in
     programs.bash = {
       enable = true;
       enableCompletion = true;
+      historyControl = [ "ignoredups" "erasedups" ];
       initExtra = lib.mkMerge [
         "source ${pkgs.complete-alias.outPath}/bin/complete_alias"
         "complete -F _complete_alias \"\${!BASH_ALIASES[@]}\""
@@ -62,6 +63,7 @@ in
       };
       sessionVariables = {
         PS1 = "\\[\\033[0;32m\\]\\[\\033[0m\\033[0;32m\\]\\h:\\[\\033[0;35m\\]\\w\\[\\033[0;32m\\]\\n\\[\\033[0m\\033[0;36m\\]\\[\\033[0m\\033[0;32m\\] ▶\\[\\033[0m\\] ";
+        PROMPT_COMMAND = "history -a; history -n";
         EDITOR = "nvim";
         GUI_EDITOR = "code";
         VISUAL = "nvim";
