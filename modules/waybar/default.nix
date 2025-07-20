@@ -6,7 +6,7 @@
       enable = true;
       systemd = {
         enable = true;
-        target = "hyprland-session.target";
+        target = "graphical-session.target";
       };
       # https://github.com/Alexays/Waybar/wiki
       settings = [{
