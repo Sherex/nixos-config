@@ -142,7 +142,9 @@ in {
     drivers = [ "amd" "nvidia" ];
   };
 
+  environment.shellAliases.reboot-vfio = "sudo ${pkgs.grub2.outPath}/bin/grub-reboot 'Nvidia VFIO' && reboot";
   specialisation.nvidia-vfio.configuration = {
+    boot.loader.grub.configurationName = "Nvidia VFIO";
     boot.initrd.availableKernelModules = [ "vfio-pci" ];
     boot.initrd.preDeviceCommands = ''
       DEVS="0000:05:00.0 0000:05:00.1"
