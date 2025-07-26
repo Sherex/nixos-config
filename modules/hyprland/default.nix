@@ -471,10 +471,12 @@ in {
       [[ -z $XDG_RUNTIME_DIR ]] && echo "Missing required env variable: XDG_RUNTIME_DIR" && exit 1
       [[ -z $HYPRLAND_INSTANCE_SIGNATURE ]] && echo "Missing required env variable: HYPRLAND_INSTANCE_SIGNATURE" && exit 1
 
+      [[ -f "$XDG_RUNTIME_DIR/services/hyprland-tagger-mover.debug" ]] && DEBUG=1
+
       # Declare the TAGS associative array with space-separated directories as values
       declare -A TAGS
       TAGS=(
-          ["game"]="/persistent/unsafe/games/ /mnt-d/games"
+          ["game"]="/persistent/unsafe/games/ /media/storage/games/"
       )
 
       # Associative array to define which assigs tags to workspaces and
@@ -512,6 +514,8 @@ in {
           window_title="$(echo "$window" | jq -r '.title')"
 
           proc_path=$(readlink -f "/proc/$pid/exe" 2>/dev/null)
+
+          [[ $DEBUG = 1 ]] && echo "[D] Window \"$window_title\" was created with process [pid: $pid] from $proc_path"
 
           # Check each tag and see if the process path matches the directories for that tag
           for tag in "''${!TAGS[@]}"; do
