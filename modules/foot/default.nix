@@ -9,9 +9,6 @@
         main = {
           font = "monospace:size=11";
         };
-        cursor = {
-          color = "111111 cccccc";
-        };
         colors = {
           alpha = "0.75";
           background = "000000";
@@ -32,6 +29,7 @@
           bright5 = "fd28ff   # bright magenta";
           bright6 = "14ffff   # bright cyan";
           bright7 = "ffffff   # bright white";
+          cursor = "111111 cccccc";
         };
       };
     };
