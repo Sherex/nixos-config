@@ -17,6 +17,7 @@
 
   virtualisation.libvirtd = {
     enable = true;
+    onBoot = "ignore";
     qemu.swtpm.enable = true;
     extraConfig = ''
       unix_sock_group = "libvirtd";
