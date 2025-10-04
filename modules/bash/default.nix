@@ -26,6 +26,7 @@ in
         "# Script to more easily run arbitary packages from nixpkgs"
         "# Execute 'nr -h' for more info"
         "source ${ ./scripts/nix-run-pkgs.sh }"
+        "source ${ ./scripts/nix-search-pkgs.sh }"
       ];
       shellAliases = {
         ls = "ls --color=auto";
