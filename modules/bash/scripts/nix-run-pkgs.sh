@@ -50,10 +50,10 @@ EOF
   shift 1  # Remove package name from args
   local args=("$@")  # Remaining args passed to the executable
 
-  if [[ -n "$exec_prefix" || -n "$exec_override" ]]; then
-    $exec_background nix shell "nixpkgs#$pkg" --command $exec_prefix "$exec" "${args[@]}"
+  if [[ -n "$exec_prefix" || -n "$exec_override" || -n "$exec_background" ]]; then
+    nix shell "nixpkgs#$pkg" --command $exec_background $exec_prefix "$exec" "${args[@]}"
   else
-    $exec_background nix run "nixpkgs#$pkg" -- "${args[@]}"
+    nix run "nixpkgs#$pkg" -- "${args[@]}"
   fi
 }
 
