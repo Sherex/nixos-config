@@ -56,7 +56,7 @@ in
     grim # screenshot functionality
     slurp # screenshot functionality
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
-    rofi-wayland # wayland clone of dmenu
+    rofi # Application launcher
     wl-gammarelay-rs # Used by a block in i3status-rust
     complete-alias
     btop # Top alt.

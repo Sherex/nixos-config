@@ -93,8 +93,8 @@ in {
       settings = {
         "$terminal" = "${pkgs.foot}/bin/foot";
         "$duplicate-terminal" = "${duplicate-terminal}";
-        "$menu" = "${pkgs.rofi-wayland}/bin/rofi -modes combi -show combi";
-        "$ssh-menu" = "${pkgs.rofi-wayland}/bin/rofi -modes ssh -show ssh";
+        "$menu" = "${pkgs.rofi}/bin/rofi -modes combi -show combi";
+        "$ssh-menu" = "${pkgs.rofi}/bin/rofi -modes ssh -show ssh";
         "$playerctl" = "${pkgs.playerctl}/bin/playerctl";
         "$wpctl" = "${pkgs.wireplumber}/bin/wpctl";
 
