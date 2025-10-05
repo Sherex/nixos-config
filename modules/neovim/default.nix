@@ -12,6 +12,11 @@
       recursive = true;
     };
 
+    programs.bash.sessionVariables = {
+      # A workaround for terminals in Neovim to use when inside a nix devshell
+      NVIM_SYSTEM_SHELL = "$SHELL";
+    };
+
     programs.neovim = {
       enable = true;
       defaultEditor = true;

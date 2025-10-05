@@ -39,6 +39,10 @@ vim.g.maplocalleader = " "
 -- Enable window title
 vim.opt.title = true
 
+-- A workaround for terminals in Neovim to use when inside a nix devshell
+local shell = os.getenv("NVIM_SYSTEM_SHELL") or os.getenv("SHELL") or "/bin/bash"
+vim.opt.shell = shell
+
 --- A wrapper to configure a source for nvim_cmp
 --- @param name string
 --- @param option table?
