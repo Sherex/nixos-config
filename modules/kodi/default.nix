@@ -2,8 +2,10 @@
 
 let
   kodi-wayland = (pkgs.kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
-		jellyfin
-		jellycon
+    jellyfin
+    inputstream-adaptive
+    inputstream-rtmp
+    inputstream-ffmpegdirect
 	]));
 in {
   # Define a user account
