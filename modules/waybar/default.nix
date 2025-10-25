@@ -95,7 +95,7 @@
             warning = 30;
             critical = 15;
           };
-          format = "{capacity}% {icon}";
+          format = "{capacity}% {power}W {icon}";
           format-charging = "{capacity}% ({time}) {icon} ";
           format-plugged = "{capacity}% ";
           format-alt = "{time} {icon}";
