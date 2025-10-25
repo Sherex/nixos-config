@@ -10,6 +10,7 @@
     ../../modules/containers/satisfactory-servers.nix
     ../../modules/containers/jellyfin.nix
     ../../modules/containers/haproxy.nix
+    ../../modules/containers/dawarich.nix
     ../../modules/vpn-wireguard
     ../../modules/kodi
     ../../modules/sound
