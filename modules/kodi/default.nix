@@ -11,7 +11,10 @@ in {
   # Define a user account
   users.extraUsers.kodi = {
     isNormalUser = true;
-    extraGroups = [ "dialout" ];
+    extraGroups = [
+      "dialout"
+      config.users.groups.nix-allowed.name
+    ];
   };
   services.cage.user = "kodi";
   services.cage.program = "${kodi-wayland}/bin/kodi-standalone";
