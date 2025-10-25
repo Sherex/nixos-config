@@ -5,6 +5,8 @@
     ./hardware.nix
     ../common-server.nix
     ../../modules/headscale
+    ../../modules/containerization
+    ../../modules/web/karlsentertainment
   ];
 
   networking.firewall = {
