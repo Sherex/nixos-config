@@ -3,6 +3,7 @@
 {
   virtualisation.oci-containers.backend = "podman";
   virtualisation.oci-containers.containers.satisfactory = {
+    autoStart = false;
     image = "wolveix/satisfactory-server:latest";
     ports = [
       "7777:7777/udp"

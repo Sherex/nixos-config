@@ -3,6 +3,7 @@
 {
   virtualisation.oci-containers.backend = "podman";
   virtualisation.oci-containers.containers.all-the-mods-9 = {
+    autoStart = false;
     image = "itzg/minecraft-server:java17";
     # tty = true;
     # stdin_open = true;
