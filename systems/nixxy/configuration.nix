@@ -7,6 +7,7 @@
     ../../modules/headscale
     ../../modules/containerization
     ../../modules/web/karlsentertainment
+    ../../modules/renovate
   ];
 
   networking.firewall = {
