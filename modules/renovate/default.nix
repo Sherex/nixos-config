@@ -3,6 +3,9 @@
   services.renovate = {
     enable = true;
     schedule = "*:0/15";
+    runtimePackages = with pkgs; [
+      nix
+    ];
 
     credentials = {
       RENOVATE_TOKEN = "/srv/renovate/github-pat.token";
