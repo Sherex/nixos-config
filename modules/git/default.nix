@@ -5,9 +5,9 @@
     programs.git = {
       enable = true;
       # TODO: Use variables for name and email
-      userName = "Ingar Helgesen";
-      userEmail = "ingar@i-h.no";
-      extraConfig = {
+      settings = {
+        user.name = "Ingar Helgesen";
+        user.email = "ingar@i-h.no";
         column.ui = "auto";
         branch.sort = "-committerdate";
         tag.sort = "version:refname";
