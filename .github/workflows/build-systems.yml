@@ -6,19 +6,136 @@ concurrency:
 
 on:
   push:
+    branches: [main]
+  pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    strategy:
+      matrix:
+        action: [eval, build]
+      fail-fast: true
+    env:
+      HOST_OUTPUT_DIR: host-outputs
     steps:
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@v31
+
       - uses: mathio/gha-cleanup@ce9480b80d151ff36572df0d3c54aef2653e6054
+        if: matrix.action == 'build'
         with:
           remove-browsers: true
-      - name: Build all system configurations
+
+      - name: ${{ matrix.action == 'eval' && 'Evaluate' || 'Build' }} configurations and check for warnings/errors
+        id: nix-action
         run: |
+          has_issues=false
+          all_output=""
+          mkdir -p $HOST_OUTPUT_DIR
+
           for host in $(nix flake show --json . | jq -r '.nixosConfigurations | keys[]'); do
-          echo "::group::Building $host..."
-              nix build .#nixosConfigurations.${host}.config.system.build.toplevel
+            echo "::group::${{ matrix.action == 'eval' && 'Evaluating' || 'Building' }} $host..."
+
+            echo "Something failed. Check runner output." > $HOST_OUTPUT_DIR/$host.log
+
+            output_file=$(mktemp)
+            host_has_issues=false
+
+            # Execute the command with pipe and capture the original command's return code
+            nix ${{ matrix.action }} .#nixosConfigurations.${host}.config.system.build.toplevel 2>&1 | tee "$output_file"
+            cmd_rc=${PIPESTATUS[0]}  # Get exit code of the nix command, not tee
+
+            # Check if the command failed
+            if [ $cmd_rc -ne 0 ]; then
+              has_issues=true
+              host_has_issues=true
+              echo "::error::Command failed with exit code $cmd_rc for host $host"
+            fi
+
+            # Check for warnings/errors in output
+            if grep -E "(warning|error)" -i "$output_file"; then
+              has_issues=true
+              host_has_issues=true
+              echo "::warning::Warnings or errors found in output for host $host"
+            fi
+
+            echo -n "" > $HOST_OUTPUT_DIR/$host.log
+
+            if [ "$host_has_issues" = true ]; then
+              cat $output_file > $HOST_OUTPUT_DIR/$host.log
+            fi
+
+            echo "::endgroup::"
           done
+
+          echo "has_issues=$has_issues" >> $GITHUB_OUTPUT
+
+          if [ "$has_issues" = true ]; then
+            exit 1
+          fi
+
+      - name: Post ${{ matrix.action }} results as comment (PR only)
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            const hostOutputsDir = path.join(process.cwd(), process.env.HOST_OUTPUT_DIR);
+            let commentBody = 'NixOS Configuration ${{ matrix.action == 'eval' && 'Evaluation' || 'Build' }} Results\n\n';
+
+            if (!fs.existsSync(hostOutputsDir) || fs.readdirSync(hostOutputsDir).length === 0) {
+              commentBody += 'No host output files found in host-outputs directory.\n';
+              commentBody += '*Posted from GitHub Actions workflow*';
+              return;
+            }
+
+            const files = fs.readdirSync(hostOutputsDir);
+            files.forEach(file => {
+              if (!file.endsWith('.log')) return;
+
+              const hostname = file.replace('.log', '');
+              const filePath = path.join(hostOutputsDir, file);
+              const fileContent = fs.readFileSync(filePath, 'utf8');
+              const status = !fileContent.trim();
+
+              const statusMessage = status ? '✅ Success!' : '❌ Failure!';
+              commentBody += `### ${hostname} - ${statusMessage}\n`;
+
+              if (status) return
+              commentBody += '```log\n';
+              commentBody += fileContent;
+              commentBody += '\n```\n\n';
+            });
+
+            commentBody += '*Posted from GitHub Actions workflow*';
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const existingComment = comments.data.find(comment =>
+              comment.user.login === 'github-actions[bot]' &&
+              comment.body.includes('NixOS Configuration ${{ matrix.action == 'eval' && 'Evaluation' || 'Build' }} Results')
+            );
+
+            if (existingComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existingComment.id,
+                body: commentBody
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: commentBody
+              });
+            }
