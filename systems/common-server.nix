@@ -54,6 +54,7 @@
     use-xdg-base-directories = true;
     trusted-users = [ "@nix-trusted" ];
     allowed-users = [ "@nix-allowed" ];
+    download-buffer-size = 1048576000;
   };
   nixpkgs.config.allowUnfree = true;
 

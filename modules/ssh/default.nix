@@ -29,8 +29,20 @@ in
   home-manager.users.sherex = { pkgs, ... }: {
     programs.ssh = {
       enable = true;
-      addKeysToAgent = "yes";
+      enableDefaultConfig = false;
       matchBlocks = {
+        "*" = {
+          forwardAgent = false;
+          addKeysToAgent = "yes";
+          compression = false;
+          serverAliveInterval = 0;
+          serverAliveCountMax = 3;
+          hashKnownHosts = false;
+          userKnownHostsFile = "~/.ssh/known_hosts";
+          controlMaster = "no";
+          controlPath = "~/.ssh/master-%r@%n:%p";
+          controlPersist = "no";
+        };
         "github.com-test github.com github gh" = {
           hostname      = "github.com";
           user          = "git";
