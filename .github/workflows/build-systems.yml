@@ -55,6 +55,14 @@ jobs:
               echo "::error::Command failed with exit code $cmd_rc for host $host"
             fi
 
+            # Check for warnings/errors in output, excluding exceptions
+            exceptions_pattern="warning: download buffer is full"
+            if grep -E "(warning|error)" -i "$output_file" | grep -v -E -i "$exceptions_pattern"; then
+              has_issues=true
+              host_has_issues=true
+              echo "::warning::Warnings or errors found in output for host $host"
+            fi
+
             # Check for warnings/errors in output
             if grep -E "(warning|error)" -i "$output_file"; then
               has_issues=true
