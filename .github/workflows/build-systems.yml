@@ -32,6 +32,7 @@ jobs:
       - name: ${{ matrix.action == 'eval' && 'Evaluate' || 'Build' }} configurations and check for warnings/errors
         id: nix-action
         run: |
+          nix_cmd_failed=false
           has_issues=false
           all_output=""
           mkdir -p $HOST_OUTPUT_DIR
@@ -50,6 +51,7 @@ jobs:
 
             # Check if the command failed
             if [ $cmd_rc -ne 0 ]; then
+              nix_cmd_failed=true
               has_issues=true
               host_has_issues=true
               echo "::error::Command failed with exit code $cmd_rc for host $host"
@@ -74,7 +76,7 @@ jobs:
 
           echo "has_issues=$has_issues" >> $GITHUB_OUTPUT
 
-          if [ "$has_issues" = true ]; then
+          if [ "$nix_cmd_failed" = true ]; then
             exit 1
           fi
 
