@@ -63,13 +63,6 @@ jobs:
               echo "::warning::Warnings or errors found in output for host $host"
             fi
 
-            # Check for warnings/errors in output
-            if grep -E "(warning|error)" -i "$output_file"; then
-              has_issues=true
-              host_has_issues=true
-              echo "::warning::Warnings or errors found in output for host $host"
-            fi
-
             echo -n "" > $HOST_OUTPUT_DIR/$host.log
 
             if [ "$host_has_issues" = true ]; then
