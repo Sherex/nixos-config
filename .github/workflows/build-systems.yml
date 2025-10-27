@@ -31,6 +31,8 @@ jobs:
 
       - name: ${{ matrix.action == 'eval' && 'Evaluate' || 'Build' }} configurations and check for warnings/errors
         id: nix-action
+        env:
+          ACTION: ${{ matrix.action }}
         run: |
           nix_cmd_failed=false
           has_issues=false
@@ -68,7 +70,7 @@ jobs:
             echo -n "" > $HOST_OUTPUT_DIR/$host.log
 
             if [ "$host_has_issues" = true ]; then
-              cat $output_file > $HOST_OUTPUT_DIR/$host.log
+              grep -E "(warning|error)" -i --context 10 "$output_file" | grep -v -E -i "$exceptions_pattern" > $HOST_OUTPUT_DIR/$host.log
             fi
 
             echo "::endgroup::"
@@ -83,13 +85,15 @@ jobs:
       - name: Post ${{ matrix.action }} results as comment (PR only)
         if: always() && github.event_name == 'pull_request'
         uses: actions/github-script@v7
+        env:
+          HAS_ISSUES: ${{ steps.nix-action.outputs.has_issues }}
         with:
           script: |
             const fs = require('fs');
             const path = require('path');
 
             const hostOutputsDir = path.join(process.cwd(), process.env.HOST_OUTPUT_DIR);
-            let commentBody = 'NixOS Configuration ${{ matrix.action == 'eval' && 'Evaluation' || 'Build' }} Results\n\n';
+            let commentBody = '## NixOS Configuration ${{ matrix.action == 'eval' && 'Evaluation' || 'Build' }} Results\n\n';
 
             if (!fs.existsSync(hostOutputsDir) || fs.readdirSync(hostOutputsDir).length === 0) {
               commentBody += 'No host output files found in host-outputs directory.\n';
@@ -105,10 +109,19 @@ jobs:
               const hostname = file.replace('.log', '');
               const filePath = path.join(hostOutputsDir, file);
               const fileContent = fs.readFileSync(filePath, 'utf8');
-              const status = !fileContent.trim();
+              const previousStepFailed = process.env.HAS_ISSUES === 'true';
+              const success = !fileContent.trim();
 
-              const statusMessage = status ? '✅ Success!' : '❌ Failure!';
-              commentBody += `### ${hostname} - ${statusMessage}\n`;
+              let statusMessage = '';
+              if (!previousStepFailed && !success) {
+                statusMessage = '⚠️';
+              } else if (success) {
+                statusMessage = '✅';
+              } else {
+                statusMessage = '❌';
+              }
+
+              commentBody += `### ${statusMessage} ${hostname}\n`;
 
               let truncatedContent = fileContent;
               if (fileContent.length > maxCharsPerFile) {
@@ -116,7 +129,7 @@ jobs:
                 truncatedContent = fileContent.slice(-maxCharsPerFile);
               }
 
-              if (!status) {
+              if (!success) {
                 commentBody += '```log\n';
                 commentBody += truncatedContent;
                 commentBody += '\n```\n\n';
