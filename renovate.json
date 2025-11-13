@@ -4,6 +4,8 @@
   },
   "lockFileMaintenance": {
     "enabled": true,
+    "branchTopic": "update-flake-lock",
+    "commitMessageAction": "Update flake.lock",
     "schedule": [
       "* 0 * * *" // At midnight
     ]
