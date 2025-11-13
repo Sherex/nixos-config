@@ -13,6 +13,7 @@
     ../modules/sshd
     ../modules/vpn
     ../modules/tailscale
+    ../modules/kde-connect
   ];
 
   boot.loader.efi = {
