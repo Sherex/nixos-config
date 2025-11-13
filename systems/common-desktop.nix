@@ -3,7 +3,7 @@
 {
   imports = [
     ../systems/common.nix
-    ../users/sherex.nix
+    ../users/sherex-desktop.nix
     ../modules/gpu
     ../modules/hyprland
     ../modules/sound

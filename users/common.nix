@@ -2,20 +2,6 @@
 
 {
   imports = [
-    ../modules/power-management
-    ../modules/bash
-    ../modules/neovim
-    ../modules/foot
-    ../modules/qutebrowser
-    ../modules/librewolf
-    ../modules/email
-    ../modules/rofi
-    ../modules/i3status-rust
-    ../modules/ssh
-    ../modules/git
-    ../modules/vscode
-    ../modules/containerization
-    ../modules/moonlight
   ];
 
   # Install packages to /etc/profiles instead of ~/.nix-profile
@@ -45,7 +31,6 @@
       config.users.groups.wheel.name
       config.users.groups.nix-allowed.name
       config.users.groups.nix-trusted.name
-      config.users.groups.input.name
     ];
     hashedPasswordFile = "/persistent/safe/sherex-password-hash";
   };
@@ -53,45 +38,10 @@
     home.stateVersion = "22.11";
     programs.home-manager.enable = true;
     home.packages = with pkgs; [
-      httpie
       unar
-      feh
       numbat
       devbox
-      distrobox
     ];
-
-    home.pointerCursor = {
-      gtk.enable = true;
-      name = "Vanilla-DMZ";
-      package = pkgs.vanilla-dmz;
-      size = 16;
-    };
-
-    gtk = {
-      enable = true;
-
-      theme = {
-        package = pkgs.flat-remix-gtk;
-        name = "Flat-Remix-GTK-Grey-Darkest";
-      };
-
-      iconTheme = {
-        package = pkgs.adwaita-icon-theme;
-        name = "Adwaita";
-      };
-
-      font = {
-        name = "Sans";
-        size = 11;
-      };
-    };
-    xdg = {
-      enable = true;
-      mimeApps = {
-        enable = true;
-        defaultApplications."x-scheme-handler/msteams" = [ "teams.desktop" ];
-      };
-    };
   };
 }
+
