@@ -71,6 +71,13 @@ jobs:
 
             if [ "$host_has_issues" = true ]; then
               grep -E "(warning|error)" -i --context 10 "$output_file" | grep -v -E -i "$exceptions_pattern" > $HOST_OUTPUT_DIR/$host.log
+
+              echo "# ❌ $host" >> $GITHUB_STEP_SUMMARY
+              echo "\`\`\`log" >> $GITHUB_STEP_SUMMARY
+              cat "$HOST_OUTPUT_DIR/$host.log" >> $GITHUB_STEP_SUMMARY
+              echo -e "\n\`\`\`\n" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "# ✅ $host" >> $GITHUB_STEP_SUMMARY
             fi
 
             echo "::endgroup::"
