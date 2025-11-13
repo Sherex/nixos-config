@@ -1,6 +1,6 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/sherex/nixos-config/main/assets/nixos-white.svg" width="500px" alt="NixOS logo"/>
-</p>
+<div align="center">
+  <img src="https://raw.githubusercontent.com/sherex/nixos-config/sherex/change-logo/assets/nixos-logo-bg.svg" width="100%" alt="NixOS logo"/>
+</div>
 <h1 align="center">Configuration</h1>
 
 This repo contains my configuration for my laptop running NixOS.  
