@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware.nix
-    ../common.nix
+    ../common-desktop.nix
     ../../modules/bluetooth
     ../../modules/hibernate
   ];

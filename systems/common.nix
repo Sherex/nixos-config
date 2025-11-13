@@ -6,7 +6,6 @@
     ../modules/swap
     ../modules/hyprland
     ../modules/sound
-    ../users/sherex.nix
     ../modules/impermanence
     ../modules/sops
     ../modules/borg
@@ -18,14 +17,15 @@
 
   boot.loader.efi = {
     canTouchEfiVariables = lib.mkDefault true;
-    efiSysMountPoint = config.fileSystems."/boot".mountPoint;
+    # This is handled by Disko, but not all systems are converted yet
+    efiSysMountPoint = lib.mkDefault config.fileSystems."/boot".mountPoint;
   };
   boot.loader.timeout = 1;
   boot.loader.grub = {
     enable = true;
     efiSupport = lib.mkDefault true;
     devices = [ "nodev" ];
-    default = "saved";
+    default = lib.mkDefault "0";
     memtest86.enable = true;
   };
 
@@ -98,5 +98,4 @@
   #   enableSSHSupport = true;
   # };
 }
-
 
