@@ -453,6 +453,19 @@ require("lazy").setup({
           },
         },
       })
+      vim.lsp.config('nil_ls', {
+        capabilities = capabilities,
+        settings = {
+          ["nil"] = {
+            nix = {
+              maxMemoryMB = 8192,
+              flake = {
+                autoEvalInputs = true,
+              },
+            },
+          },
+        },
+      })
     end,
   },
 
