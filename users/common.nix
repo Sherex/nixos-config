@@ -2,6 +2,9 @@
 
 {
   imports = [
+    ../modules/bash
+    ../modules/neovim
+    ../modules/git
   ];
 
   # Install packages to /etc/profiles instead of ~/.nix-profile
