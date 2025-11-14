@@ -64,6 +64,10 @@ in {
     acceptTerms = true;
     defaults = {
       email = "ingar+acme@i-h.no";
+      dnsProvider = "luadns";
+      dnsResolver = "1.1.1.1:53";
+      # TODO: Use SOPS-nix for acme secrets
+      environmentFile = "/persistent/safe/acme-secrets.env";
     };
   };
 

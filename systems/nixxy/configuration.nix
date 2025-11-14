@@ -8,6 +8,7 @@
     ../../modules/containerization
     ../../modules/web/karlsentertainment
     ../../modules/renovate
+    ../../modules/garage
   ];
 
   networking.firewall = {
