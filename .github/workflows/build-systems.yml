@@ -24,7 +24,7 @@ jobs:
       NIX_SIGN_PRIVATE_KEY_FILE: /tmp/cache-priv-key.pem
       AWS_ACCESS_KEY_ID: ${{ vars.S3_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_KEY }}
-      NIX_PERSONAL_BINARY_CACHE: s3://nix-cache?endpoint=${{ secrets.S3_ENDPOINT }}&region=garage
+      NIX_PERSONAL_BINARY_CACHE: s3://nix-cache?endpoint=${{ secrets.S3_ENDPOINT }}&region=garage&scheme=https
     steps:
       - uses: actions/checkout@v5
       - name: Create Nix signing key file
