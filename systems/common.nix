@@ -61,6 +61,8 @@
     download-buffer-size = 1048576000;
     auto-optimise-store = true;
     builders-use-substitutes = true;
+    trusted-public-keys = [ "nix-cache-s3:bqvZzMPh1+gbFBWcnvXk7FtyCck1Phet8lV1iA4/uvU=" ];
+    extra-substituters = [ "https://nix-cache.web.i-h.no" ];
   };
   nixpkgs.config.allowUnfree = true;
 
