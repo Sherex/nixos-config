@@ -24,7 +24,9 @@ jobs:
       NIX_SIGN_PRIVATE_KEY_FILE: /tmp/cache-priv-key.pem
       AWS_ACCESS_KEY_ID: ${{ vars.S3_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_KEY }}
+      AWS_REGION: garage
       NIX_PERSONAL_BINARY_CACHE: s3://nix-cache?endpoint=${{ secrets.S3_ENDPOINT }}&region=garage&scheme=https
+      NIX_PERSONAL_BINARY_CACHE_PUBLIC_KEY: ${{ vars.S3_PUBLIC_KEY }}
     steps:
       - uses: actions/checkout@v5
       - name: Create Nix signing key file
@@ -32,11 +34,22 @@ jobs:
           cat >"$NIX_SIGN_PRIVATE_KEY_FILE" <<'EOF'
           ${{ secrets.NIX_SIGN_PRIVATE_KEY }}
           EOF
+      - name: Setup S3 credentials
+        run: |
+          # For daemon running as root
+          sudo -i aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}"
+          sudo -i aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
+          sudo -i aws configure set region "${AWS_REGION}"
+          # For nix client commands (Can also use the ENV vars)
+          aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}"
+          aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
+          aws configure set region "${AWS_REGION}"
       - uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: |
             secret-key-files = ${{ env.NIX_SIGN_PRIVATE_KEY_FILE }}
             extra-substituters = ${{ env.NIX_PERSONAL_BINARY_CACHE }}
+            trusted-public-keys = ${{ env.NIX_PERSONAL_BINARY_CACHE_PUBLIC_KEY }}
 
       - uses: mathio/gha-cleanup@ce9480b80d151ff36572df0d3c54aef2653e6054
         if: matrix.action == 'build'
