@@ -60,6 +60,7 @@
     allowed-users = [ "@nix-allowed" ];
     download-buffer-size = 1048576000;
     auto-optimise-store = true;
+    builders-use-substitutes = true;
   };
   nixpkgs.config.allowUnfree = true;
 
