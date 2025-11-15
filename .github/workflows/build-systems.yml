@@ -24,9 +24,7 @@ jobs:
       NIX_SIGN_PRIVATE_KEY_FILE: /tmp/cache-priv-key.pem
       AWS_ACCESS_KEY_ID: ${{ vars.S3_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_KEY }}
-      S3_BUCKET: nix-cache
-      S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
-      S3_REGION: garage
+      NIX_PERSONAL_BINARY_CACHE: s3://nix-cache?endpoint=${{ secrets.S3_ENDPOINT }}&region=garage
     steps:
       - uses: actions/checkout@v5
       - name: Create Nix signing key file
@@ -38,6 +36,7 @@ jobs:
         with:
           extra_nix_config: |
             secret-key-files = ${{ env.NIX_SIGN_PRIVATE_KEY_FILE }}
+            extra-substituters = ${{ env.NIX_PERSONAL_BINARY_CACHE }}
 
       - uses: mathio/gha-cleanup@ce9480b80d151ff36572df0d3c54aef2653e6054
         if: matrix.action == 'build'
@@ -199,4 +198,4 @@ jobs:
         if: github.ref == 'refs/heads/main' && matrix.action == 'build'
         continue-on-error: true
         run: |
-          nix copy --all --to "s3://$S3_BUCKET?endpoint=$S3_ENDPOINT&region=$S3_REGION"
+          nix copy --all --to "$NIX_PERSONAL_BINARY_CACHE"
