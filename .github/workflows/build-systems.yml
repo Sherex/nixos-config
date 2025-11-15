@@ -49,7 +49,7 @@ jobs:
           extra_nix_config: |
             secret-key-files = ${{ env.NIX_SIGN_PRIVATE_KEY_FILE }}
             extra-substituters = ${{ env.NIX_PERSONAL_BINARY_CACHE }}
-            trusted-public-keys = ${{ env.NIX_PERSONAL_BINARY_CACHE_PUBLIC_KEY }}
+            trusted-public-keys = ${{ env.NIX_PERSONAL_BINARY_CACHE_PUBLIC_KEY }} cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
 
       - uses: mathio/gha-cleanup@ce9480b80d151ff36572df0d3c54aef2653e6054
         if: matrix.action == 'build'
