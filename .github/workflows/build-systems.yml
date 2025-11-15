@@ -197,5 +197,6 @@ jobs:
 
       - name: Upload build output to binary cache
         if: github.ref == 'refs/heads/main' && matrix.action == 'build'
+        continue-on-error: true
         run: |
           nix copy --all --to "s3://$S3_BUCKET?endpoint=$S3_ENDPOINT&region=$S3_REGION"
