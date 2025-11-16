@@ -47,7 +47,20 @@ in {
       acmeRoot = null; # Use DNS challenge
       locations."/" = {
         proxyPass = "http://unix:${s3_api_socket}";
+        extraConfig = ''
+          if ($request_method = OPTIONS) { return 204; }
+        '';
       };
+      extraConfig = ''
+        if ($http_origin = ""){
+          set $http_origin "*";
+        }
+        proxy_hide_header Access-Control-Allow-Origin;
+        add_header 'Access-Control-Allow-Origin'  $http_origin always;
+        add_header 'Access-Control-Allow-Credentials' 'true' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS, HEAD' always;
+        add_header 'Access-Control-Allow-Headers' 'authorization,x-amz-content-sha256,x-amz-date,x-amz-user-agent' always;
+      '';
     };
     nginx.virtualHosts."web.${root_domain}" = {
       serverAliases = ["*.web.${root_domain}"];
