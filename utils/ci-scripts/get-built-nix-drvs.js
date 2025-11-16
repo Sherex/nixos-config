@@ -29,6 +29,10 @@ if (!inputFiles.length || !outputFile) {
   process.exit(1);
 }
 
+console.log(`Starting Nix build log parsing...`);
+console.log(`Input files: ${inputFiles.join(', ')}`);
+console.log(`Output file: ${outputFile}`);
+
 const buildingDrvs = new Set();
 let readingDrvs = false;
 let lastBuilding = null;
@@ -58,13 +62,33 @@ function processLine(line) {
 }
 
 for (const inputFile of inputFiles) {
-  const lines = fs.readFileSync(inputFile, 'utf8').split('\n');
-  for (const line of lines) {
-    processLine(line);
+  try {
+    const content = fs.readFileSync(inputFile, 'utf8');
+    const lines = content.split('\n');
+    console.log(`Processing ${inputFile}: ${lines.length} lines`);
+
+    for (const line of lines) {
+      processLine(line);
+    }
+  } catch (error) {
+    console.error(`Error reading file ${inputFile}: ${error.message}`);
+    process.exit(1);
   }
+}
+
+// Log the total number of expected derivations when exiting the reading state
+if (!readingDrvs) {
+  console.log(`Total derivations expected to be built: ${buildingDrvs.size}`);
 }
 
 if (lastBuilding) successfulDrvs.add(`${lastBuilding}.drv`);
 
-fs.writeFileSync(outputFile, Array.from(successfulDrvs).join('\n') + '\n');
+console.log(`Found ${successfulDrvs.size} successful derivations`);
 
+try {
+    fs.writeFileSync(outputFile, Array.from(successfulDrvs).join('\n') + '\n');
+    console.log(`Successfully wrote ${successfulDrvs.size} entries to ${outputFile}`);
+} catch (error) {
+    console.error(`Error writing to output file ${outputFile}: ${error.message}`);
+    process.exit(1);
+}
