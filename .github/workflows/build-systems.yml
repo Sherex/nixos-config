@@ -71,8 +71,11 @@ jobs:
 
             echo "Something failed. Check runner output." > $HOST_OUTPUT_DIR/$host.log
 
-            output_file=$(mktemp)
+            output_file=$HOST_OUTPUT_DIR/$host.log
+            output_file_error=$HOST_OUTPUT_DIR/$host.error-log
             host_has_issues=false
+
+            touch $output_file $output_file_error
 
             # Execute the command with pipe and capture the original command's return code
             nix ${{ matrix.action }} .#nixosConfigurations.${host}.config.system.build.toplevel 2>&1 | tee "$output_file"
@@ -94,19 +97,20 @@ jobs:
               echo "::warning::Warnings or errors found in output for host $host"
             fi
 
-            echo -n "" > $HOST_OUTPUT_DIR/$host.log
-
             if [ "$host_has_issues" = true ]; then
-              grep -E "(warning|error)" -i --context 10 "$output_file" | grep -v -E -i "$exceptions_pattern" > $HOST_OUTPUT_DIR/$host.log
+              grep -E "(warning|error)" -i --context 10 "$output_file" | grep -v -E -i "$exceptions_pattern" > $output_file_error
+
+              status_symbol="⚠️"
+              [ "$nix_cmd_failed" = true ] && status_symbol="❌"
 
               {
-                echo "### ❌ $host"
+                echo "### $status_symbol $host"
                 echo
                 echo "<details>"
                 echo "<summary>Warnings/Errors</summary>"
                 echo
                 echo '```log'
-                cat "$HOST_OUTPUT_DIR/$host.log"
+                cat "$output_file_error"
                 echo '```'
                 echo
                 echo "</details>"
@@ -145,7 +149,7 @@ jobs:
             }
 
             const files = fs.readdirSync(hostOutputsDir);
-            const logFiles = files.filter(f => f.endsWith('.log'));
+            const logFiles = files.filter(f => f.endsWith('.error-log'));
             const maxCharsPerFile = Math.floor(65000 / logFiles.length);
 
             logFiles.forEach(file => {
@@ -153,10 +157,10 @@ jobs:
               const filePath = path.join(hostOutputsDir, file);
               const fileContent = fs.readFileSync(filePath, 'utf8');
               const previousStepFailed = process.env.HAS_ISSUES === 'true';
-              const success = !fileContent.trim();
+              const errorFileHasContent = fileContent.trim().length > 0;
 
               let statusMessage = '';
-              if (!previousStepFailed && !success) {
+              if (previousStepFailed && !errorFileHasContent) {
                 statusMessage = '⚠️';
               } else if (success) {
                 statusMessage = '✅';
@@ -172,7 +176,7 @@ jobs:
                 truncatedContent = fileContent.slice(-maxCharsPerFile);
               }
 
-              if (!success) {
+              if (errorFileHasContent) {
                 commentBody += '```log\n';
                 commentBody += truncatedContent;
                 commentBody += '\n```\n\n';
