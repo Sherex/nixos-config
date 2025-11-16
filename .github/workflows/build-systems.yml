@@ -162,7 +162,7 @@ jobs:
               let statusMessage = '';
               if (previousStepFailed && !errorFileHasContent) {
                 statusMessage = '⚠️';
-              } else if (success) {
+              } else if (!previousStepFailed) {
                 statusMessage = '✅';
               } else {
                 statusMessage = '❌';
