@@ -100,7 +100,7 @@ jobs:
               grep -E "(warning|error)" -i --context 10 "$output_file" | grep -v -E -i "$exceptions_pattern" > $HOST_OUTPUT_DIR/$host.log
 
               {
-                echo "## ❌ $host"
+                echo "### ❌ $host"
                 echo
                 echo "<details>"
                 echo "<summary>Warnings/Errors</summary>"
@@ -113,7 +113,7 @@ jobs:
                 echo
               } >> "$GITHUB_STEP_SUMMARY"
             else
-              echo "## ✅ $host" >> $GITHUB_STEP_SUMMARY
+              echo "### ✅ $host" >> $GITHUB_STEP_SUMMARY
             fi
 
             echo "::endgroup::"
@@ -207,8 +207,31 @@ jobs:
               });
             }
 
-      - name: Upload build output to binary cache
+      - name: Upload built derivations to binary cache
         if: github.ref == 'refs/heads/main' && matrix.action == 'build'
         continue-on-error: true
         run: |
-          nix copy --all --to "$NIX_PERSONAL_BINARY_CACHE"
+          set -euo pipefail
+
+          # Get derivations built from nix logs
+          ./utils/ci-scripts/get-built-nix-drvs.js $HOST_OUTPUT_DIR/*.log built-derivations.txt
+          DRV_COUNT=$(wc -l < built-derivations.txt)
+
+          echo Total derivations to upload: $DRV_COUNT
+
+          nix copy --stdin --to "$NIX_PERSONAL_BINARY_CACHE" < built-derivations.txt
+
+          {
+            echo "---"
+            echo "### Uploaded $DRV_COUNT derivations to binary cache"
+            echo
+            echo "<details>"
+            echo "<summary>List of deriations</summary>"
+            echo
+            echo '```'
+            cat "built-derivations.txt"
+            echo '```'
+            echo
+            echo "</details>"
+            echo
+          } >> "$GITHUB_STEP_SUMMARY"
