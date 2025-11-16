@@ -124,6 +124,7 @@ jobs:
           done
 
           echo "has_issues=$has_issues" >> $GITHUB_OUTPUT
+          echo "build_failed=$nix_cmd_failed" >> $GITHUB_OUTPUT
 
           if [ "$nix_cmd_failed" = true ]; then
             exit 1
@@ -134,6 +135,7 @@ jobs:
         uses: actions/github-script@v8
         env:
           HAS_ISSUES: ${{ steps.nix-action.outputs.has_issues }}
+          BUILD_FAILED: ${{ steps.nix-action.outputs.build_failed }}
         with:
           script: |
             const fs = require('fs');
@@ -156,13 +158,13 @@ jobs:
               const hostname = file.replace('.log', '');
               const filePath = path.join(hostOutputsDir, file);
               const fileContent = fs.readFileSync(filePath, 'utf8');
-              const previousStepFailed = process.env.HAS_ISSUES === 'true';
+              const previousStepFailed = process.env.BUILD_FAILED === 'true';
               const errorFileHasContent = fileContent.trim().length > 0;
 
               let statusMessage = '';
-              if (previousStepFailed && !errorFileHasContent) {
+              if (!previousStepFailed && errorFileHasContent) {
                 statusMessage = '⚠️';
-              } else if (success) {
+              } else if (!previousStepFailed) {
                 statusMessage = '✅';
               } else {
                 statusMessage = '❌';
@@ -216,14 +218,6 @@ jobs:
         continue-on-error: true
         run: |
           set -euo pipefail
-
-          # Debug
-          echo $HOST_OUTPUT_DIR/*.log built-derivations.txt
-          echo ./utils/ci-scripts/get-built-nix-drvs.js $HOST_OUTPUT_DIR/*.log built-derivations.txt
-          echo
-          ls $HOST_OUTPUT_DIR
-          echo
-          realpath ./utils/ci-scripts/get-built-nix-drvs.js
 
           # Get derivations built from nix logs
           ./utils/ci-scripts/get-built-nix-drvs.js $HOST_OUTPUT_DIR/*.log built-derivations.txt
