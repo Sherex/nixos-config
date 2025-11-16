@@ -213,6 +213,14 @@ jobs:
         run: |
           set -euo pipefail
 
+          # Debug
+          echo $HOST_OUTPUT_DIR/*.log built-derivations.txt
+          echo ./utils/ci-scripts/get-built-nix-drvs.js $HOST_OUTPUT_DIR/*.log built-derivations.txt
+          echo
+          ls $HOST_OUTPUT_DIR
+          echo
+          realpath ./utils/ci-scripts/get-built-nix-drvs.js
+
           # Get derivations built from nix logs
           ./utils/ci-scripts/get-built-nix-drvs.js $HOST_OUTPUT_DIR/*.log built-derivations.txt
           DRV_COUNT=$(wc -l < built-derivations.txt)
