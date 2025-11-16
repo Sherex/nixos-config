@@ -60,6 +60,8 @@ in {
         add_header 'Access-Control-Allow-Credentials' 'true' always;
         add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS, HEAD' always;
         add_header 'Access-Control-Allow-Headers' 'authorization,x-amz-content-sha256,x-amz-date,x-amz-user-agent' always;
+
+        client_max_body_size 0;
       '';
     };
     nginx.virtualHosts."web.${root_domain}" = {
