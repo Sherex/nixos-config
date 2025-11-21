@@ -6,7 +6,9 @@ let
     inputstream-adaptive
     inputstream-rtmp
     inputstream-ffmpegdirect
-	]));
+    sendtokodi
+    upnext
+  ]));
 in {
   # Define a user account
   users.extraUsers.kodi = {
