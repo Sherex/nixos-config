@@ -11,11 +11,6 @@
     ../../modules/garage
   ];
 
-  networking.firewall = {
-    allowedTCPPorts = [ 25565 7777 ];
-    allowedUDPPorts = [ 25565 7777 ];
-  };
-
   networking.hostName = "Nixxy";
 
   networking.wireless.enable = false;
