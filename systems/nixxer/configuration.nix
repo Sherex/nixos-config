@@ -23,6 +23,10 @@
   boot.swap.enable = true;
   boot.swap.offset = 1214070;
 
+  # TODO: Setup Sops-nix and backup for Nixxer
+  backup.enable = false;
+  # backup.borgbaseId = "";
+
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 

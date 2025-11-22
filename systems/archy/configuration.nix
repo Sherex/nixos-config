@@ -30,6 +30,9 @@
     swap.offset = 4768391;
   };
 
+  backup.enable = true;
+  backup.borgbaseId = "vf5v43p8";
+
   hardware.graphics.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
 

@@ -8,7 +8,7 @@
     ../modules/sound
     ../modules/impermanence
     # ../modules/sops
-    # ../modules/borg
+    ../modules/borg
     ../modules/sshd
     ../modules/vpn
     ../modules/tailscale

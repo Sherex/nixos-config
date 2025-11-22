@@ -15,6 +15,9 @@
   boot.swap.enable = true;
   boot.swap.offset = 2907212;
 
+  backup.enable = true;
+  backup.borgbaseId = "uf5iakfu";
+
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
