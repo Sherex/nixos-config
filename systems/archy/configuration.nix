@@ -26,6 +26,8 @@
       # isolate the GPU
       "vfio-pci.ids=05:00.0,05:00.1"
     ];
+    swap.enable = true;
+    swap.offset = 4768391;
   };
 
   hardware.graphics.enable = true;

@@ -12,6 +12,9 @@
 
   networking.wireless.enable = true;
 
+  boot.swap.enable = true;
+  boot.swap.offset = 2907212;
+
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
