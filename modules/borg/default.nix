@@ -52,6 +52,7 @@ in
         ".cache"
         ".npm"
         "/persistent/safe/home/borg/.config/borg/security/*/nonce"
+        "/persistent/safe/home/*/.local/share/containers/storage/overlay"
       ];
       extraCreateArgs = [
         "--exclude-if-present"

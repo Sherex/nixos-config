@@ -7,7 +7,6 @@
     ../modules/gpu
     ../modules/hyprland
     ../modules/sound
-    ../modules/sops # TODO: Make configurable and add to systems/common.nix
     ../modules/vpn
     ../modules/kde-connect
   ];

@@ -7,7 +7,7 @@
     ../modules/hyprland
     ../modules/sound
     ../modules/impermanence
-    # ../modules/sops
+    ../modules/sops
     ../modules/borg
     ../modules/sshd
     ../modules/vpn
