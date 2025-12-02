@@ -4,15 +4,12 @@
   imports = [
     ../modules/gpu
     ../modules/swap
-    ../modules/hyprland
-    ../modules/sound
     ../modules/impermanence
     ../modules/sops
     ../modules/borg
     ../modules/sshd
-    ../modules/vpn
     ../modules/tailscale
-    ../modules/kde-connect
+    ../modules/sound
   ];
 
   boot.loader.efi = {
