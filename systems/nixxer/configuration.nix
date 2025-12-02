@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware.nix
+    ./networking.nix
     ./disko.nix
     ../common-server.nix
     ../../modules/gpu
