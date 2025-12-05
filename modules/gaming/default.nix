@@ -6,6 +6,9 @@
     extraCompatPackages = [
       pkgs.proton-ge-bin
     ];
+    extraPackages = [
+      pkgs.gamemode
+    ];
   };
 
   home-manager.users.sherex = { pkgs, ... }: {
