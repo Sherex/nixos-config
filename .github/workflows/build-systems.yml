@@ -17,6 +17,7 @@ jobs:
     strategy:
       matrix:
         action: [eval, build]
+        implementation: [nix, lix]
       fail-fast: true
     env:
       HOST_OUTPUT_DIR: host-outputs
@@ -45,11 +46,16 @@ jobs:
           aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
           aws configure set region "${AWS_REGION}"
       - uses: cachix/install-nix-action@v31
+        if: matrix.implementation == 'nix'
         with:
           extra_nix_config: |
             secret-key-files = ${{ env.NIX_SIGN_PRIVATE_KEY_FILE }}
             extra-substituters = ${{ env.NIX_PERSONAL_BINARY_CACHE }}
             extra-trusted-public-keys = ${{ env.NIX_PERSONAL_BINARY_CACHE_PUBLIC_KEY }}
+
+      - name: Install Lix
+        if: matrix.implementation == 'lix'
+        uses: canidae-solutions/lix-quick-install-action@v3
 
       - uses: mathio/gha-cleanup@ce9480b80d151ff36572df0d3c54aef2653e6054
         if: matrix.action == 'build'
