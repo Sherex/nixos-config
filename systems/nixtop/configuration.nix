@@ -4,7 +4,6 @@
   imports = [
     ./hardware.nix
     ../common-desktop.nix
-    ../../modules/bluetooth
     ../../modules/hibernate
   ];
 
