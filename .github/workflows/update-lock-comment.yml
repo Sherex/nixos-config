@@ -1,0 +1,61 @@
+name: Update lockfile PR checkbox
+
+on:
+  schedule:
+    - cron: '45 23 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  update-checkbox:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find and Update PR
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+
+            const { data: pulls } = await github.rest.pulls.list({
+              owner,
+              repo,
+              state: 'open',
+              per_page: 30,
+            });
+
+            const targetPR = pulls.find(pr => pr.title === 'Update flake.lock');
+            if (!targetPR) {
+              console.log('PR with title "Update flake.lock" not found.');
+              return;
+            }
+
+            const prNumber = targetPR.number;
+            let prBody = targetPR.body || '';
+
+            const checkboxMarker = '<!-- rebase-check -->';
+            const uncheckedPattern = new RegExp(`^([\\s\\-]*\\[)\\s(\\]\\s*${checkboxMarker}.*$)`, 'm');
+            const checkedPattern = new RegExp(`^([\\s\\-]*\\[)x(\\]\\s*${checkboxMarker}.*$)`, 'm');
+
+            if (checkedPattern.test(prBody)) {
+              console.log(`Checkbox in PR #${prNumber} is already checked.`);
+              return;
+            }
+
+            if (uncheckedPattern.test(prBody)) {
+              const updatedBody = prBody.replace(uncheckedPattern, '$1x$2');
+              
+              await github.rest.pulls.update({
+                owner,
+                repo,
+                pull_number: prNumber,
+                body: updatedBody
+              });
+              
+              console.log(`Successfully checked the rebase-check checkbox in PR #${prNumber}.`);
+            } else {
+              console.log(`Checkbox with marker '${checkboxMarker}' not found in the body of PR #${prNumber}.`);
+            }
