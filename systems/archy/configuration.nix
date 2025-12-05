@@ -6,6 +6,7 @@
     ../common-desktop.nix
     ../../modules/gaming
     ../../modules/virtualization
+    ../../modules/sunshine
   ];
 
   networking.hostName = "Archy";
