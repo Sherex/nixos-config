@@ -28,7 +28,7 @@ jobs:
       NIX_PERSONAL_BINARY_CACHE: s3://nix-cache?endpoint=${{ secrets.S3_ENDPOINT }}&region=garage&scheme=https
       NIX_PERSONAL_BINARY_CACHE_PUBLIC_KEY: ${{ vars.S3_PUBLIC_KEY }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Create Nix signing key file
         run: |
           cat >"$NIX_SIGN_PRIVATE_KEY_FILE" <<'EOF'
