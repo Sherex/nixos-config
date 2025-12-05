@@ -1,0 +1,69 @@
+name: Update lockfile PR checkbox
+
+on:
+  schedule:
+    # Run daily at 23:30 UTC
+    - cron: '30 23 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-checkbox:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find and Update PR
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+
+            // Search for the specific PR by title
+            const { data: pulls } = await github.rest.pulls.list({
+              owner,
+              repo,
+              state: 'open',
+              per_page: 30, // Adjust if you expect more open PRs
+            });
+
+            // Find the PR with the exact title "Update flake.lock"
+            const targetPR = pulls.find(pr => pr.title === 'Update flake.lock');
+            if (!targetPR) {
+              console.log('PR with title "Update flake.lock" not found.');
+              return;
+            }
+
+            const prNumber = targetPR.number;
+            console.log(`Found PR #${prNumber}: ${targetPR.title}`);
+
+            // Get the PR body
+            let prBody = targetPR.body || '';
+
+            // Define the checkbox marker and pattern
+            const checkboxMarker = '<!-- rebase-check -->';
+            const uncheckedPattern = new RegExp(`^(\\s*-) \\[\\s\\] ${checkboxMarker}.*$`, 'm');
+            const checkedPattern = new RegExp(`^(\\s*-) \\[x\\] ${checkboxMarker}.*$`, 'm');
+
+            // Check if the checkbox is already checked
+            if (checkedPattern.test(prBody)) {
+              console.log(`Checkbox in PR #${prNumber} is already checked.`);
+              return;
+            }
+
+            // Check if the unchecked checkbox exists
+            if (uncheckedPattern.test(prBody)) {
+              // Replace the unchecked checkbox with a checked one
+              const updatedBody = prBody.replace(uncheckedPattern, '$1 [x] ' + checkboxMarker + '$(RegExp.$2 || "")');
+              
+              // Update the PR body
+              await github.rest.pulls.update({
+                owner,
+                repo,
+                pull_number: prNumber,
+                body: updatedBody
+              });
+              
+              console.log(`Successfully checked the release-check checkbox in PR #${prNumber}.`);
+            } else {
+              console.log(`Checkbox with marker '${checkboxMarker}' not found in the body of PR #${prNumber}.`);
+            }
+
