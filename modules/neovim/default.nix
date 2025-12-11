@@ -12,10 +12,10 @@
       recursive = true;
     };
 
-    programs.bash.sessionVariables = {
+    programs.bash.initExtra = lib.mkMerge [
       # A workaround for terminals in Neovim to use when inside a nix devshell
-      NVIM_SYSTEM_SHELL = "$SHELL";
-    };
+      "export NVIM_SYSTEM_SHELL=$SHELL"
+    ];
 
     programs.neovim = {
       enable = true;
