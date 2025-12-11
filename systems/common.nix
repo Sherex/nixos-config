@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../modules/overlays
     ../modules/gpu
     ../modules/swap
     ../modules/impermanence
