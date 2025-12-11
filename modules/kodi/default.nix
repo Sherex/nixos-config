@@ -1,6 +1,8 @@
 { config, pkgs, pkgs-stable, lib, home-manager, ... }:
 
 let
+  # State file currently written to by a Go program not managed by Nix (Not Nix?.. Gaasp! The horror!)
+  cage-state-file = "$XDG_STATE_HOME/cage.state";
   kodi-wayland = (pkgs.kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
     jellyfin
     inputstream-adaptive
@@ -19,7 +21,13 @@ in {
     ];
   };
   services.cage.user = "kodi";
-  services.cage.program = "${kodi-wayland}/bin/kodi-standalone";
+  services.cage.program = pkgs.writeShellScript "cage-exec" ''
+    if [ -f ${cage-state-file} ]; then
+      exec ${pkgs.moonlight-qt}/bin/moonlight
+    else
+      exec ${kodi-wayland}/bin/kodi-standalone
+    fi
+  '';
   services.cage.enable = true;
   # TODO: Test if Kodi successfully starts with latest cage version on next upgrade.
   #       Issue was that Kodi exited a few seconds after start. Presumably because of
