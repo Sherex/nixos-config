@@ -9,6 +9,7 @@
     ../../modules/web/karlsentertainment
     ../../modules/renovate
     ../../modules/garage
+    ../../modules/atuin-server
   ];
 
   networking.hostName = "Nixxy";
