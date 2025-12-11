@@ -87,9 +87,6 @@ in {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      plugins = [
-        pkgs.hyprlandPlugins.hy3
-      ];
       settings = {
         "$terminal" = "${pkgs.foot}/bin/foot";
         "$duplicate-terminal" = "${duplicate-terminal}";
@@ -130,31 +127,7 @@ in {
           # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
           allow_tearing = false;
 
-          layout = "hy3";
-        };
-
-        plugin = {
-          hy3 = {
-            tabs = {
-              borderWidth = 1;
-              col_active = "rgba(33ccff20)";
-              col_active_border = "rgba(33ccffee)";
-              col_inactive = "rgba(30303020)";
-              col_inactive_border = "rgba(595959aa)";
-              col_urgent = "rgba(ff223340)";
-              col_urgent_border = "rgba(ff2233ee)";
-            };
-
-            autotile = {
-              enable = true;
-              triggerWidth = 800;
-              triggerHeight = 500;
-            };
-          };
-        };
-
-        cursor = {
-          hide_on_key_press = true;
+          layout = "dwindle";
         };
 
         misc = {
@@ -234,22 +207,16 @@ in {
           "$mainMod, Z, exec, ${binaries.hyprlock}"
 
           # Move focus
-          "$mainMod, h, hy3:movefocus, l"
-          "$mainMod, l, hy3:movefocus, r"
-          "$mainMod, k, hy3:movefocus, u"
-          "$mainMod, j, hy3:movefocus, d"
+          "$mainMod, h, movefocus, l"
+          "$mainMod, l, movefocus, r"
+          "$mainMod, k, movefocus, u"
+          "$mainMod, j, movefocus, d"
 
           # Move windows
-          "$mainMod SHIFT, h, hy3:movewindow, l"
-          "$mainMod SHIFT, l, hy3:movewindow, r"
-          "$mainMod SHIFT, k, hy3:movewindow, u"
-          "$mainMod SHIFT, j, hy3:movewindow, d"
-
-          # Hy3 (https://github.com/outfoxxed/hy3#dispatcher-list)
-          "$mainMod SHIFT, R, hy3:changegroup, opposite"
-          "$mainMod SHIFT, W, hy3:changegroup, toggletab"
-          "$mainMod CTRL, j, hy3:makegroup, v, toggle, force_ephemeral"
-          "$mainMod CTRL, h, hy3:makegroup, h, toggle, force_ephemeral"
+          "$mainMod SHIFT, h, movewindow, l"
+          "$mainMod SHIFT, l, movewindow, r"
+          "$mainMod SHIFT, k, movewindow, u"
+          "$mainMod SHIFT, j, movewindow, d"
 
           # Switch workspaces with mainMod + [0-9]
           "$mainMod, 1, workspace, 1"
@@ -306,7 +273,7 @@ in {
 
         bindm = [
           # Move/resize windows with mainMod + LMB/RMB and dragging
-          "$mainMod, mouse:272, hy3:movewindow"
+          "$mainMod, mouse:272, movewindow"
           "$mainMod, mouse:273, resizewindow"
         ];
 
