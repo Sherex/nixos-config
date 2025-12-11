@@ -75,6 +75,7 @@ in
     };
     programs.fzf = {
       enable = true;
+      enableBashIntegration = false;
       fileWidgetCommand = "fd --type f";
       fileWidgetOptions = [
         "--preview 'head {}'"
@@ -102,6 +103,50 @@ in
         "--height 40%"
         "--border"
       ];
+    };
+    programs.atuin = {
+      enable = true;
+      enableBashIntegration = true;
+      flags = [
+        "--disable-up-arrow"
+        # "--disable-ctrl-r"
+      ];
+      settings = {
+        # https://docs.atuin.sh/configuration/config/
+        auto_sync = true;
+        sync_frequency = "0"; # 0 = after every command
+        sync_address = "https://atuin.i-h.no";
+        update_check = false;
+        filter_mode = "host";
+        filter_mode_shell_up_key_binding = "session";
+        enter_accept = true;
+        workspaces = true;
+        # style = "compact";
+        ## Note that these regular expressions are unanchored, i.e. if they don't start
+        ## with ^ or end with $, they'll match anywhere in the command.
+        history_filter = [
+           # "^secret-cmd"
+           # "^innocuous-cmd .*--secret=.+"
+        ];
+        theme = {
+          name = "sherex";
+        };
+      };
+      themes = {
+        sherex = {
+          theme.name = "sherex";
+          colors = {
+            Base       = "#3dab1b";   # green
+            Important  = "#ff00b7";   # magenta / fuchsia
+            Guidance   = "#87afaf";   # light slate / cadet gray
+            Title      = "#d7005f";   # deep pink / crimson
+            AlertInfo  = "#ff00b7";   # magenta / fuchsia
+            AlertWarn  = "#87ff00";   # chartreuse / lime green
+            AlertError = "#ff00b7";   # magenta / fuchsia
+            Annotation = "#87afaf";   # light slate / cadet gray
+          };
+        };
+      };
     };
   };
 
