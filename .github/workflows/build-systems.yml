@@ -223,7 +223,7 @@ jobs:
             nix copy --to "$NIX_PERSONAL_BINARY_CACHE" .#nixosConfigurations.$host.config.system.build.toplevel 2>&1 | tee -a upload.log
           done
 
-          mapfile -t UPLOADS < <(grep 'copying path' gh-build.log | sed "s/.*copying path '\([^']*\)'.*$/\1/" | sort | uniq)
+          mapfile -t UPLOADS < <(grep 'copying path' upload.log | sed "s/.*copying path '\([^']*\)'.*$/\1/" | sort | uniq)
           UPLOAD_COUNT=${#UPLOADS[@]}
 
           {
