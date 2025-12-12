@@ -38,6 +38,7 @@
         lemminx # LSP: XML
         pyright # LSP: Python
         haskell-language-server # LSP: Haskell
+        rust-analyzer # LSP: Rust
       ];
     };
   };
