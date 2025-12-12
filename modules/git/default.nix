@@ -58,7 +58,7 @@
         gs = "git status";
         ga = "git add";
         gap = "git add --patch";
-        grbase = "git rebase --interactive --autosquash";
+        gri = "git rebase --interactive --autosquash";
         gr = "git restore --patch";
         grs = "git restore --patch --staged";
         gc = "git commit";
