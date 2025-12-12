@@ -68,6 +68,7 @@ in
     #       Tried nix-collect-garbage -d and deleting /root/.cache/nix
     # TODO: Figure out how to use non-monospaced font for Symbols
     nerd-fonts.hack
+    freetype
   ];
 
   # xdg-desktop-portal works by exposing a series of D-Bus interfaces
