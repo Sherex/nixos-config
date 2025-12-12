@@ -30,6 +30,7 @@ in
     schedule = "*:0/30";
     runtimePackages = with pkgs; [
       nix-local-wrapper
+      go
     ];
 
     environment = {
@@ -37,7 +38,7 @@ in
     };
 
     credentials = {
-      RENOVATE_TOKEN = "/srv/renovate/github-pat.token";
+      RENOVATE_TOKEN = config.sops.secrets."services/renovate/github-pat".path;
     };
 
     settings = {
@@ -53,5 +54,7 @@ in
   systemd.services.renovate.serviceConfig = {
     StateDirectory = "renovate"; # Already default in services.renovate. But set here to fail on eval if ever changed upstream as it is required by the script above
   };
+
+  sops.secrets."services/renovate/github-pat" = {};
 }
 
