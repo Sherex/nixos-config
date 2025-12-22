@@ -28,11 +28,11 @@
       nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = attrs // {
-            pkgs-stable = import nixpkgs-stable {
-              inherit system;
-              config.allowUnfree = true;
-            };
+          pkgs-stable = import nixpkgs-stable {
+            inherit system;
+            config.allowUnfree = true;
           };
+        };
         modules = [
           ./systems/${name}/configuration.nix
           home-manager.nixosModules.home-manager
