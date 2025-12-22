@@ -11,7 +11,6 @@ let
       version = "c55610db3e1432e16d6f10012e9bcb9080e06f55";
       position.before = "forward";
     };
-    vendorHash = "sha256-uRIsEvCTxiU2BetW7t13OJJdfDMrsnYqmfH29/3F2Hs=";
   };
 in
 {
