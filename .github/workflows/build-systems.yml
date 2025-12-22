@@ -78,7 +78,7 @@ jobs:
             touch $output_file $output_file_error
 
             # Execute the command with pipe and capture the original command's return code
-            nix ${{ matrix.action }} .#nixosConfigurations.${host}.config.system.build.toplevel 2>&1 | tee "$output_file"
+            nix ${{ matrix.action }} --verbose --print-build-logs .#nixosConfigurations.${host}.config.system.build.toplevel 2>&1 | tee "$output_file"
             cmd_rc=${PIPESTATUS[0]}  # Get exit code of the nix command, not tee
 
             # Check if the command failed
