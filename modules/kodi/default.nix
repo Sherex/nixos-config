@@ -2,7 +2,7 @@
 
 let
   # State file currently written to by a Go program not managed by Nix (Not Nix?.. Gaasp! The horror!)
-  cage-state-file = "$XDG_STATE_HOME/cage.state";
+  cage-state-file = "/run/cage.state";
   kodi-wayland = (pkgs.kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
     jellyfin
     inputstream-adaptive
