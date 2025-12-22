@@ -44,6 +44,7 @@
       unar
       numbat
       devbox
+      binsider # ELF static analysis tool
     ];
   };
 }

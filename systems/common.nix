@@ -83,6 +83,7 @@
     traceroute
     tree
     pciutils
+    gnumake
   ];
 
   services.resolved = {
