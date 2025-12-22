@@ -64,6 +64,27 @@ in {
         client_max_body_size 0;
       '';
     };
+    # Setup homepage mapping for Host header from root to s3 bucket
+    nginx.appendHttpConfig = ''
+      map $host $upstream_host {
+        default  $host;
+        "${root_domain}"  "static.web.${root_domain}";
+        "www.${root_domain}"  "static.web.${root_domain}";
+      }
+    '';
+    # Location for routing homepage to s3 bucket
+    nginx.virtualHosts."${root_domain}" = {
+      serverAliases = ["www.${root_domain}"];
+      forceSSL = true;
+      enableACME = true;
+      acmeRoot = null; # Use DNS challenge
+      locations."/" = {
+        proxyPass = "http://unix:${s3_web_socket}";
+        extraConfig = ''
+          proxy_set_header Host $upstream_host;
+        '';
+      };
+    };
     nginx.virtualHosts."web.${root_domain}" = {
       serverAliases = ["*.web.${root_domain}"];
       forceSSL = true;
