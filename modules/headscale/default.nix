@@ -23,10 +23,13 @@ in {
         };
         logtail.enabled = false;
         log.level = "info";
-        derp.server = {
-          enabled = true;
-          region_id = 999;
-          stun_listen_addr = "${config.services.headscale.address}:${toString derpPort}";
+        derp = {
+          server = {
+            enabled = true;
+            region_id = 999;
+            stun_listen_addr = "${config.services.headscale.address}:${toString derpPort}";
+          };
+          urls = []; # Disable use of Tailscales DERP servers
         };
         policy = {
           mode = "file";
