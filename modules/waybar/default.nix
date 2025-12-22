@@ -14,7 +14,7 @@
         position = "top";
         height = 24;
         spacing = 4;
-        modules-left = [ "hyprland/workspaces" "custom/wl-gammarelay-temperature" "custom/wl-gammarelay-brightness" "custom/wl-gammarelay-gamma" "pulseaudio" "idle_inhibitor" ];
+        modules-left = [ "hyprland/workspaces" "custom/wl-gammarelay-temperature" "custom/wl-gammarelay-brightness" "custom/wl-gammarelay-gamma" "pulseaudio" "bluetooth" "idle_inhibitor" ];
         modules-center = [ "hyprland/window" ];
         modules-right = [ "network" "custom/vpn" "cpu" "memory" "temperature" "battery" "tray" "clock" ];
         "hyprland/workspaces" = {
@@ -150,6 +150,16 @@
             on-scroll-down = "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateBrightness d -0.05";
             on-click = "busctl --user set-property rs.wl-gammarelay / rs.wl.gammarelay Brightness d 0.6";
             on-click-right = "busctl --user set-property rs.wl-gammarelay / rs.wl.gammarelay Brightness d 1";
+        };
+        "bluetooth" = {
+            format = " {status}";
+            format-connected = " {device_alias}";
+            format-connected-battery = " {device_alias} {device_battery_percentage}%";
+            tooltip-format = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
+            tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
+            tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
+            tooltip-format-enumerate-connected-battery = "{device_alias}\t{device_address}\t{device_battery_percentage}%";
+            on-click = "${pkgs.rofi-bluetooth}/bin/rofi-bluetooth";
         };
       }];
       style = ''
