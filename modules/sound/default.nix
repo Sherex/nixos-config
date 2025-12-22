@@ -11,6 +11,7 @@
 
   home-manager.users.sherex = { pkgs, ... }: {
     services.easyeffects.enable = true;
+    systemd.user.services.easyeffects.Service.Environment = ["GSK_RENDERER=gl"];
     home.packages = with pkgs; [
       alsa-utils
     ];
