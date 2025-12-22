@@ -139,7 +139,7 @@ in {
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    drivers = [ "amd" "nvidia" ];
+    drivers = [ "amd" ];
   };
 
   environment.shellAliases.reboot-vfio = "sudo ${pkgs.grub2.outPath}/bin/grub-reboot 'Nvidia VFIO' && reboot";
