@@ -196,11 +196,12 @@ in {
           "$mainMod SHIFT, END, exit,"
           "$mainMod, E, exec, $fileManager"
           "$mainMod SHIFT, V, togglefloating,"
-          "$mainMod, V, cyclenext, floating"
+          "$mainMod, V, cyclenext"
+          "$mainMod, P, pin"
           "$mainMod, F, fullscreen, 1"
           "$mainMod SHIFT, F, fullscreen, 0"
           "$mainMod, D, exec, $menu"
-          "$mainMod, P, pseudo,"
+          "$mainMod SHIFT, P, pseudo,"
           "$mainMod, W, togglesplit,"
 
           # Screen-lock
@@ -289,6 +290,7 @@ in {
           "rounding 0, floating:0, onworkspace:w[tv1]" # Smart gaps
           "bordersize 0, floating:0, onworkspace:f[1]" # Smart gaps
           "rounding 0, floating:0, onworkspace:f[1]" # Smart gaps
+          "bordercolor rgb(FF0000), pinned:1"
         ];
 
         debug = {
