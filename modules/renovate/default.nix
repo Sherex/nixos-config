@@ -35,6 +35,8 @@ in
 
     environment = {
       LOG_LEVEL = "info";
+      RENOVATE_REPORT_TYPE = "file";
+      RENOVATE_REPORT_PATH = "/var/lib/${renovate-state}/report.json";
     };
 
     credentials = {
