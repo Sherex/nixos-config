@@ -11,7 +11,7 @@ let
     };
 in
 {
-  options.backup.enable = lib.mkEnableOption "swap";
+  options.backup.enable = lib.mkEnableOption "backup";
   options.backup.borgbaseId = lib.mkOption {
     type = lib.types.str;
     example = "1af8rh3a";
