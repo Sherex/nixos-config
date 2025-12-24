@@ -12,6 +12,7 @@ in
     enable = true;
     host = "127.0.0.1";
     port = port;
+    openRegistration = false;
     database = {
       uri = "sqlite://${data_path}/atuin.db";
     };
