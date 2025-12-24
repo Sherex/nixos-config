@@ -39,8 +39,9 @@ in {
     };
 
     nginx.virtualHosts.${domain} = {
+      serverAliases = [ "nixxy.i-h.no" ];
+      useACMEHost = "i-h.no";
       forceSSL = true;
-      enableACME = true;
       locations."/" = {
         proxyPass =
           "http://localhost:${toString config.services.headscale.port}";
@@ -57,6 +58,7 @@ in {
       recommendedOptimisation = true;
     };
   };
+  users.users.nginx.extraGroups = ["acme"]; # Give Nginx rights to access certs
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
   networking.firewall.allowedUDPPorts = [ derpPort ];
@@ -71,6 +73,13 @@ in {
       dnsResolver = "1.1.1.1:53";
       # TODO: Use SOPS-nix for acme secrets
       environmentFile = "/persistent/safe/acme-secrets.env";
+      webroot = null; # Use DNS challenge
+    };
+    certs."i-h.no" = {
+      extraDomainNames = ["*.i-h.no"];
+    };
+    certs."s3.i-h.no" = {
+      extraDomainNames = [ "*.s3.i-h.no" "web.i-h.no" "*.web.i-h.no"];
     };
   };
 

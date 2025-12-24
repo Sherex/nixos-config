@@ -44,9 +44,8 @@ in
   ];
 
   services.nginx.virtualHosts."${name}.i-h.no" = {
+    useACMEHost = "i-h.no";
     forceSSL = true;
-    enableACME = true;
-    acmeRoot = null; # Use DNS challenge
     locations."/" = {
       proxyPass = "http://127.0.0.1:${toString port}";
       extraConfig = ''

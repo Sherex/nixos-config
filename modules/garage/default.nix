@@ -42,9 +42,8 @@ in {
     };
     nginx.virtualHosts."s3.${root_domain}" = {
       serverAliases = ["*.s3.${root_domain}"];
+      useACMEHost = "s3.i-h.no";
       forceSSL = true;
-      enableACME = true;
-      acmeRoot = null; # Use DNS challenge
       locations."/" = {
         proxyPass = "http://unix:${s3_api_socket}";
         extraConfig = ''
@@ -74,10 +73,10 @@ in {
     '';
     # Location for routing homepage to s3 bucket
     nginx.virtualHosts."${root_domain}" = {
+      default = true;
       serverAliases = ["www.${root_domain}"];
+      useACMEHost = "i-h.no";
       forceSSL = true;
-      enableACME = true;
-      acmeRoot = null; # Use DNS challenge
       locations."/" = {
         proxyPass = "http://unix:${s3_web_socket}";
         extraConfig = ''
@@ -87,17 +86,15 @@ in {
     };
     nginx.virtualHosts."web.${root_domain}" = {
       serverAliases = ["*.web.${root_domain}"];
+      useACMEHost = "s3.i-h.no";
       forceSSL = true;
-      enableACME = true;
-      acmeRoot = null; # Use DNS challenge
       locations."/" = {
         proxyPass = "http://unix:${s3_web_socket}";
       };
     };
     nginx.virtualHosts."s3-admin.${root_domain}" = {
+      useACMEHost = "i-h.no";
       forceSSL = true;
-      enableACME = true;
-      acmeRoot = null; # Use DNS challenge
       locations."/" = {
         proxyPass = "http://unix:${admin_socket}";
         extraConfig = ''
