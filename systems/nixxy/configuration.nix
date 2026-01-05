@@ -10,7 +10,6 @@
     ../../modules/renovate
     ../../modules/garage
     ../../modules/atuin-server
-    ../../modules/coredns
   ];
 
   networking.hostName = "Nixxy";
