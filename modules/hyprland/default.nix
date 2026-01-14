@@ -101,6 +101,7 @@ in {
         ];
 
         monitor = [
+          "HDMI-A-1,1920x1080@60,0x0,1.2" # Dummy HDMI plug used by Sunshine
           ",preferred,auto,1"
           "Unknown-1,disable"
         ];
