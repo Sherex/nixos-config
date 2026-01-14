@@ -342,12 +342,11 @@ in {
     services.hyprpaper = {
       enable = true;
       settings = {
-        preload = [
-          background_image.path
-        ];
-        wallpaper = [
-          ",${background_image.path}"
-        ];
+        splash = false;
+        wallpaper = {
+          monitor = "";
+          path = background_image.path;
+        };
       };
     };
 
