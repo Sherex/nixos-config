@@ -283,14 +283,12 @@ in {
           "f[1], gapsout:0, gapsin:0" # Smart gaps
         ];
 
-        windowrulev2 = [
-          "suppressevent maximize, class:.*"
-          "stayfocused, title:.*(rofi).*"
-          "bordersize 0, floating:0, onworkspace:w[tv1]" # Smart gaps
-          "rounding 0, floating:0, onworkspace:w[tv1]" # Smart gaps
-          "bordersize 0, floating:0, onworkspace:f[1]" # Smart gaps
-          "rounding 0, floating:0, onworkspace:f[1]" # Smart gaps
-          "bordercolor rgb(FF0000), pinned:1"
+        windowrule = [
+          "suppress_event maximize, match:class .*"
+          "stay_focused on, match:title .*(rofi).*"
+          "border_size 0, rounding 0, match:float 0, match:workspace w[tv1]"
+          "border_size 0, rounding 0, match:float 0, match:workspace f[1]"
+          "border_color rgb(FF0000), match:pin 1"
         ];
 
         debug = {
