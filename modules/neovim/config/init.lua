@@ -90,35 +90,46 @@ require("lazy").setup({
   },
 
   {
-    "nvim-tree/nvim-tree.lua",
+    "mikavilpas/yazi.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      { "nvim-lua/plenary.nvim", lazy = true },
+    },
     keys = {
-      { "<leader>ee", "<cmd>NvimTreeToggle<cr>",   desc = "Toggle NvimTree" },
-      { "<leader>ef", "<cmd>NvimTreeFindFile<cr>", desc = "Find file in NvimTree" },
+      {
+        "<leader>-",
+        mode = { "n", "v" },
+        "<cmd>Yazi<cr>",
+        desc = "Open yazi at the current file",
+      },
+      {
+        "<leader>ef",
+        mode = { "n", "v" },
+        "<cmd>Yazi<cr>",
+        desc = "Open yazi at the current file",
+      },
+      {
+        "<leader>ec",
+        "<cmd>Yazi cwd<cr>",
+        desc = "Open the file manager in nvim's working directory",
+      },
+      {
+        "<leader>ee",
+        "<cmd>Yazi toggle<cr>",
+        desc = "Resume the last yazi session",
+      },
     },
     opts = {
-      renderer = {
-        icons = {
-          show = {
-            git = true,
-          },
-        },
-        highlight_git = true,
-      },
-      view = {
-        relativenumber = true,
-        float = {
-          enable = true,
-        },
-      },
-      modified = {
-        enable = true,
-      },
-      actions = {
-        open_file = {
-          quit_on_open = true,
-        },
+      open_for_directories = true,
+      keymaps = {
+        show_help = "<f1>",
       },
     },
+    init = function()
+      -- mark netrw as loaded so it's not loaded at all.
+      -- More details: https://github.com/mikavilpas/yazi.nvim/issues/802
+      vim.g.loaded_netrwPlugin = 1
+    end,
   },
 
   {
