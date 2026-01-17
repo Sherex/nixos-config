@@ -14,6 +14,7 @@
     ../modules/vscode
     ../modules/containerization
     ../modules/moonlight
+    ../modules/yazi
   ];
 
   users.users.sherex = {
@@ -26,6 +27,7 @@
       httpie
       feh
       distrobox
+      ripdrag
     ];
 
     home.pointerCursor = {

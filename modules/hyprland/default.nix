@@ -77,13 +77,24 @@ in {
       xdgOpenUsePortal = true;
       config = {
         # gtk portal needed to make gtk apps happy
-        common.default = ["gtk" "hyprland"];
+        common.default = [ "gtk" "hyprland" ];
+        common."org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
       };
       extraPortals = [
         pkgs.xdg-desktop-portal-gtk
         pkgs.xdg-desktop-portal-hyprland
+        pkgs.xdg-desktop-portal-termfilechooser
       ];
     };
+
+    xdg.configFile."xdg-desktop-portal-termfilechooser/config".text = ''
+      [filechooser]
+      cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
+      default_dir=$HOME
+      env=TERMCMD='${lib.getExe pkgs.foot}'
+      open_mode=suggested
+      save_mode=last
+    '';
 
     wayland.windowManager.hyprland = {
       enable = true;
