@@ -10,6 +10,7 @@
     ../../modules/renovate
     ../../modules/garage
     ../../modules/atuin-server
+    ../../modules/findmydevice
   ];
 
   networking.hostName = "Nixxy";
