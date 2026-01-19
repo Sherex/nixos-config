@@ -1,9 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  host = {
-    tailscale_ip = "100.70.0.2";
-  };
+  cfg = config.modules.coredns;
   coredns = pkgs.coredns.override {
     externalPlugins = lib.singleton {
       name = "rqlite";
@@ -14,22 +12,42 @@ let
   };
 in
 {
-  services.coredns = {
-    enable = true;
-    package = coredns;
-    config = ''
-      .:5356 {
-        errors
-        log
-        cache 600
-
-        rqlite {
-          dsn http://${host.tailscale_ip}:4001
-        }
-      }
-    '';
+  options.modules.coredns = {
+    enable = lib.mkEnableOption "coredns";
+    dnsListenAddress = lib.mkOption {
+      type = lib.types.str;
+      example = "127.0.0.1:53";
+      default = ".:5356";
+      description = ''
+        The listen address of the CoreDNS server connected to the Rqlite DB.
+      '';
+    };
+    rqliteAddress = lib.mkOption {
+      type = lib.types.str;
+      example = "http://127.0.0.1:4001";
+      description = ''
+        The listen address of the Rqlite instance running on this host.
+      '';
+    };
   };
 
+  config = lib.mkIf cfg.enable {
+    services.coredns = {
+      enable = true;
+      package = coredns;
+      config = ''
+        ${cfg.dnsListenAddress} {
+          errors
+          log
+          cache 600
+
+          # rqlite {
+          #   dsn ${cfg.rqliteAddress}
+          # }
+        }
+      '';
+    };
+  };
 }
 
 
