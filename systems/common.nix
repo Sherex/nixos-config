@@ -18,7 +18,7 @@
     # This is handled by Disko, but not all systems are converted yet
     efiSysMountPoint = lib.mkDefault config.fileSystems."/boot".mountPoint;
   };
-  boot.loader.timeout = 1;
+  boot.loader.timeout = lib.mkDefault 1;
   boot.loader.grub = {
     enable = true;
     efiSupport = lib.mkDefault true;
