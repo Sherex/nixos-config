@@ -1,7 +1,7 @@
 { inputs, config, pkgs, lib,  ... }:
 
 let
-  domain = "nixxy.i-h.no";
+  domain = "vpn.i-h.no";
   derpPort = 8558;
 in {
   services = {
