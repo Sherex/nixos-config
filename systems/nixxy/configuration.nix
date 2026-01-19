@@ -11,6 +11,7 @@
     ../../modules/garage
     ../../modules/atuin-server
     ../../modules/findmydevice
+    ../../modules/sftpgo
   ];
 
   networking.hostName = "Nixxy";
