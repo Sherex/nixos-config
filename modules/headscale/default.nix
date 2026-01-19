@@ -18,7 +18,7 @@ in {
         dns = {
           magic_dns = true;
           base_domain = "i.i-h.no";
-          nameservers = { "global" = [ "10.1.0.1" "1.1.1.1" ]; };
+          nameservers = { "global" = [ "100.100.100.100" "10.1.0.1" "1.1.1.1" ]; };
           override_local_dns = true;
           extra_records_path = "/var/lib/headscale/dns-records.json";
         };
