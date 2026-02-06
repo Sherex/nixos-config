@@ -27,7 +27,7 @@ in
     files = [
       "/etc/adjtime"
       "/etc/machine-id"
-      "/etc/wpa_supplicant.conf"
+      "/etc/wpa_supplicant/imperative.conf"
     ];
 
     # TODO: Move to user config?
