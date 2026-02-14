@@ -13,7 +13,7 @@
     ../../modules/containers/haproxy.nix
     ../../modules/containers/dawarich.nix
     ../../modules/vpn-wireguard
-    ../../modules/kodi
+    #../../modules/kodi # State will still exist under the kodi user and in backups
     ../../modules/sound
   ];
 
