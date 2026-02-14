@@ -11,7 +11,7 @@
 
   networking.hostName = "Archy";
 
-  networking.wireless.enable = false;
+  networking.wireless.enable = true;
 
   boot = {
     initrd.kernelModules = lib.mkBefore [
