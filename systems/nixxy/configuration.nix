@@ -13,6 +13,7 @@
     ../../modules/findmydevice
     ../../modules/sftpgo
     ../../modules/homeassistant
+    ../../modules/calibre-web
   ];
 
   networking.hostName = "Nixxy";
