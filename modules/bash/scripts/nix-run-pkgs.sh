@@ -1,8 +1,8 @@
 nr() {
   local exec_prefix=""
-  local exec_override=""
+  local pkg_override=""
   local exec_background=""
-  local pkg=""
+  local exec=""
   OPTIND=1
 
   show_help() {
@@ -11,7 +11,7 @@ Usage: nr [-s] [-d] [-e executable] <package-name> [-- args...]
 
 Options:
   -s                Run with sudo
-  -e <executable>   Override default executable (default: same as package name)
+  -p <package>      Override default package (default: same as executable name)
   -d                Run in background using 'hyprctl dispatch exec'
   -h                Show this help message
 
@@ -27,10 +27,10 @@ EOF
   }
 
   # Parse options
-  while getopts ":se:dh" opt; do
+  while getopts ":sp:dh" opt; do
     case $opt in
       s) exec_prefix="sudo" ;;
-      e) exec_override="$OPTARG" ;;
+      p) pkg_override="$OPTARG" ;;
       d) exec_background="hyprctl dispatch exec" ;;
       h) show_help; return 0 ;;
       \?) echo "Invalid option: -$OPTARG" >&2; return 1 ;;
@@ -39,21 +39,25 @@ EOF
   done
   shift $((OPTIND -1))
 
-  pkg="$1"
-  if [[ -z "$pkg" ]]; then
+  exec="$1"
+  if [[ -n "$pkg_override" && -z "$exec" ]]; then
+    echo "Error: Missing <executable-name>."
+    show_help
+    return 1
+  elif [[ -z "$exec" ]]; then
     echo "Error: Missing <package-name>."
     show_help
     return 1
   fi
 
-  local exec="${exec_override:-$pkg}"
+  local package="${pkg_override:-$exec}"
   shift 1  # Remove package name from args
   local args=("$@")  # Remaining args passed to the executable
 
-  if [[ -n "$exec_prefix" || -n "$exec_override" || -n "$exec_background" ]]; then
-    nix shell "nixpkgs#$pkg" --command $exec_background $exec_prefix "$exec" "${args[@]}"
+  if [[ -n "$exec_prefix" || -n "$pkg_override" || -n "$exec_background" ]]; then
+    nix shell "nixpkgs#$package" --command $exec_background $exec_prefix "$exec" "${args[@]}"
   else
-    nix run "nixpkgs#$pkg" -- "${args[@]}"
+    nix run "nixpkgs#$exec" -- "${args[@]}"
   fi
 }
 
