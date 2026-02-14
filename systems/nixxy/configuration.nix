@@ -12,6 +12,7 @@
     ../../modules/atuin-server
     ../../modules/findmydevice
     ../../modules/sftpgo
+    ../../modules/homeassistant
   ];
 
   networking.hostName = "Nixxy";
