@@ -69,6 +69,7 @@ in {
         default  $host;
         "${root_domain}"  "static.web.${root_domain}";
         "www.${root_domain}"  "static.web.${root_domain}";
+        "openpgpkey.${root_domain}"  "static.web.${root_domain}";
       }
     '';
     # Location for routing homepage to s3 bucket
