@@ -90,7 +90,7 @@ jobs:
             fi
 
             # Check for warnings/errors in output, excluding exceptions
-            exceptions_pattern="warning: download buffer is full"
+            exceptions_pattern="warning: download buffer is full|^evaluating file |^copying path |^downloading |^sops-install-secrets> go: downloading"
             if grep -E "(warning|error)" -i "$output_file" | grep -v -E -i "$exceptions_pattern"; then
               has_issues=true
               host_has_issues=true
