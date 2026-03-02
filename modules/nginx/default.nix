@@ -8,6 +8,7 @@
       recommendedProxySettings = true;
       recommendedGzipSettings = true;
       recommendedOptimisation = true;
+      resolver.addresses = [ "127.0.0.53" ];
     };
   };
   users.users.nginx.extraGroups = ["acme"]; # Give Nginx rights to access certs

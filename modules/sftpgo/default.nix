@@ -14,7 +14,7 @@ in {
         # The nixtron hostname is only resolvable when Headscale is
         # running, which is only reachable through Nginx...
         # (circular dependency)
-        set $backend "https://nixtron:8081";
+        set $backend "https://nixtron.i.i-h.no:8081";
         proxy_pass $backend;
 
         allow 127.0.0.1;

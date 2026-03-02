@@ -14,7 +14,7 @@ in {
         # The nixxer hostname is only resolvable when Headscale is
         # running, which is only reachable through Nginx...
         # (circular dependency)
-        set $backend "http://100.70.0.3:8100";
+        set $backend "http://nixxer.i.i-h.no:8100";
         proxy_pass $backend;
 
         allow 127.0.0.1;
