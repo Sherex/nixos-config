@@ -49,40 +49,12 @@ in {
         proxyWebsockets = true;
       };
     };
-
-    # TODO: Extract nginx to its own module
-    nginx = {
-      enable = true;
-      recommendedTlsSettings = true;
-      recommendedProxySettings = true;
-      recommendedGzipSettings = true;
-      recommendedOptimisation = true;
-    };
   };
-  users.users.nginx.extraGroups = ["acme"]; # Give Nginx rights to access certs
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [];
   networking.firewall.allowedUDPPorts = [ derpPort ];
 
   environment.systemPackages = [ config.services.headscale.package ];
-
-  security.acme = {
-    acceptTerms = true;
-    defaults = {
-      email = "ingar+acme@i-h.no";
-      dnsProvider = "luadns";
-      dnsResolver = "1.1.1.1:53";
-      # TODO: Use SOPS-nix for acme secrets
-      environmentFile = "/persistent/safe/acme-secrets.env";
-      webroot = null; # Use DNS challenge
-    };
-    certs."i-h.no" = {
-      extraDomainNames = ["*.i-h.no"];
-    };
-    certs."s3.i-h.no" = {
-      extraDomainNames = [ "*.s3.i-h.no" "web.i-h.no" "*.web.i-h.no"];
-    };
-  };
 
   users.users.sherex = {
     extraGroups = [

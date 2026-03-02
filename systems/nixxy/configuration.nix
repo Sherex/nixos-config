@@ -4,6 +4,7 @@
   imports = [
     ./hardware.nix
     ../common-server.nix
+    ../../modules/nginx
     ../../modules/headscale
     ../../modules/containerization
     ../../modules/web/karlsentertainment
