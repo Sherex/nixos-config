@@ -5,6 +5,7 @@
     ./hardware.nix
     ../common-server.nix
     ../../modules/nginx
+    ../../modules/mealie
     ../../modules/headscale
     ../../modules/containerization
     ../../modules/web/karlsentertainment
