@@ -4,6 +4,7 @@
   home-manager.users.sherex = { pkgs, ... }: {
     programs.yazi = {
       enable = true;
+      shellWrapperName = "y";
       keymap = {
         input.prepend_keymap = [
           # { run = "close"; on = [ "<c-q>" ]; }
