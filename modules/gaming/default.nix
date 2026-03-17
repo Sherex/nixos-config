@@ -13,6 +13,8 @@
     ];
     extraPackages = [
       pkgs.gamemode
+      pkgs.gamescope
+      pkgs.mangohud
     ];
   };
 
