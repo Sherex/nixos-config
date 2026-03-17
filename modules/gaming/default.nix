@@ -3,6 +3,11 @@
 {
   programs.steam = {
     enable = true;
+    package = pkgs.steam.override {
+      extraEnv = {
+        DBUS_SYSTEM_BUS_ADDRESS="";
+      };
+    };
     extraCompatPackages = [
       pkgs.proton-ge-bin
     ];
