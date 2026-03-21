@@ -9,7 +9,7 @@
         main = {
           font = "monospace:size=11";
         };
-        colors = {
+        colors-dark = {
           alpha = "0.75";
           background = "000000";
           foreground = "dddddd";
