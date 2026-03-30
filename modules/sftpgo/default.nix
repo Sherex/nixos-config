@@ -45,8 +45,8 @@ in {
       '';
     };
     locations."/webdav/" = {
+      proxyPass =  "https://nixtron.i.i-h.no:8081/";
       extraConfig = ''
-        ${proxyPassDynamic "https://nixtron.i.i-h.no:8081"}
         ${allowOnlyTailnet}
         client_max_body_size 0;
       '';
