@@ -16,6 +16,7 @@
     ../../modules/sftpgo
     ../../modules/homeassistant
     ../../modules/calibre-web
+    ../../modules/openwebui
   ];
 
   networking.hostName = "Nixxy";
