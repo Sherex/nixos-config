@@ -30,10 +30,10 @@
         nil # LSP: nix
         vscode-langservers-extracted # LSP: json, yaml
         terraform-lsp # LSP
-        nodePackages.typescript # LSP: tsserver
-        nodePackages.typescript-language-server # LSP: tsserver
+        typescript # LSP: tsserver
+        typescript-language-server # LSP: tsserver
         yaml-language-server # LSP: yamlls
-        nodePackages.bash-language-server # LSP: bash
+        bash-language-server # LSP: bash
         shellcheck # linter for shell scripts
         lemminx # LSP: XML
         pyright # LSP: Python
