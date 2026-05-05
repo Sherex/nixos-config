@@ -27,6 +27,7 @@ in
         "# Execute 'nr -h' for more info"
         "source ${ ./scripts/nix-run-pkgs.sh }"
         "source ${ ./scripts/nix-search-pkgs.sh }"
+        "mkcd() { mkdir -p \"$1\" && cd \"$1\"; }"
       ];
       shellAliases = {
         ls = "ls --color=auto";
