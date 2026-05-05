@@ -44,11 +44,28 @@ in {
         allow all;
       '';
     };
-    locations."/webdav/" = {
-      proxyPass =  "https://nixtron.i.i-h.no:8081/";
+  };
+  services.nginx.virtualHosts."webdav.${root_domain}" = {
+    useACMEHost = "${root_domain}";
+    forceSSL = true;
+    locations."/" = {
       extraConfig = ''
+        ${proxyPassDynamic "https://nixtron.i.i-h.no:8081"}
         ${allowOnlyTailnet}
         client_max_body_size 0;
+
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_request_buffering off;
+        proxy_buffering off;
+
+        proxy_read_timeout 900;
+        proxy_send_timeout 900;
+        proxy_connect_timeout 60;
+
+        proxy_cache_bypass 1;
+        proxy_no_cache 1;
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
       '';
     };
   };
