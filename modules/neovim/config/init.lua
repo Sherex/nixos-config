@@ -43,6 +43,28 @@ vim.opt.title = true
 local shell = os.getenv("NVIM_SYSTEM_SHELL") or os.getenv("SHELL") or "/bin/bash"
 vim.opt.shell = shell
 
+-- Window management keymaps
+local map = vim.keymap.set
+local opts = { noremap = true, silent = true }
+
+-- Move focus between splits
+map('n', '<A-h>', '<C-w>h', opts)
+map('n', '<A-j>', '<C-w>j', opts)
+map('n', '<A-k>', '<C-w>k', opts)
+map('n', '<A-l>', '<C-w>l', opts)
+
+-- Move the current window around the layout
+map('n', '<A-H>', '<C-w>H', opts)
+map('n', '<A-J>', '<C-w>J', opts)
+map('n', '<A-K>', '<C-w>K', opts)
+map('n', '<A-L>', '<C-w>L', opts)
+
+-- Close the current window
+map('n', '<A-q>', '<cmd>quit<CR>', opts)
+
+-- Open a terminal in a horizontal split
+map('n', '<A-CR>', '<cmd>split | terminal<CR>', opts)
+
 --- A wrapper to configure a source for nvim_cmp
 --- @param name string
 --- @param option table?
