@@ -16,6 +16,18 @@
       pkgs.gamescope
       pkgs.mangohud
     ];
+    gamescopeSession = {
+      enable = true;
+      args = [
+        "-W 3440"
+        "-H 1440"
+        "-w 1720"
+        "-h 720"
+        "--expose-wayland"
+        #"-S integer"
+        #"-r 120"
+      ];
+    };
   };
 
   home-manager.users.sherex = { pkgs, ... }: {
