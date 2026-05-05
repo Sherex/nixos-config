@@ -9,6 +9,13 @@
       recommendedGzipSettings = true;
       recommendedOptimisation = true;
       resolver.addresses = [ "127.0.0.53" ];
+      # recommendedProxySettings sets:
+      # Host $host;
+      # X-Real-IP $remote_addr;
+      # X-Forwarded-For $proxy_add_x_forwarded_for;
+      # X-Forwarded-Proto $scheme;
+      # X-Forwarded-Host $host;
+      # X-Forwarded-Server $hostname;
     };
   };
   users.users.nginx.extraGroups = ["acme"]; # Give Nginx rights to access certs
