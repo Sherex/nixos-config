@@ -743,6 +743,21 @@ require("lazy").setup({
     },
   },
 
+  {
+    "ja-ford/delaytrain.nvim",
+    opts = {
+        delay_ms = 1000,  -- How long repeated usage of a key should be prevented
+        grace_period = 1, -- How many repeated keypresses are allowed
+        keys = {          -- Which keys (in which modes) should be delayed
+            ['nv'] = {'h', 'j', 'k', 'l', 'b', 'e', 'w', 'B', 'E', 'W'},
+            ['nvi'] = {'<Left>', '<Down>', '<Up>', '<Right>'},
+        },
+        ignore_filetypes = {'lazy'},  -- Example: set to {"help", "NvimTr*"} to
+                                -- disable the plugin for help and NvimTree
+                                -- The option accepts a list of strings or patterns.
+                                -- Tip: you can find the filetype for the current buffer using the command :set ft?
+    },
+  },
 })
 
 -- Set colorscheme
