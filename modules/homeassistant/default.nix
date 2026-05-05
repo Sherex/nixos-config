@@ -29,6 +29,8 @@ in {
     };
   };
 
+  # TODO: When z2m is declared in Nix remove group config from Nixxer
+  # See: ../../systems/nixxer:31 (as of 1ad0ea3)
   services.nginx.virtualHosts."zigbee2mqtt.${root_domain}" = {
     useACMEHost = "${root_domain}";
     forceSSL = true;
