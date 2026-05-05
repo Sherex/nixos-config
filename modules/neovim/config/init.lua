@@ -736,7 +736,7 @@ require("lazy").setup({
   },
 
   {
-    "ggandor/leap.nvim",
+    "https://codeberg.org/andyg/leap.nvim",
     config = true,
     keys = {
       { "s", "<Plug>(leap)", desc = "Leap search" },
