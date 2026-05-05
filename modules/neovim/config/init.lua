@@ -159,7 +159,6 @@ require("lazy").setup({
     },
     event = 'LspAttach',
     dependencies = {
-        'nvim-treesitter/nvim-treesitter', -- optional
         'nvim-tree/nvim-web-devicons',     -- optional
     },
     keys = {
@@ -275,19 +274,19 @@ require("lazy").setup({
   },
 
   {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-      config = function ()
-        require("nvim-treesitter.configs").setup({
+    "romus204/tree-sitter-manager.nvim",
+    dependencies = {}, -- tree-sitter CLI must be installed system-wide
+    config = function()
+      require("tree-sitter-manager").setup({
           ensure_installed = { "c", "c_sharp", "xml", "lua", "vim", "vimdoc", "query", "elixir", "heex", "javascript", "html" },
-          sync_install = false,
-          auto_install = true,
-          highlight = { enable = true },
-          indent = { enable = true },
-          ignore_install = {},
-          modules = {},
-        })
-      end
+        -- border = nil, -- border style for the window (e.g. "rounded", "single"), if nil, use the default border style defined by 'vim.o.winborder'. See :h 'winborder' for more info.
+        -- auto_install = false, -- if enabled, install missing parsers when editing a new file
+        -- highlight = true, -- treesitter highlighting is enabled by default
+        -- languages = {}, -- override or add new parser sources
+        -- parser_dir = vim.fn.stdpath("data") .. "/site/parser",
+        -- query_dir = vim.fn.stdpath("data") .. "/site/queries",
+      })
+    end
   },
 
   {
@@ -595,16 +594,12 @@ require("lazy").setup({
         disable_background = true,
       },
     },
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
   },
 
   {
     "olimorris/codecompanion.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
     },
     opts = {
       display = {
