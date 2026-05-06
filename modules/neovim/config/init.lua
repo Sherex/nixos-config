@@ -349,6 +349,7 @@ require("lazy").setup({
   {
     "rcarriga/nvim-notify",
     dependencies = { "nvim-telescope/telescope.nvim" },
+    event = "VeryLazy",
     config = function()
       vim.opt.termguicolors = true
       vim.notify = require("notify")
@@ -370,11 +371,13 @@ require("lazy").setup({
 
   {
     "hrsh7th/cmp-nvim-lsp",
+    event = "VeryLazy",
     config = true,
   },
 
   {
     "neovim/nvim-lspconfig",
+    event = "VeryLazy",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "b0o/schemastore.nvim",
@@ -512,6 +515,7 @@ require("lazy").setup({
   },
 
   {
+    event = "VeryLazy",
     "saadparwaiz1/cmp_luasnip",
     dependencies = {
       "hrsh7th/nvim-cmp",
@@ -556,6 +560,7 @@ require("lazy").setup({
 
   {
     "hrsh7th/nvim-cmp",
+    event = "VeryLazy",
     dependencies = {
       "L3MON4D3/LuaSnip",
       "olimorris/codecompanion.nvim",
@@ -622,6 +627,7 @@ require("lazy").setup({
 
   {
     "olimorris/codecompanion.nvim",
+    event = "VeryLazy",
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
