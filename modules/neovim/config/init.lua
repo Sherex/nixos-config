@@ -351,7 +351,9 @@ require("lazy").setup({
     dependencies = { "nvim-telescope/telescope.nvim" },
     config = function()
       vim.opt.termguicolors = true
-      vim.notify = require("notify").setup({
+      vim.notify = require("notify")
+
+      vim.notify.setup({
         background_colour = "#000000",
         render = "compact",
         timeout = 1000,
