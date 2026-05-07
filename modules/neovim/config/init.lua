@@ -587,7 +587,6 @@ require("lazy").setup({
     event = "VeryLazy",
     dependencies = {
       "L3MON4D3/LuaSnip",
-      "olimorris/codecompanion.nvim",
     },
     config = function()
       local luasnip = require 'luasnip'
@@ -649,41 +648,6 @@ require("lazy").setup({
       completions = { lsp = { enabled = true } },
       code = {
         disable_background = true,
-      },
-    },
-  },
-
-  {
-    "olimorris/codecompanion.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    opts = {
-      display = {
-        chat = {
-          show_settings = true,
-        },
-      },
-      strategies = {
-        chat = {
-          adapter = "ollama",
-        },
-        inline = {
-          adapter = "ollama",
-        },
-        cmd = {
-          adapter = "ollama",
-        }
-      },
-      adapters = {
-        ollama = function()
-          return require("codecompanion.adapters").extend("ollama", {
-            env = {
-              url = "http://archy:11434",
-            },
-          })
-        end,
       },
     },
   },
