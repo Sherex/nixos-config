@@ -123,7 +123,6 @@ require("lazy").setup({
 
   {
     "mikavilpas/yazi.nvim",
-    event = "VeryLazy",
     dependencies = {
       { "nvim-lua/plenary.nvim", lazy = true },
     },
@@ -265,6 +264,16 @@ require("lazy").setup({
         desc = "Cycle pervious bufferline"
       },
       {
+        "<SA-j>",
+        "<cmd>BufferLineMoveNext<cr>",
+        desc = "Cycle next bufferline"
+      },
+      {
+        "<SA-k>",
+        "<cmd>BufferLineMovePrev<cr>",
+        desc = "Cycle pervious bufferline"
+      },
+      {
         "<leader><S-c>",
         "<cmd>bdelete!<cr>",
         desc = "Close current buffer (force)"
@@ -275,7 +284,7 @@ require("lazy").setup({
         desc = "Close current buffer"
       },
       {
-        "<leader>bc",
+        "<leader>bC",
         "<cmd>BufferLinePickClose<cr>",
         desc = "Pick a buffer in the bufferline to close"
       },
@@ -288,6 +297,11 @@ require("lazy").setup({
         "<leader>bj",
         "<cmd>BufferLineCloseRight<cr>",
         desc = "Close all to the right in bufferline"
+      },
+      {
+        "<leader>bc",
+        "<cmd>BufferLineCloseOthers<cr>",
+        desc = "Close other buffers"
       },
     },
     opts = {
@@ -613,6 +627,10 @@ require("lazy").setup({
           end, { 'i', 's' }),
         }),
         sources = {
+          {
+            name = 'lazydev',
+            group_index = 0,
+          },
           {
             name = 'nvim_lsp',
             per_filetype = {
