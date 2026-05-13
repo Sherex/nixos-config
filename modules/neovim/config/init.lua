@@ -233,6 +233,11 @@ require("lazy").setup({
         "<cmd>Lspsaga diagnostic_jump_prev<cr>",
         desc = "Jump to previous diagnostic"
       },
+      {
+        "<leader>lo",
+        "<cmd>Lspsaga outline<cr>",
+        desc = "Toggle outline"
+      },
     },
   },
 
