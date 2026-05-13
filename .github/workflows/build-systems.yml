@@ -132,7 +132,7 @@ jobs:
 
       - name: Post ${{ matrix.action }} results as comment (PR only)
         if: always() && github.event_name == 'pull_request'
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           HAS_ISSUES: ${{ steps.nix-action.outputs.has_issues }}
           BUILD_FAILED: ${{ steps.nix-action.outputs.build_failed }}
