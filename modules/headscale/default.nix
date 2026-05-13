@@ -28,7 +28,7 @@ in {
           server = {
             enabled = true;
             region_id = 999;
-            stun_listen_addr = "${config.services.headscale.address}:${toString derpPort}";
+            stun_listen_addr = "0.0.0.0:${toString derpPort}";
           };
           urls = []; # Disable use of Tailscales DERP servers
         };
