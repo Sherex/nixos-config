@@ -6,7 +6,7 @@
       enable = true;
       systemd = {
         enable = true;
-        target = "graphical-session.target";
+        targets = [ "graphical-session.target" ];
       };
       # https://github.com/Alexays/Waybar/wiki
       settings = [{
