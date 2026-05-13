@@ -1,4 +1,4 @@
-{ config, pkgs, lib, home-manager, impermanence, ... }:
+{ config, pkgs, lib, utils, home-manager, impermanence, ... }:
 
 let
   locations = rec {
@@ -64,61 +64,81 @@ in
     # TODO: Use home-manager for user file persistance?
   #};
 
-  # Source (but quite modified):
-  # https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html#darling-erasure
-  boot.initrd.postDeviceCommands = pkgs.lib.mkBefore ''
-    DRIVE_PATH="${paths.driveDevicePath}"
-    MNT_PATH="${paths.rootMountPoint}"
-    BIN_PATH="${pkgs.coreutils.outPath + "/bin"}"
-    PATH="$PATH:$BIN_PATH"
-    SUBVOL_DIR_PATH="$MNT_PATH/subvolumes"
-    HIBERNATION_FILE_PATH="$SUBVOL_DIR_PATH${paths.hibernationFlagFilePath}"
-    SNAPSHOT_DIR_PATH="$SUBVOL_DIR_PATH/snapshots"
-    ROOT_SUBVOL="$SUBVOL_DIR_PATH/tmp"
-    ROOT_BLANK_SUBVOL="$ROOT_SUBVOL-blank"
-    ROOT_SNAPSHOT="$SNAPSHOT_DIR_PATH/tmp@`date -Iseconds | cut -f1 -d"+" -`"
+  boot.initrd.systemd = {
+    enable = true; # Default in 26.05
+    services.wipe-file-systems = {
+      # Specify dependencies explicitly
+      unitConfig.DefaultDependencies = false;
+      # The script needs to run to completion before this service is done
+      serviceConfig.Type = "oneshot";
+      # This service is required for boot to succeed
+      requiredBy = [ "initrd.target" ];
+      # Should complete before any file systems are mounted
+      before = [ "sysroot.mount" ];
 
-    # Create mountpoint
-    echo "Creating directory $MNT_PATH"
-    mkdir -p $MNT_PATH
+      # Wait for the disk to appear
+      requires = [ "${utils.escapeSystemdPath paths.driveDevicePath}.device" ];
+      after = [
+        "${utils.escapeSystemdPath paths.driveDevicePath}.device"
+        # Allow hibernation to resume before trying to alter any data
+        "local-fs-pre.target"
+      ];
 
-    # We first mount the btrfs root to $SUBVOL_DIR_PATH
-    # so we can manipulate btrfs subvolumes.
-    echo "Mounting BTRFS root"
-    mount -o subvol=/ $DRIVE_PATH $MNT_PATH
+      # Source (but quite modified):
+      # https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html#darling-erasure
+      script = ''
+        DRIVE_PATH="${paths.driveDevicePath}"
+        MNT_PATH="${paths.rootMountPoint}"
+        BIN_PATH="${pkgs.coreutils.outPath + "/bin"}"
+        PATH="$PATH:$BIN_PATH"
+        SUBVOL_DIR_PATH="$MNT_PATH/subvolumes"
+        HIBERNATION_FILE_PATH="$SUBVOL_DIR_PATH${paths.hibernationFlagFilePath}"
+        SNAPSHOT_DIR_PATH="$SUBVOL_DIR_PATH/snapshots"
+        ROOT_SUBVOL="$SUBVOL_DIR_PATH/tmp"
+        ROOT_BLANK_SUBVOL="$ROOT_SUBVOL-blank"
+        ROOT_SNAPSHOT="$SNAPSHOT_DIR_PATH/tmp@`date -Iseconds | cut -f1 -d"+" -`"
 
-    if [ ! -f "$HIBERNATION_FILE_PATH" ]; then
+        # Create mountpoint
+        echo "Creating directory $MNT_PATH"
+        mkdir -p $MNT_PATH
 
-      # Ensure directories exist
-      echo "Ensure $SUBVOL_DIR_PATH $SNAPSHOT_DIR_PATH exists"
-      mkdir -p "$SUBVOL_DIR_PATH" "$SNAPSHOT_DIR_PATH"
+        # We first mount the btrfs root to $SUBVOL_DIR_PATH
+        # so we can manipulate btrfs subvolumes.
+        echo "Mounting BTRFS root"
+        mount -o subvol=/ $DRIVE_PATH $MNT_PATH
+        trap 'umount "$MNT_PATH"' EXIT
 
-      # Snapshot the existing root subvolume
-      btrfs subvolume snapshot -r "$ROOT_SUBVOL" "$ROOT_SNAPSHOT"
+        if [ ! -f "$HIBERNATION_FILE_PATH" ]; then
 
-      # Delete all subvolumes inside the root subvolume
-      echo "Searching for subvolumes inside $ROOT_SUBVOL"
-      # Why in the world doesn't it return the absolute path??
-      # And why is not relative to cwd either??!
-      btrfs subvolume list -o $ROOT_SUBVOL |
-      cut -f9 -d' ' |
-      while read subvolume; do
-        echo "Deleting $subvolume subvolume..."
-        btrfs subvolume delete "$MNT_PATH/$subvolume"
-      done &&
-      echo "Deleting $ROOT_SUBVOL subvolume..." &&
-      btrfs subvolume delete $ROOT_SUBVOL
+          # Ensure directories exist
+          echo "Ensure $SUBVOL_DIR_PATH $SNAPSHOT_DIR_PATH exists"
+          mkdir -p "$SUBVOL_DIR_PATH" "$SNAPSHOT_DIR_PATH"
 
-      echo "Restoring blank $ROOT_SUBVOL subvolume..."
-      btrfs subvolume snapshot $ROOT_BLANK_SUBVOL $ROOT_SUBVOL
+          # Snapshot the existing root subvolume
+          btrfs subvolume snapshot -r "$ROOT_SUBVOL" "$ROOT_SNAPSHOT"
 
-    else
-      echo "System is resuming from hibernation, skipping root refresh..."
-    fi
+          # Delete all subvolumes inside the root subvolume
+          echo "Searching for subvolumes inside $ROOT_SUBVOL"
+          # Why in the world doesn't it return the absolute path??
+          # And why is not relative to cwd either??!
+          btrfs subvolume list -o $ROOT_SUBVOL |
+          cut -f9 -d' ' |
+          while read subvolume; do
+            echo "Deleting $subvolume subvolume..."
+            btrfs subvolume delete "$MNT_PATH/$subvolume"
+          done &&
+          echo "Deleting $ROOT_SUBVOL subvolume..." &&
+          btrfs subvolume delete $ROOT_SUBVOL
 
-    echo "Unmounting BTRFS root"
-    umount $MNT_PATH
-  '';
+          echo "Restoring blank $ROOT_SUBVOL subvolume..."
+          btrfs subvolume snapshot $ROOT_BLANK_SUBVOL $ROOT_SUBVOL
+
+        else
+          echo "System is resuming from hibernation, skipping root refresh..."
+        fi
+      '';
+    };
+  };
 
   systemd.services.set-hibernation-flag = {
     enable = true;

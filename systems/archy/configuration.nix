@@ -14,18 +14,9 @@
   networking.wireless.enable = true;
 
   boot = {
-    initrd.kernelModules = lib.mkBefore [
-      "vfio_pci"
-      "vfio"
-      "vfio_iommu_type1"
- #     "vfio_virqfd"
-    ];
-
     kernelParams = [
       # enable IOMMU
       "intel_iommu=on"
-      # isolate the GPU
-      "vfio-pci.ids=05:00.0,05:00.1"
     ];
     swap.enable = true;
     swap.offset = 4768391;

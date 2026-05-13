@@ -22,6 +22,10 @@
       defaultEditor = true;
       vimAlias = true;
       viAlias = true;
+      withRuby = false;
+      withPython3 = false;
+      withNodeJs = false;
+      withPerl = false;
       extraPackages = with pkgs; [
         gcc # Treesitter dependency
         tree-sitter # Treesitter dependency

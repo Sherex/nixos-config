@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, utils, ... }:
 
 let
   cfg = config.boot.swap;
@@ -23,39 +23,63 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    boot.initrd.postDeviceCommands = pkgs.lib.mkAfter ''
-      # Create mountpoint
-      echo "Creating directory ${paths.rootMountPoint}"
-      mkdir -p "${paths.rootMountPoint}"
+    boot.initrd.systemd = {
+      enable = true; # Default in 26.05
+      services.create-update-swap-file = {
+        # Specify dependencies explicitly
+        unitConfig.DefaultDependencies = false;
+        # The script needs to run to completion before this service is done
+        serviceConfig.Type = "oneshot";
+        # This service is required for boot to succeed
+        requiredBy = [ "initrd.target" ];
+        # Should complete before any file systems are mounted
+        before = [ "sysroot.mount" ];
 
-      echo "Mounting BTRFS root"
-      mount -o subvol=/ "${paths.driveDevicePath}" "${paths.rootMountPoint}"
+        # Wait for the disk to appear
+        requires = [ "${utils.escapeSystemdPath paths.driveDevicePath}.device" ];
+        after = [
+          "${utils.escapeSystemdPath paths.driveDevicePath}.device"
+          # Allow hibernation to resume before trying to alter any data
+          "local-fs-pre.target"
+        ];
 
-      if [ ! -f "${paths.rootMountPoint + paths.swapFileLocation}" ]; then
+        # Source (but quite modified):
+        # https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html#darling-erasure
+        script = ''
+          # Create mountpoint
+          echo "Creating directory ${paths.rootMountPoint}"
+          mkdir -p "${paths.rootMountPoint}"
 
-        # Ensure subvol parent directory exists
-        echo "Ensure ${dirOf (paths.rootMountPoint + paths.swapSubvolLocation)} exists"
-        mkdir -p "${dirOf (paths.rootMountPoint + paths.swapSubvolLocation)}"
+          echo "Mounting BTRFS root"
+          mount -o subvol=/ "${paths.driveDevicePath}" "${paths.rootMountPoint}"
 
-        # Create swap subvolume
-        btrfs subvolume create "${paths.rootMountPoint + paths.swapSubvolLocation}"
+          if [ ! -f "${paths.rootMountPoint + paths.swapFileLocation}" ]; then
 
-        # Ensure swapfile parent directory exists
-        # (in case the swapfile lives in a subdirectory in the subvolume)
-        echo "Ensure ${dirOf (paths.rootMountPoint + paths.swapFileLocation)} exists"
-        mkdir -p "${dirOf (paths.rootMountPoint + paths.swapFileLocation)}"
+            # Ensure subvol parent directory exists
+            echo "Ensure ${dirOf (paths.rootMountPoint + paths.swapSubvolLocation)} exists"
+            mkdir -p "${dirOf (paths.rootMountPoint + paths.swapSubvolLocation)}"
 
-        # Create a BTRFS compatible swapfile
-        echo "Create swapfile at ${paths.rootMountPoint + paths.swapFileLocation}"
-        btrfs filesystem mkswapfile --size "${paths.swapFileSize}" ${paths.rootMountPoint + paths.swapFileLocation}
+            # Create swap subvolume
+            btrfs subvolume create "${paths.rootMountPoint + paths.swapSubvolLocation}"
 
-      else
-        echo "Swap file exists at ${paths.rootMountPoint + paths.swapFileLocation}, skipping creation..."
-      fi
+            # Ensure swapfile parent directory exists
+            # (in case the swapfile lives in a subdirectory in the subvolume)
+            echo "Ensure ${dirOf (paths.rootMountPoint + paths.swapFileLocation)} exists"
+            mkdir -p "${dirOf (paths.rootMountPoint + paths.swapFileLocation)}"
 
-      # Unmount BTRFS root
-      umount ${paths.rootMountPoint}
-    '';
+            # Create a BTRFS compatible swapfile
+            echo "Create swapfile at ${paths.rootMountPoint + paths.swapFileLocation}"
+            btrfs filesystem mkswapfile --size "${paths.swapFileSize}" ${paths.rootMountPoint + paths.swapFileLocation}
+
+          else
+            echo "Swap file exists at ${paths.rootMountPoint + paths.swapFileLocation}, skipping creation..."
+          fi
+
+          # Unmount BTRFS root
+          umount ${paths.rootMountPoint}
+        '';
+      };
+    };
 
     fileSystems."${paths.swapSubvolMountPoint}" = {
       device = "${paths.driveDevicePath}";
