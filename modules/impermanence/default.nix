@@ -18,6 +18,8 @@ in
   fileSystems."/persistent/unsafe".neededForBoot = true;
   fileSystems."/nix".neededForBoot = true;
 
+  # Info on how Impermanence assigns permissons and potential issues with /var/lib/private:
+  # https://github.com/nix-community/impermanence/issues/254#issuecomment-3701296055
   environment.persistence."/persistent/safe" = {
     hideMounts = true;
     directories = [

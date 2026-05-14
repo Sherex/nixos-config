@@ -4,6 +4,7 @@
   services = {
     nginx = {
       enable = true;
+      statusPage = true;
       recommendedTlsSettings = true;
       recommendedProxySettings = true;
       recommendedGzipSettings = true;

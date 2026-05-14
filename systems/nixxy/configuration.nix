@@ -17,6 +17,7 @@
     ../../modules/homeassistant
     ../../modules/calibre-web
     ../../modules/openwebui
+    ../../modules/observability
   ];
 
   networking.hostName = "Nixxy";
@@ -29,6 +30,8 @@
   # TODO: Setup Sops-nix and backup for Nixxy
   backup.enable = false;
   # backup.borgbaseId = "";
+
+  observability.enable = true;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
