@@ -18,6 +18,7 @@
     ../../modules/calibre-web
     ../../modules/openwebui
     ../../modules/observability
+    ../../modules/qui
   ];
 
   networking.hostName = "Nixxy";
