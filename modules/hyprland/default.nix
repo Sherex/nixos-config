@@ -98,6 +98,7 @@ in {
 
     wayland.windowManager.hyprland = {
       enable = true;
+      configType = "hyprlang";
       settings = {
         "$terminal" = "${pkgs.foot}/bin/foot";
         "$duplicate-terminal" = "${duplicate-terminal}";
@@ -180,7 +181,6 @@ in {
 
         # https://wiki.hyprland.org/Configuring/Dwindle-Layout/
         dwindle = {
-          pseudotile = true;
           preserve_split = true;
         };
 
