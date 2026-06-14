@@ -1,6 +1,9 @@
 { config, pkgs, lib, home-manager, ... }:
 
-{
+let 
+  # TODO: Move to central location with system metadata when I've created one
+  vpnExitIPs = [ "167.86.78.145" "77.237.232.145" ];
+in {
   home-manager.users.sherex = { pkgs, ... }: {
     programs.waybar = {
       enable = true;
@@ -120,9 +123,14 @@
         };
         "custom/vpn" = {
           exec = pkgs.writeShellScript "vpn_status.sh" ''
+            CUSTOM_IPS="${builtins.concatStringsSep "," vpnExitIPs}"
+
             response=$(curl -s https://ipv4.am.i.mullvad.net/json)
 
-            if echo "$response" | grep -Eq '"mullvad_exit_ip":\s*true'; then
+            current_ip=$(echo "$response" | jq -r '.ip')
+            is_mullvad=$(echo "$response" | jq -r '.mullvad_exit_ip')
+
+            if [[ "$is_mullvad" == "true" ]] || [[ ",$CUSTOM_IPS," == *",$current_ip,"* ]]; then
               echo '{"text": "VPN:🔒 ", "class": "connected"}'
             else
               echo '{"text": "VPN:❌ ", "class": "disconnected"}'
