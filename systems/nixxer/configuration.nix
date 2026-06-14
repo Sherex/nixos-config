@@ -26,12 +26,9 @@
 
   backup.enable = true;
   backup.borgbaseId = "jgwumyk6";
-
+  
   # Zigbee2mqtt requires dialout to communicate with the zigbee transceiver
   users.users.sherex.extraGroups = ["dialout"]; # Temporary until it's stable and I've declared the container in NixOS
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
