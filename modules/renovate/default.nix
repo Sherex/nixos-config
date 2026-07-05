@@ -31,6 +31,7 @@ in
     runtimePackages = with pkgs; [
       nix-local-wrapper
       go
+      bun
     ];
 
     environment = {
