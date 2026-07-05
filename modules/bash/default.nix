@@ -77,18 +77,22 @@ in
     programs.fzf = {
       enable = true;
       enableBashIntegration = false;
-      fileWidgetCommand = "fd --type f";
-      fileWidgetOptions = [
-        "--preview 'head {}'"
-      ];
-      historyWidgetOptions = [
+      fileWidget = {
+        command = "fd --type f";
+        options = [
+          "--preview 'head {}'"
+        ];
+      };
+      historyWidget.options = [
         "--sort"
         "--exact"
       ];
-      changeDirWidgetCommand = "fd --type d";
-      changeDirWidgetOptions = [
-        "--preview '${pkgs.tree}/bin/tree -C {} | head -200'"
-      ];
+      changeDirWidget = {
+        command = "fd --type d";
+        options = [
+          "--preview '${pkgs.tree}/bin/tree -C {} | head -200'"
+        ];
+      };
       colors = {
         "fg" = "#3dab1b";
         "fg+" = "#ff00b7";
