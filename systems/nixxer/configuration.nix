@@ -26,6 +26,24 @@
 
   backup.enable = true;
   backup.borgbaseId = "jgwumyk6";
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+    publish = {
+      enable = true;
+      userServices = true;
+    };
+  };
+  services.printing = {
+    enable = true;
+    listenAddresses = [ "*:631" ];
+    allowFrom = [ "all" ];
+    browsing = true;
+    defaultShared = true;
+    openFirewall = true;
+  };
   
   # Zigbee2mqtt requires dialout to communicate with the zigbee transceiver
   users.users.sherex.extraGroups = ["dialout"]; # Temporary until it's stable and I've declared the container in NixOS
