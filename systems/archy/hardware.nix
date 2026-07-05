@@ -57,6 +57,12 @@ in {
     options = [ "compress=zstd:1" "noatime" ];
   };
 
+  fileSystems."/media/storage-ssd" = {
+    device = "/dev/disk/by-label/storage-ssd";
+    fsType = "btrfs";
+    options = [ "compress=zstd:1" "noatime" ];
+  };
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
