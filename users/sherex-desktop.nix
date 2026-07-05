@@ -28,6 +28,7 @@
       feh
       distrobox
       ripdrag
+      mpv
     ];
 
     home.pointerCursor = {
