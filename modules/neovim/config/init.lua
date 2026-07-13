@@ -690,15 +690,6 @@ require("lazy").setup({
   },
 
   {
-    "echasnovski/mini.starter",
-    lazy = false,
-    opts = {
-      autoopen = true,
-      evaluate_single = true,
-    },
-  },
-
-  {
     "echasnovski/mini.statusline",
     lazy = false,
     opts = {
