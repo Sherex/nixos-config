@@ -112,6 +112,45 @@ in
           }
         ];
       }
+      {
+        job_name = "blackbox";
+        metrics_path = "/probe";
+        params = {
+          module = [ "http_2xx" ];
+        };
+        static_configs = [
+          {
+            targets = [
+              "https://i-h.no"
+              "https://helgesn.com"
+              "https://ihdata.no"
+              "https://karlsentertainment.no"
+            ];
+          }
+        ];
+        relabel_configs = [
+          {
+            source_labels = [ "__address__" ];
+            target_label = "__param_target";
+          }
+          {
+            source_labels = [ "__param_target" ];
+            target_label = "instance";
+          }
+          {
+            target_label = "__address__";
+            replacement = "127.0.0.1:${toString config.services.prometheus.exporters.blackbox.port}";
+          }
+        ];
+      }
+      {
+        job_name = "blackbox_exporter";
+        static_configs = [
+          {
+            targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.blackbox.port}" ];
+          }
+        ];
+      }
     ];
     services.prometheus.exporters = {
       node = {
@@ -126,6 +165,103 @@ in
       nginx = {
         enable = true;
         port = 9004;
+      };
+      blackbox = {
+        enable = true;
+        port = 9005;
+        configFile = pkgs.writeText "blackbox.yaml" (builtins.toJSON {
+          # Ref: https://github.com/prometheus/blackbox_exporter/blob/master/CONFIGURATION.md
+          # Src: https://github.com/prometheus/blackbox_exporter/blob/master/blackbox.yml
+          modules = {
+            http_2xx = {
+              prober = "http";
+              http = {
+                preferred_ip_protocol = "ip4";
+              };
+            };
+            http_post_2xx = {
+              prober = "http";
+              http = {
+                method = "POST";
+              };
+            };
+            tcp_connect = {
+              prober = "tcp";
+            };
+            pop3s_banner = {
+              prober = "tcp";
+              tcp = {
+                query_response = [
+                  { expect = "^+OK"; }
+                ];
+                tls = true;
+                tls_config = {
+                  insecure_skip_verify = false;
+                };
+              };
+            };
+            grpc = {
+              prober = "grpc";
+              grpc = {
+                tls = true;
+                preferred_ip_protocol = "ip4";
+              };
+            };
+            grpc_plain = {
+              prober = "grpc";
+              grpc = {
+                tls = false;
+                service = "service1";
+              };
+            };
+            ssh_banner = {
+              prober = "tcp";
+              tcp = {
+                query_response = [
+                  { expect = "^SSH-2.0-"; }
+                  { send = "SSH-2.0-blackbox-ssh-check"; }
+                ];
+              };
+            };
+            ssh_banner_extract = {
+              prober = "tcp";
+              timeout = "5s";
+              tcp = {
+                query_response = [
+                  {
+                    expect = "^SSH-2.0-([^ -]+)(?: (.*))?$";
+                    labels = [
+                      { name = "ssh_version"; value = "\${1}"; } # NOTE: The \ escapes the would-be Nix expression ${} and strips it from the result
+                      { name = "ssh_comments"; value = "\${2}"; }
+                    ];
+                  }
+                ];
+              };
+            };
+            icmp = {
+              prober = "icmp";
+            };
+            icmp_ttl5 = {
+              prober = "icmp";
+              timeout = "5s";
+              icmp = {
+                ttl = 5;
+              };
+            };
+            websocket = {
+              prober = "websocket";
+            };
+            http_3xx = {
+              prober = "http";
+              http = {
+                preferred_ip_protocol = "ip4";
+                enable_http3 = true;
+                enable_http2 = false;
+                valid_http_versions = [ "HTTP/3.0" ];
+              };
+            };
+          };
+        });
       };
     };
 
