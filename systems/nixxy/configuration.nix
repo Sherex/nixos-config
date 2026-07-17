@@ -19,6 +19,7 @@
     ../../modules/openwebui
     ../../modules/observability
     ../../modules/qui
+    ../../modules/forgejo
   ];
 
   networking.hostName = "Nixxy";
@@ -33,6 +34,7 @@
   # backup.borgbaseId = "";
 
   observability.enable = true;
+  forgejo.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

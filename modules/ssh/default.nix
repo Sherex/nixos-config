@@ -48,6 +48,11 @@ in
           user          = "git";
           identityFile  = "~/.ssh/id_ed25519";
         };
+        "git.i-h.no ih" = {
+          hostname      = "git.i-h.no";
+          user          = "forgejo";
+          identityFile  = "~/.ssh/id_ed25519";
+        };
       };
     };
 
