@@ -431,6 +431,8 @@ require("lazy").setup({
         "jsonls",
         "yamlls",
         "rust_analyzer",
+        "html",
+        "cssls",
       }
       for _, lsp in ipairs(servers) do
         vim.lsp.config(lsp, {
