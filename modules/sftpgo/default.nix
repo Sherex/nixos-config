@@ -38,6 +38,9 @@ in {
         client_max_body_size 0;
       '';
     };
+    locations."/s/" = {
+      extraConfig = "rewrite ^/s/(.+)$ /web/client/pubshares/$1 last;";
+    };
     locations."/static/" = {
       extraConfig = ''
         ${proxyPassDynamic "https://nixtron.i.i-h.no:8080"}
