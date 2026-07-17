@@ -40,6 +40,24 @@
     certs."s3.i-h.no" = {
       extraDomainNames = [ "*.s3.i-h.no" "web.i-h.no" "*.web.i-h.no"];
     };
+    certs."ihdata.no" = {
+      extraDomainNames = ["*.ihdata.no"];
+    };
+    certs."helgesn.com" = {
+      extraDomainNames = ["*.helgesn.com"];
+    };
+  };
+
+  services.nginx.virtualHosts."ihdata.no" = {
+    useACMEHost = "ihdata.no";
+    forceSSL = true;
+    locations."/".return = "302 https://i-h.no$request_uri";
+  };
+
+  services.nginx.virtualHosts."helgesn.com" = {
+    useACMEHost = "helgesn.com";
+    forceSSL = true;
+    locations."/".return = "301 https://i-h.no$request_uri";
   };
 
   environment.persistence."/persistent/safe" = {
