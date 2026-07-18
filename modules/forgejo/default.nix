@@ -10,6 +10,11 @@ let
   cfg = config.${name};
   root_domain = "i-h.no";
   domain = "git.${root_domain}";
+  allowOnlyTailnet = ''
+    allow 127.0.0.1;
+    allow 100.70.0.0/16; # Tailscale
+    deny all;
+  '';
 in
 {
   imports = [
@@ -55,6 +60,22 @@ in
       locations."/" = {
         proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}";
       };
+      locations."/metrics" = {
+        proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}";
+        extraConfig = allowOnlyTailnet;
+      };
     };
+
+    services.victoriametrics.prometheusConfig.scrape_configs = [
+      {
+        job_name = "forgejo";
+        scrape_interval = "10s";
+        static_configs = [
+          {
+            targets = [ config.services.forgejo.settings.server.ROOT_URL ];
+          }
+        ];
+      }
+    ];
   };
 }
