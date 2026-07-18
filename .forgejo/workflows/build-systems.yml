@@ -58,11 +58,6 @@ jobs:
             extra-substituters = ${{ env.NIX_PERSONAL_BINARY_CACHE }}
             extra-trusted-public-keys = ${{ env.NIX_PERSONAL_BINARY_CACHE_PUBLIC_KEY }}
 
-      - uses: actions/gha-cleanup@ce9480b80d151ff36572df0d3c54aef2653e6054
-        if: matrix.action == 'build'
-        with:
-          remove-browsers: true
-
       - name: ${{ matrix.action == 'eval' && 'Evaluate' || 'Build' }} configurations and check for warnings/errors
         id: nix-action
         env:
