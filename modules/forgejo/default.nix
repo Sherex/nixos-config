@@ -53,7 +53,6 @@ in
           ROOT_URL = "https://${domain}";
         };
         repository = {
-          DEFAULT_REPO_UNITS = "repo.code,repo.releases";
           ENABLE_PUSH_CREATE_USER = true;
           ENABLE_PUSH_CREATE_ORG = true;
         };
