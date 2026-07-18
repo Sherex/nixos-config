@@ -59,6 +59,9 @@ in
       forceSSL = true;
       locations."/" = {
         proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}";
+        extraConfig = ''
+          client_max_body_size 1g;
+        '';
       };
       locations."/metrics" = {
         proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}";
