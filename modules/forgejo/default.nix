@@ -66,6 +66,9 @@ in
         "git.timeout" = {
           MIGRATE = 60 * 60 * 2;
         };
+        session = {
+          COOKIE_SECURE = true;
+        };
       };
     };
 
