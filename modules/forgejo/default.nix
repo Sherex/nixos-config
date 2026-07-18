@@ -52,6 +52,10 @@ in
           DOMAIN = domain;
           ROOT_URL = "https://${domain}";
         };
+        cache = {
+          ADAPTER = "twoqueue";
+          HOST = "{\"size\":100, \"recent_ratio\":0.25, \"ghost_ratio\":0.5}";
+        };
         repository = {
           ENABLE_PUSH_CREATE_USER = true;
           ENABLE_PUSH_CREATE_ORG = true;
