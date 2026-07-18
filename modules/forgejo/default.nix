@@ -37,6 +37,14 @@ in
 
     services.forgejo = {
       enable = true;
+      dump = {
+        enable = true;
+        # Tar is selcted with no compression as my fs already has good compression using zstd.
+        # And more importantly this will also allow Borg to dedupe the archive during backup so that one small change in a file won't result in all chunks of the archive changing.
+        type = "tar";
+        interval = "01:00";
+        age = "3d";
+      };
       settings = {
         server = {
           PROTOCOL = "http+unix";
