@@ -57,6 +57,10 @@ in
           ENABLE_PUSH_CREATE_USER = true;
           ENABLE_PUSH_CREATE_ORG = true;
         };
+        actions = {
+          ENABLE = true;
+          DEFAULT_ACTIONS_URL = config.services.forgejo.settings.server.ROOT_URL;
+        };
         service = {
           DISABLE_REGISTRATION = true;
         };
