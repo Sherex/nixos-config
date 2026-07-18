@@ -63,6 +63,9 @@ in
         metrics = {
           ENABLED = true;
         };
+        "git.timeout" = {
+          MIGRATE = 60 * 60 * 2;
+        };
       };
     };
 
