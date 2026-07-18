@@ -56,6 +56,9 @@ in
           ADAPTER = "twoqueue";
           HOST = "{\"size\":100, \"recent_ratio\":0.25, \"ghost_ratio\":0.5}";
         };
+        ui = {
+          DEFAULT_SHOW_FULL_NAME = true;
+        };
         repository = {
           ENABLE_PUSH_CREATE_USER = true;
           ENABLE_PUSH_CREATE_ORG = true;
