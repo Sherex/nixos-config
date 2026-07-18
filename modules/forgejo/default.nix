@@ -12,6 +12,9 @@ let
   domain = "git.${root_domain}";
 in
 {
+  imports = [
+    ./runner.nix
+  ];
   options.${name}.enable = lib.mkEnableOption name;
 
   config = lib.mkIf cfg.enable {
@@ -33,7 +36,7 @@ in
         server = {
           PROTOCOL = "http+unix";
           DOMAIN = domain;
-          ROOT_URL = "https://${domain}/";
+          ROOT_URL = "https://${domain}";
           ENABLE_PUSH_CREATE_USER = true;
           ENABLE_PUSH_CREATE_ORG = true;
         };
