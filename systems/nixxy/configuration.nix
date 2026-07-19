@@ -20,6 +20,7 @@
     ../../modules/observability
     ../../modules/qui
     ../../modules/forgejo
+    ../../modules/victorialogs
   ];
 
   networking.hostName = "Nixxy";
@@ -34,6 +35,7 @@
   # backup.borgbaseId = "";
 
   observability.enable = true;
+  victorialogs.enable = true;
   forgejo.enable = true;
   forgejo.localRunner.enable = true;
 
