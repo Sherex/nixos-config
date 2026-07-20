@@ -51,7 +51,13 @@ jobs:
             extra-substituters = ${{ env.NIX_PERSONAL_BINARY_CACHE }}
             extra-trusted-public-keys = ${{ env.NIX_PERSONAL_BINARY_CACHE_PUBLIC_KEY }}
 
-      - name: ${{ matrix.action == 'eval' && 'Evaluate' || 'Build' }} configurations and check for warnings/errors
+      - name: Test build
+        env:
+          ACTION: ${{ matrix.action }}
+        run: |
+          nix $ACTION --verbose .#nixosConfigurations.Archy.config.system.build.toplevel
+
+      - name: Build or Eval configurations and check for warnings/errors
         id: nix-action
         env:
           ACTION: ${{ matrix.action }}
@@ -125,7 +131,7 @@ jobs:
             exit 1
           fi
 
-      - name: Post ${{ matrix.action }} results as comment (PR only)
+      - name: Post build/eval results as comment (PR only)
         if: always() && github.event_name == 'pull_request'
         uses: actions/github-script@v9
         env:
