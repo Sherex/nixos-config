@@ -65,6 +65,11 @@ in
       };
     };
 
+    services.vector = {
+      enable = true;
+      journaldAccess = false;
+    };
+
     systemd.services.systemd-journal-upload = {
       after = [ "victorialogs.service" ];
       wants = [ "victorialogs.service" ];
