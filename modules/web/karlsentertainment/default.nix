@@ -1,9 +1,38 @@
 { config, pkgs, ... }:
 
-{
+let
+  service = {
+    name = "karlsentertainment";
+    directory = "/srv/services/karlsentertainment";
+    port = 8000;
+    domain = "karlsentertainment.no";
+    group = "${service.name}-mgm";
+  };
+in {
   environment.persistence."/persistent/safe".directories = [
-    "/srv/karl-website"
+    service.directory
   ];
+
+  virtualisation.oci-containers.containers.karlsentertainment = {
+    image = "ghcr.io/havsalt/karl-s-entertainment-productions:latest";
+    ports = [
+      "${toString service.port}:8000"
+    ];
+    volumes = [
+      "${service.directory}/static:/app/static"
+      "${service.directory}/data:/app/data"
+    ];
+    environment = {
+      FORWARDED_ALLOW_IPS = "*"; # NOTE: Must match the internal podman container ip which changes often.
+    };
+    extraOptions = [
+      "--health-cmd=curl -f http://localhost:8000"
+      "--health-interval=30s"
+      "--health-timeout=10s"
+      "--health-retries=3"
+      "--health-start-period=5s"
+    ];
+  };
 
   services.nginx = {
     virtualHosts."karlsentertainment.no" = {
@@ -11,12 +40,12 @@
       enableACME = true;
       locations."/" = {
         proxyPass =
-          "http://localhost:8000";
+          "http://127.0.0.1:${toString service.port}";
         proxyWebsockets = true;
       };
       locations."/.hooks" = {
         proxyPass =
-          "http://localhost:8001";
+          "http://127.0.0.1:${toString config.services.webhook.port}";
         proxyWebsockets = true;
       };
     };
@@ -28,8 +57,6 @@
     port = 8001;
     urlPrefix = ".hooks";
     openFirewall = false;
-    user = "sherex"; # WARN: Use separate user with only the necessary permissions.
-    group = "users"; #       Same with group.
 
     environment = {
       #GIT_SSH_COMMAND = "${pkgs.openssh}/bin/ssh -i /srv/id_webhook -o StrictHostKeyChecking=no";
@@ -41,7 +68,7 @@
 
     hooks = {
       deploy = {
-        command-working-directory = "/srv/karl-website";
+        command-working-directory = service.directory;
         response-message = "Karl website deployment triggered.";
         include-command-output-in-response = true;
 
@@ -81,48 +108,36 @@
             }
           ];
         };
-        execute-command = toString (pkgs.writeShellScript "deploy-karl-website" ''
-          PATH="$PATH:${pkgs.git}/bin:${pkgs.podman}/bin:${pkgs.podman-compose}/bin:${pkgs.openssh}/bin"
+        execute-command = toString (pkgs.writeShellScript "deploy-karlsentertainment" ''
+          PATH="$PATH:${pkgs.podman}/bin"
 
           set -euo pipefail
-          echo "Deploying latest main"
 
-          cd /srv/karl-website
-
-          git config --add safe.directory /srv/karl-website
-
-          # TODO: Make idempotent
-          #git remote set-url origin https://x-access-token:$HOOK_GITHUB_TOKEN@github.com/Havsalt/Karl-s-Entertainment-Productions
-
-          # Clean update from main
-          git fetch origin main
-          if ! git diff --quiet; then
-            echo "Stashing local changes"
-            git stash push
-          fi
-
-          git reset --hard origin/main
-
-          # Reapply stash if it exists
-          if git stash list | grep -q .; then
-            echo "Reapplying stashed changes"
-            git stash pop || {
-              echo "Stash pop failed due to merge conflicts"
-              exit 1
-            }
-          fi
-
-          echo "Building and deploying"
-          if ! podman compose up -d --build --force-recreate; then
+          echo "Deploying latest container image..."
+          if ! sudo ${pkgs.systemd}/bin/systemctl restart podman-${service.name}; then
             echo "Deployment failed"
             exit 1
           fi
 
           echo "Deployment complete"
-          echo "ENV_URL: https://karlsentertainment.no"
+          echo "ENV_URL: https://${service.domain}"
         '');
       };
     };
   };
-
+  security.sudo.extraRules = [{
+    commands = let
+      allowPodman = cmd: {
+        command = "${pkgs.systemd}/bin/systemctl ${cmd} podman-${service.name}";
+        options = [ "NOPASSWD" ];
+      };
+    in [
+      allowPodman "start"
+      allowPodman "restart"
+      allowPodman "stop"
+    ];
+    groups = [ service.group ];
+  }];
+  users.groups.${service.group} = {};
+  users.users.${config.services.webhook.user}.extraGroups = [service.group];
 }
