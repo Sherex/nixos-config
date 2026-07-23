@@ -52,6 +52,7 @@ in
       forceSSL = true;
       locations."/" = {
         proxyPass = "http://${config.services.victorialogs.listenAddress}";
+        proxyWebsockets = true;
         extraConfig = ''
           ${allowOnlyTailnet}
         '';

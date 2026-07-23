@@ -279,6 +279,7 @@ in
       forceSSL = true;
       locations."/" = {
         proxyPass = "http://${config.services.victoriametrics.listenAddress}";
+        proxyWebsockets = true;
         extraConfig = ''
           ${allowOnlyTailnet}
         '';
@@ -289,6 +290,7 @@ in
       forceSSL = true;
       locations."/" = {
         proxyPass = "http://${config.services.grafana.settings.server.http_addr}:${toString config.services.grafana.settings.server.http_port}";
+        proxyWebsockets = true;
         extraConfig = ''
           ${allowOnlyTailnet}
         '';
