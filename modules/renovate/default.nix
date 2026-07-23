@@ -41,16 +41,25 @@ in
     };
 
     credentials = {
-      RENOVATE_TOKEN = config.sops.secrets."services/renovate/github-pat".path;
+      RENOVATE_GITHUB_COM_TOKEN = config.sops.secrets."services/renovate/github-pat".path;
+      RENOVATE_TOKEN = config.sops.secrets."services/renovate/forgejo-pat".path;
     };
 
     settings = {
-      platform = "github";
+      platform = "forgejo";
+      endpoint = "https://git.i-h.no";
       gitAuthor = "Renovate Bot IH <renovate@i-h.no>";
       autodiscover = true;
       autodiscoverFilter = ["Sherex/*" "sherex/*"];
-      requireConfig = true; # ONLY run on repos with renovate.json
-      onboarding = false;   # do NOT create onboarding PRs
+      requireConfig = "required"; # ONLY run on repos with renovate.json
+      onboarding = true;   # do NOT create onboarding PRs
+      onboardingConfig = {
+        extends = [
+          "config:best-practices"
+        ];
+      };
+      onboardingConfigFileName = "renovate.json5";
+      persistRepoData = true;
     };
   };
 
@@ -58,6 +67,7 @@ in
     StateDirectory = "renovate"; # Already default in services.renovate. But set here to fail on eval if ever changed upstream as it is required by the script above
   };
 
+  sops.secrets."services/renovate/forgejo-pat" = {};
   sops.secrets."services/renovate/github-pat" = {};
 }
 
