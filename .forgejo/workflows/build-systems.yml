@@ -51,12 +51,6 @@ jobs:
             extra-substituters = ${{ env.NIX_PERSONAL_BINARY_CACHE }}
             extra-trusted-public-keys = ${{ env.NIX_PERSONAL_BINARY_CACHE_PUBLIC_KEY }}
 
-      - name: Test build
-        env:
-          ACTION: ${{ matrix.action }}
-        run: |
-          nix $ACTION --verbose .#nixosConfigurations.Archy.config.system.build.toplevel
-
       - name: Build or Eval configurations and check for warnings/errors
         id: nix-action
         env:
