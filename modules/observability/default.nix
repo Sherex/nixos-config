@@ -87,6 +87,15 @@ in
 
     services.victoriametrics.prometheusConfig.scrape_configs = [
       {
+        job_name = "victoriametrics";
+        scrape_interval = "10s";
+        static_configs = [
+          {
+            targets = [ config.services.victoriametrics.listenAddress ];
+          }
+        ];
+      }
+      {
         job_name = "node";
         scrape_interval = "10s";
         static_configs = [
