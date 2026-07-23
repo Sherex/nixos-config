@@ -59,6 +59,18 @@ in
       };
     };
 
+    services.victoriametrics.prometheusConfig.scrape_configs = [
+      {
+        job_name = "victorialogs";
+        scrape_interval = "10s";
+        static_configs = [
+          {
+            targets = [ "http://${config.services.victorialogs.listenAddress}/metrics" ];
+          }
+        ];
+      }
+    ];
+
     services.journald.upload = {
       enable = true;
       settings.Upload = {
