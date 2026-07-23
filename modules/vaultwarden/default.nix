@@ -8,6 +8,7 @@ let
   name = "vaultwarden";
   cfg = config.${name};
   service = config.services.vaultwarden;
+  systemdService = config.systemd.services.vaultwarden;
   root_domain = "i-h.no";
   domain = "${name}.${root_domain}";
   allowOnlyTailnet = ''
@@ -24,9 +25,9 @@ in
       directories = [
         # Expects service to use DynamicUser
         {
-          directory = "/var/lib/${service.serviceConfig.StateDirectory}";
-          user = config.systemd.services.vaultwarden.serviceConfig.User;
-          group = config.systemd.services.vaultwarden.serviceConfig.Group;
+          directory = "/var/lib/${systemdService.serviceConfig.StateDirectory}";
+          user = systemdService.serviceConfig.User;
+          group = systemdService.serviceConfig.Group;
           mode = "u=rwx,g=,o=";
         }
       ];
@@ -46,7 +47,7 @@ in
       useACMEHost = "${root_domain}";
       forceSSL = true;
       locations."/" = {
-        proxyPass = "http://${service.config.ROCKET_ADDRESS}:${service.config.ROCKET_PORT}";
+        proxyPass = "http://${service.config.ROCKET_ADDRESS}:${toString service.config.ROCKET_PORT}";
         extraConfig = ''
           ${allowOnlyTailnet}
         '';
