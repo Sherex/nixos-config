@@ -60,6 +60,11 @@ in
       };
       onboardingConfigFileName = "renovate.json5";
       persistRepoData = true;
+      packageRules = [{
+        matchFileNames = [".forgejo/workflows/**"];
+        overrideDatasource = "forgejo-tags";
+        registryUrls = ["https://git.i-h.no"];
+      }];
     };
   };
 
