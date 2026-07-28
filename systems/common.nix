@@ -59,7 +59,10 @@
     download-buffer-size = 1048576000;
     auto-optimise-store = true;
     builders-use-substitutes = true;
-    extra-trusted-public-keys = [ "nix-cache-s3:bqvZzMPh1+gbFBWcnvXk7FtyCck1Phet8lV1iA4/uvU=" ];
+    extra-trusted-public-keys = [
+      "nix-cache-s3:bqvZzMPh1+gbFBWcnvXk7FtyCck1Phet8lV1iA4/uvU=" # GH Actions
+      "nix-cache.s3.i-h.no-0:3SBEeHS3P1R21qHUnztBZnWOLmqYyPkbCnP2lxUiia4=" # Forgejo actions
+    ];
     extra-substituters = [ "https://nix-cache.web.i-h.no" ];
   };
   nixpkgs.config.allowUnfree = true;
