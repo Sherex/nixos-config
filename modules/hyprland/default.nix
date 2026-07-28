@@ -37,7 +37,6 @@ in {
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
     wl-gammarelay-rs # Used by a block in i3status-rust
     complete-alias
-    btop # Top alt.
   ];
 
   fonts.packages = with pkgs; [

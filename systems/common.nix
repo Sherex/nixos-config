@@ -84,6 +84,7 @@
     tree
     pciutils
     gnumake
+    btop
   ];
   services.resolved = {
     enable = true;
