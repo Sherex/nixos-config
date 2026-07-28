@@ -29,8 +29,10 @@ in
           "ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-latest"
           "ubuntu-24.04:docker://ghcr.io/catthehacker/ubuntu:act-24.04"
           "ubuntu-22.04:docker://ghcr.io/catthehacker/ubuntu:act-22.04"
+          # Custom
+          "nixos-full:docker://git.i-h.no/sherex/nixos-ci-image@sha256:c261431e2185825a6f4e87d43271ddaa1c22ccf6cf870adfe64d3f27e5464636"
           # Native (Shudders...)
-          "native:host"
+          # "native:host"
         ];
         hostPackages = with pkgs; [
           # default
