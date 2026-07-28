@@ -49,6 +49,7 @@ in
         ];
         settings = {
           container.network = "host";
+          runner.capacity = 4;
         };
       };
     };
