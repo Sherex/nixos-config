@@ -259,6 +259,9 @@ in {
           "$mainMod SHIFT, P, movewindow, r"
           "$mainMod SHIFT, P, movewindow, d"
           "$mainMod SHIFT, P, pin, active"
+
+          # Popup pinned terminal
+          "$mainMod CTRL, return, exec, [float; size (monitor_w/2) (monitor_h/4); move ((monitor_w/2)-window_w) 30; pin] $terminal"
         ];
 
         binde = [
