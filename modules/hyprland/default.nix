@@ -83,240 +83,112 @@ in {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      configType = "hyprlang";
+      configType = "lua";
       settings = {
-        "$terminal" = "${pkgs.foot}/bin/foot";
-        "$menu" = "${pkgs.rofi}/bin/rofi -modes combi -show combi";
-        "$ssh-menu" = "${pkgs.rofi}/bin/rofi -modes ssh -show ssh";
-        "$playerctl" = "${pkgs.playerctl}/bin/playerctl";
-        "$wpctl" = "${pkgs.wireplumber}/bin/wpctl";
+        config = {
+          general = {
+            gaps_in = 5;
+            gaps_out = 20;
 
-        env = [
-          "XCURSOR_SIZE,24"
-          "HYPRCURSOR_SIZE,24"
-        ];
+            border_size = 2;
 
-        monitor = [
-          "HDMI-A-1,1920x1080@60,0x0,1.2" # Dummy HDMI plug used by Sunshine
-          ",preferred,auto,auto"
-          "Unknown-1,disable"
-        ];
+            # https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
+            col = {
+              active_border.colors = [ "rgba(33ccffee)" "rgba(00ff99ee)"];
+              active_border.angle = 45;
+              inactive_border = "rgba(595959aa)";
+            };
 
-        exec-once = [
-          "$terminal"
-          "[workspace special:monitoring silent] $terminal ${pkgs.btop}/bin/btop"
-          "[workspace special:monitoring silent] $terminal nvtop"
-        ];
+            # Set to true enable resizing windows by clicking and dragging on borders and gaps
+            resize_on_border = false;
 
-        general = { 
-          gaps_in = 5;
-          gaps_out = 20;
+            # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
+            allow_tearing = false;
 
-          border_size = 2;
+            layout = "dwindle";
+          };
 
-          # https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
-          "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-          "col.inactive_border" = "rgba(595959aa)";
+          misc = {
+            disable_hyprland_logo = true;
+            disable_splash_rendering = true;
+          };
 
-          # Set to true enable resizing windows by clicking and dragging on borders and gaps
-          resize_on_border = false;
+          ecosystem = {
+            no_update_news = true;
+            no_donation_nag = true;
+          };
 
-          # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
-          allow_tearing = false;
+          decoration = {
+            rounding = 0;
 
-          layout = "dwindle";
-        };
+            # Change transparency of focused and unfocused windows
+            active_opacity = 1.0;
+            inactive_opacity = 1.0;
 
-        misc = {
-          disable_hyprland_logo = true;
-          disable_splash_rendering = true;
-        };
+            shadow = {
+              enabled = false;
+            };
 
-        ecosystem = {
-          no_update_news = true;
-          no_donation_nag = true;
-        };
+            # https://wiki.hyprland.org/Configuring/Variables/#blur
+            blur = {
+              enabled = false;
+              size = 3;
+              passes = 1;
 
-        decoration = {
-          rounding = 0;
+              vibrancy = 0.1696;
+            };
+          };
 
-          # Change transparency of focused and unfocused windows
-          active_opacity = 1.0;
-          inactive_opacity = 1.0;
-
-          shadow = {
+          # https://wiki.hyprland.org/Configuring/Variables/#animations
+          animations = {
             enabled = false;
           };
 
-          # https://wiki.hyprland.org/Configuring/Variables/#blur
-          blur = {
-            enabled = false;
-            size = 3;
-            passes = 1;
-            
-            vibrancy = 0.1696;
+          # https://wiki.hyprland.org/Configuring/Dwindle-Layout/
+          dwindle = {
+            preserve_split = true;
+          };
+
+          # https://wiki.hyprland.org/Configuring/Master-Layout/
+          master = {
+            new_status = "master";
+          };
+
+          # https://wiki.hyprland.org/Configuring/Variables/#input
+          input = {
+            kb_layout = "no";
+            follow_mouse = 1;
+            touchpad.disable_while_typing = false;
+          };
+
+          debug = {
+            disable_logs = false;
           };
         };
 
-        # https://wiki.hyprland.org/Configuring/Variables/#animations
-        animations = {
-          enabled = false;
-        };
-
-        # https://wiki.hyprland.org/Configuring/Dwindle-Layout/
-        dwindle = {
-          preserve_split = true;
-        };
-
-        # https://wiki.hyprland.org/Configuring/Master-Layout/
-        master = {
-          new_status = "master";
-        };
-
-        # https://wiki.hyprland.org/Configuring/Variables/#input
-        input = {
-          kb_layout = "no";
-          follow_mouse = 1;
-          touchpad.disable_while_typing = false;
-        };
-
-
-        # See https://wiki.hyprland.org/Configuring/Keywords/
-        "$mainMod" = "SUPER";
-        bind = [
-          # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-          "$mainMod, return, exec, $terminal"
-          "$mainMod SHIFT, return, exec, $ssh-menu"
-          "$mainMod, Q, killactive,"
-          "$mainMod SHIFT, END, exit,"
-          "$mainMod, E, exec, $fileManager"
-          "$mainMod SHIFT, V, togglefloating,"
-          "$mainMod, V, cyclenext"
-          "$mainMod, P, pin"
-          "$mainMod, F, fullscreen, 1"
-          "$mainMod SHIFT, F, fullscreen, 0"
-          "$mainMod, D, exec, $menu"
-          "$mainMod, W, togglesplit,"
-
-          # Screen-lock
-          "$mainMod, Z, exec, ${binaries.hyprlock}"
-
-          # Move focus
-          "$mainMod, h, movefocus, l"
-          "$mainMod, l, movefocus, r"
-          "$mainMod, k, movefocus, u"
-          "$mainMod, j, movefocus, d"
-
-          # Move windows
-          "$mainMod SHIFT, h, movewindow, l"
-          "$mainMod SHIFT, l, movewindow, r"
-          "$mainMod SHIFT, k, movewindow, u"
-          "$mainMod SHIFT, j, movewindow, d"
-
-          # Switch workspaces with mainMod + [0-9]
-          "$mainMod, 1, workspace, 1"
-          "$mainMod, 2, workspace, 2"
-          "$mainMod, 3, workspace, 3"
-          "$mainMod, 4, workspace, 4"
-          "$mainMod, 5, workspace, 5"
-          "$mainMod, 6, workspace, 6"
-          "$mainMod, 7, workspace, 7"
-          "$mainMod, 8, workspace, 8"
-          "$mainMod, 9, workspace, 9"
-          "$mainMod, 0, workspace, 10"
-
-          # Move active window to a workspace with mainMod + SHIFT + [0-9]
-          "$mainMod SHIFT, 1, movetoworkspacesilent, 1"
-          "$mainMod SHIFT, 2, movetoworkspacesilent, 2"
-          "$mainMod SHIFT, 3, movetoworkspacesilent, 3"
-          "$mainMod SHIFT, 4, movetoworkspacesilent, 4"
-          "$mainMod SHIFT, 5, movetoworkspacesilent, 5"
-          "$mainMod SHIFT, 6, movetoworkspacesilent, 6"
-          "$mainMod SHIFT, 7, movetoworkspacesilent, 7"
-          "$mainMod SHIFT, 8, movetoworkspacesilent, 8"
-          "$mainMod SHIFT, 9, movetoworkspacesilent, 9"
-          "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
-
-          # Scratchpad
-          "$mainMod, S, togglespecialworkspace, magic"
-          "$mainMod SHIFT, S, movetoworkspacesilent, special:magic"
-
-          # Monitoring workspace
-          "$mainMod, M, togglespecialworkspace, monitoring"
-          "$mainMod SHIFT, M, movetoworkspacesilent, special:monitoring"
-
-          # Scroll through existing workspaces with mainMod + scroll
-          "$mainMod, mouse_down, workspace, e+1"
-          "$mainMod, mouse_up, workspace, e-1"
-
-          # Screenshot
-          ", Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
-          "CTRL, Print, exec, grim -g \"$(slurp -o)\" - | swappy -f -"
-
-          # Set floating and pinned
-          "$mainMod SHIFT, P, setfloating, active"
-          "$mainMod SHIFT, P, resizeactive, exact 25% 35%"
-          "$mainMod SHIFT, P, movewindow, r"
-          "$mainMod SHIFT, P, movewindow, d"
-          "$mainMod SHIFT, P, pin, active"
-
-          # Popup pinned terminal
-          "$mainMod CTRL, return, exec, [float; size (monitor_w/2) (monitor_h/4); move ((monitor_w/2)-window_w) 30; pin] $terminal"
-        ];
-
-        binde = [
-          # Media controls
-          ",XF86AudioStop, exec, $playerctl stop"
-          ",XF86AudioPlay, exec, $playerctl play-pause"
-          ",XF86AudioNext, exec, $playerctl next"
-          ",XF86AudioPrev, exec, $playerctl previous"
-
-          ",XF86AudioRaiseVolume, exec, $wpctl set-volume @DEFAULT_SINK@ 2%+"
-          ",XF86AudioLowerVolume, exec, $wpctl set-volume @DEFAULT_SINK@ 2%-"
-          ",XF86AudioMute, exec, $wpctl set-mute @DEFAULT_SINK@ toggle"
-        ];
-
-        bindm = [
-          # Move/resize windows with mainMod + LMB/RMB and dragging
-          "$mainMod, mouse:272, movewindow"
-          "$mainMod, mouse:273, resizewindow"
-        ];
-
-        workspace = [
-          "w[tv1], gapsout:0, gapsin:0" # Smart gaps: https://wiki.hyprland.org/Configuring/Workspace-Rules/#smart-gaps
-          "f[1], gapsout:0, gapsin:0" # Smart gaps
-        ];
-
-        windowrule = [
-          "suppress_event maximize, match:class .*"
-          "stay_focused on, match:title .*(rofi).*"
-          "border_size 0, rounding 0, match:float 0, match:workspace w[tv1]"
-          "border_size 0, rounding 0, match:float 0, match:workspace f[1]"
-          "border_color rgb(FF0000), match:pin 1"
-        ];
-
-        debug = {
-          disable_logs = false;
-        };
       };
 
-      extraConfig = ''
-        # Resize windows
-        bind = $mainMod, R, submap, resize
+      extraConfig = let
+        variables = {
+          mainMod = "SUPER";
+          terminal = "${pkgs.foot}/bin/foot";
+          fileManager = "${pkgs.yazi}/bin/yazi";
+          menu = "${pkgs.rofi}/bin/rofi -modes combi -show combi";
+          ssh_menu = "${pkgs.rofi}/bin/rofi -modes ssh -show ssh";
+          playerctl = "${pkgs.playerctl}/bin/playerctl";
+          wpctl = "${pkgs.wireplumber}/bin/wpctl";
+          hyprlock = "${pkgs.hyprlock}/bin/hyprlock";
+          btop = "${pkgs.btop}/bin/btop";
+          start_hyperland = "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd DISPLAY HYPRLAND_INSTANCE_SIGNATURE WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE && systemctl --user stop hyprland-session.target && systemctl --user start hyprland-session.target";
+        };
 
-        submap = resize
-        binde = $mainMod, h, resizeactive, -20 0
-        binde = $mainMod, l, resizeactive, 20 0
-        binde = $mainMod, k, resizeactive, 0 -20
-        binde = $mainMod, j, resizeactive, 0 20
-
-        binde = $mainMod SHIFT, h, resizeactive, -200 0
-        binde = $mainMod SHIFT, l, resizeactive, 200 0
-        binde = $mainMod SHIFT, k, resizeactive, 0 -200
-        binde = $mainMod SHIFT, j, resizeactive, 0 200
-
-        bind = , escape, submap, reset
-        submap = reset
+        # Convert the Nix set to a string of Lua 'local' declarations
+        luaVariables = lib.concatStringsSep "\n" (
+          lib.mapAttrsToList (name: value: "local ${name} = [[${value}]]") variables
+        );
+      in ''
+        ${luaVariables}
+        ${builtins.readFile ./hyprland.lua}
       '';
     };
 
