@@ -196,7 +196,6 @@ in {
           "$mainMod, F, fullscreen, 1"
           "$mainMod SHIFT, F, fullscreen, 0"
           "$mainMod, D, exec, $menu"
-          "$mainMod SHIFT, P, pseudo,"
           "$mainMod, W, togglesplit,"
 
           # Screen-lock
@@ -253,6 +252,13 @@ in {
           # Screenshot
           ", Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
           "CTRL, Print, exec, grim -g \"$(slurp -o)\" - | swappy -f -"
+
+          # Set floating and pinned
+          "$mainMod SHIFT, P, setfloating, active"
+          "$mainMod SHIFT, P, resizeactive, exact 25% 35%"
+          "$mainMod SHIFT, P, movewindow, r"
+          "$mainMod SHIFT, P, movewindow, d"
+          "$mainMod SHIFT, P, pin, active"
         ];
 
         binde = [
