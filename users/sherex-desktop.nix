@@ -43,8 +43,8 @@
 
       gtk4.theme = config.home-manager.users.sherex.gtk.theme;
       theme = {
-        package = pkgs.flat-remix-gtk;
-        name = "Flat-Remix-GTK-Grey-Darkest";
+        package = pkgs.nordic;
+        name = "Nordic-darker";
       };
 
       iconTheme = {
