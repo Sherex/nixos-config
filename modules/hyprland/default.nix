@@ -7,20 +7,6 @@ let
   binaries = {
     hyprlock = "${pkgs.hyprlock.outPath}/bin/hyprlock";
   };
-  duplicate-terminal = pkgs.writeShellScript "duplicate-terminal" ''
-    #!/usr/bin/env bash
-    active_pid=$(hyprctl activewindow -j | jq -r '.pid')
-    bash_pid=$(pgrep -lP "$active_pid" | awk '$2 ~ /^(bash|zsh|fish|sh)$/ { print $1 }')
-    NOTIFY_CMD="${pkgs.libnotify}/bin/notify-send -u normal"
-
-    if [ -z "$bash_pid" ] || [ ! -d "/proc/$bash_pid/cwd" ]; then
-        $NOTIFY_CMD "Error" "Could not determine shell CWD from active window"
-        exit 1
-    fi
-
-    cwd=$(realpath "/proc/$bash_pid/cwd")
-    hyprctl dispatch exec -- foot -D "$cwd"
-  '';
 in {
   imports = [
     ../waybar
@@ -100,7 +86,6 @@ in {
       configType = "hyprlang";
       settings = {
         "$terminal" = "${pkgs.foot}/bin/foot";
-        "$duplicate-terminal" = "${duplicate-terminal}";
         "$menu" = "${pkgs.rofi}/bin/rofi -modes combi -show combi";
         "$ssh-menu" = "${pkgs.rofi}/bin/rofi -modes ssh -show ssh";
         "$playerctl" = "${pkgs.playerctl}/bin/playerctl";
@@ -201,7 +186,6 @@ in {
         bind = [
           # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
           "$mainMod, return, exec, $terminal"
-          "$mainMod CTRL, return, exec, $duplicate-terminal"
           "$mainMod SHIFT, return, exec, $ssh-menu"
           "$mainMod, Q, killactive,"
           "$mainMod SHIFT, END, exit,"
