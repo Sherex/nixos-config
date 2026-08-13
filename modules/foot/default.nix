@@ -9,6 +9,21 @@
         main = {
           font = "monospace:size=11";
         };
+        key-bindings = {
+          pipe-scrollback = let
+            nvimScrollbackScript = pkgs.writeShellScript "nvim-scrollback" ''
+              t=$(mktemp)
+              trap 'rm --force "$t"' EXIT
+              cat - > "$t"
+              ${pkgs.foot}/bin/foot \
+                --app-id="foot-scrollback" \
+                --title="Terminal Scrollback" \
+                -e ${pkgs.neovim}/bin/nvim \
+                "+" \
+                "$t"
+            '';
+          in "[${nvimScrollbackScript}] Control+Shift+y";
+        };
         colors-dark = {
           alpha = "0.75";
           background = "000000";
