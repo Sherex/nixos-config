@@ -108,5 +108,10 @@ in
         ];
       }
     ];
+    environment.persistence."/persistent/safe" = {
+      directories = [
+        config.services.forgejo.stateDir
+      ];
+    };
   };
 }

@@ -71,5 +71,23 @@ in
 
     systemd.services.gitea-runner-local.wants = [ "forgejo.service" ];
     systemd.services.gitea-runner-local.after = [ "forgejo.service" ];
+
+    environment.persistence."/persistent/safe" = {
+      directories = [
+        # Expects service to use DynamicUser
+        {
+          directory = "/var/lib/private/${config.systemd.services.gitea-runner-local.serviceConfig.StateDirectory}";
+          user = "nobody";
+          group = "nogroup";
+          mode = "u=rwx,g=,o=";
+        }
+      ];
+    };
+    assertions = [
+      {
+        assertion = !!config.systemd.services.gitea-runner-local.serviceConfig.DynamicUser;
+        message = "Current persistance directory configuration for Gitea Actions Runner expects gitea-runner-local DynamicUser service setting to be enabled";
+      }
+    ];
   };
 }
