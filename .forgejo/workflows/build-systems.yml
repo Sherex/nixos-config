@@ -131,13 +131,24 @@ jobs:
         env:
           HAS_ISSUES: ${{ steps.nix-action.outputs.has_issues }}
           BUILD_FAILED: ${{ steps.nix-action.outputs.build_failed }}
+          NIX_ACTION: ${{ matrix.action }}
         with:
           script: |
             const fs = require('fs');
             const path = require('path');
 
             const hostOutputsDir = path.join(process.cwd(), process.env.HOST_OUTPUT_DIR);
-            let commentBody = '## NixOS Configuration ${{ matrix.action == 'eval' && 'Evaluation' || 'Build' }} Results\n\n';
+
+            const nixAction = process.env.NIX_ACTION;
+            const commentId = `id=8ghw5fx-build-systems-output-${nixAction}`;
+
+            const actionMap = {
+              build: 'Build',
+              eval: 'Evaluation',
+            };
+            const nixActionFriendly = actionMap[nixAction] || 'Unknown action';
+            let commentBody = `## NixOS Configuration ${nixActionFriendly} Results\n\n`;
+            commentBody +=  `\n<!-- ${commentId} -->\n`;
 
             if (!fs.existsSync(hostOutputsDir) || fs.readdirSync(hostOutputsDir).length === 0) {
               commentBody += 'No host output files found in host-outputs directory.\n';
@@ -188,8 +199,7 @@ jobs:
             });
 
             const existingComment = comments.data.find(comment =>
-              comment.user.login === 'github-actions[bot]' &&
-              comment.body.includes('NixOS Configuration ${{ matrix.action == 'eval' && 'Evaluation' || 'Build' }} Results')
+              comment.body.includes(commentId)
             );
 
             if (existingComment) {
