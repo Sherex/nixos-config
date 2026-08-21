@@ -1,22 +1,22 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "https://git.i-h.no/sherex/nixpkgs/archive/nixos-unstable.tar.gz";
+    nixpkgs-stable.url = "https://git.i-h.no/sherex/nixpkgs/archive/nixos-25.05.tar.gz";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "https://git.i-h.no/sherex/home-manager/archive/master.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    impermanence.url = "github:nix-community/impermanence";
+    impermanence.url = "https://git.i-h.no/sherex/impermanence/archive/master.tar.gz";
 
     sops-nix = {
-      url = "github:Mic92/sops-nix";
+      url = "https://git.i-h.no/sherex/sops-nix/archive/master.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     disko = {
-      url = "github:nix-community/disko";
+      url = "https://git.i-h.no/sherex/disko/archive/master.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
