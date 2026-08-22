@@ -9,15 +9,13 @@
       "locked": {
         "lastModified": 1781152676,
         "narHash": "sha256-RxWs5ND31KzTG7wvMM+PMfUjyNpmIEr999lqNARaM5o=",
-        "owner": "nix-community",
-        "repo": "disko",
         "rev": "ff8702b4de27f72b4c78573dfb89ec74e36abdf1",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://git.i-h.no/api/v1/repos/Sherex/disko/archive/ff8702b4de27f72b4c78573dfb89ec74e36abdf1.tar.gz"
       },
       "original": {
-        "owner": "nix-community",
-        "repo": "disko",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://git.i-h.no/sherex/disko/archive/master.tar.gz"
       }
     },
     "home-manager": {
@@ -27,17 +25,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1783134515,
-        "narHash": "sha256-qMoZazubXlXUD9k/syJ/aiWC4X4g73mwVmZ7Z4+rdpM=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "b885baad531fa3d3beae2ba9a0712d22974d8016",
-        "type": "github"
+        "lastModified": 1787176219,
+        "narHash": "sha256-djoRr6jBpe35q/0JwAvXpFXg1Ktf+X54NU2RLR7wnHw=",
+        "rev": "c53d643b3737e2fcd04e6cb3b3580ef50b2087a0",
+        "type": "tarball",
+        "url": "https://git.i-h.no/api/v1/repos/Sherex/home-manager/archive/c53d643b3737e2fcd04e6cb3b3580ef50b2087a0.tar.gz"
       },
       "original": {
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://git.i-h.no/sherex/home-manager/archive/master.tar.gz"
       }
     },
     "home-manager_2": {
@@ -69,15 +65,13 @@
       "locked": {
         "lastModified": 1769548169,
         "narHash": "sha256-03+JxvzmfwRu+5JafM0DLbxgHttOQZkUtDWBmeUkN8Y=",
-        "owner": "nix-community",
-        "repo": "impermanence",
         "rev": "7b1d382faf603b6d264f58627330f9faa5cba149",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://git.i-h.no/api/v1/repos/Sherex/impermanence/archive/7b1d382faf603b6d264f58627330f9faa5cba149.tar.gz"
       },
       "original": {
-        "owner": "nix-community",
-        "repo": "impermanence",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://git.i-h.no/sherex/impermanence/archive/master.tar.gz"
       }
     },
     "nixpkgs": {
@@ -100,32 +94,26 @@
       "locked": {
         "lastModified": 1767313136,
         "narHash": "sha256-16KkgfdYqjaeRGBaYsNrhPRRENs0qzkQVUooNHtoy2w=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
         "rev": "ac62194c3917d5f474c1a844b6fd6da2db95077d",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://git.i-h.no/api/v1/repos/Sherex/nixpkgs/archive/ac62194c3917d5f474c1a844b6fd6da2db95077d.tar.gz"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-25.05",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://git.i-h.no/sherex/nixpkgs/archive/nixos-25.05.tar.gz"
       }
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1782959384,
-        "narHash": "sha256-xnJJk+ct+D2+wdRxj1wk36w5zV9RVESwRqcklPdt3fM=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "65179426c83bb3f6bc14898b42ea1c6f01d374b0",
-        "type": "github"
+        "lastModified": 1787135253,
+        "narHash": "sha256-RD2kNWCG+Bjo6h+JVjWVNntZs2GtRoeY2xHjts/FNkA=",
+        "rev": "ffb3c9b700e759be2ef13237c9d8f953b32a1e46",
+        "type": "tarball",
+        "url": "https://git.i-h.no/api/v1/repos/Sherex/nixpkgs/archive/ffb3c9b700e759be2ef13237c9d8f953b32a1e46.tar.gz"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://git.i-h.no/sherex/nixpkgs/archive/nixos-unstable.tar.gz"
       }
     },
     "root": {
@@ -145,17 +133,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1783174389,
-        "narHash": "sha256-aCWC8ngycU7OdJrU2+Je3qf+1a2ykuBvpPhZT/9tXMc=",
-        "owner": "Mic92",
-        "repo": "sops-nix",
-        "rev": "f1406619a3884cd5c47992a70b8b35c9c0fcb4c9",
-        "type": "github"
+        "lastModified": 1786629091,
+        "narHash": "sha256-gkig4nPi1CWc4Z50GBsjE4ygSE7hMpl/TwID2an2Cck=",
+        "rev": "a8627b21b9107c5711c96b84f32a9a4b3d45295f",
+        "type": "tarball",
+        "url": "https://git.i-h.no/api/v1/repos/Sherex/sops-nix/archive/a8627b21b9107c5711c96b84f32a9a4b3d45295f.tar.gz"
       },
       "original": {
-        "owner": "Mic92",
-        "repo": "sops-nix",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://git.i-h.no/sherex/sops-nix/archive/master.tar.gz"
       }
     }
   },
