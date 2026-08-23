@@ -57,6 +57,7 @@ in
         serve = "${pkgs.miniserve}/bin/miniserve --port ${toString miniservePort} --upload-files --mkdir --enable-tar-gz --enable-zip --show-wget-footer ";
         snapcp = "$HOME/.config/sway/scripts.d/snapshot-pre-post.sh";
         new-project = "curl -sSL https://github.com/Sherex/ts-template/raw/main/create.sh | bash -s ";
+        dd = "${lib.getExe pkgs.dragon-drop}";
 
         ## Shortcuts
         ec = "$EDITOR -S /etc/nixos/Session.vim";
