@@ -2,6 +2,17 @@
 
 let 
   miniservePort = 8080;
+  mkScript = name: let
+    nixPath = ./scripts + "/${name}.nix";
+    shPath = ./scripts + "/${name}.sh";
+    content =
+      if builtins.pathExists nixPath then
+        (import nixPath) { inherit pkgs lib; }
+      else if builtins.pathExists shPath then
+        builtins.readFile shPath
+      else
+        throw "mkScript: Script '${name}.{nix,sh}' not found in ./scripts";
+  in pkgs.writeShellScriptBin name content;
 in
 {
   # Enable bash-completion for system packages
@@ -13,6 +24,7 @@ in
       fd
       bat
       miniserve
+      (mkScript "kdeshare") # TODO: Should be added by the kdeconnect module using something like a global config.scripts array
     ];
     programs.bash = {
       enable = true;
