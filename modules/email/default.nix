@@ -38,7 +38,14 @@
         userName ="ingar@i-h.no";
         realName = "Ingar Helgesen";
         passwordCommand = "${pkgs.coreutils}/bin/cat ${config.sops.secrets."user/email/password".path}";
-        aerc.enable = true;
+        folders.inbox = "INBOX";
+        aerc = {
+          enable = true;
+          extraAccounts = {
+            default = "INBOX";
+            folders-sort = "INBOX,live/Inbox";
+          };
+        };
         imap = {
           host = "imap.fastmail.com";
         };
