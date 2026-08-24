@@ -67,6 +67,7 @@
         gcf = "git commit --fixup={}";
         gp = "git push";
         gl = "git log";
+        glf = "git show --stat $(git rev-list HEAD -- $filename)";
         gcb = "git checkout -B";
         gd = "git diff";
         gds = "git diff --staged";
