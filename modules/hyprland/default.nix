@@ -277,8 +277,8 @@ in {
           listener = [
             {
               timeout = 30;
-              on-timeout = "pidof hyprlock && hyprctl dispatch dpms off && touch ${earlylockfile}";
-              on-resume = "[[ -f '${earlylockfile}' ]] && hyprctl dispatch dpms on && rm ${earlylockfile}";
+              on-timeout = "pidof hyprlock && hyprctl eval \"hl.dispatch(hl.dsp.dpms({ action = 'disable' }))\" && touch ${earlylockfile}";
+              on-resume = "[[ -f '${earlylockfile}' ]] && hyprctl eval \"hl.dispatch(hl.dsp.dpms({ action = 'enable' }))\" && rm ${earlylockfile}";
             }
             {
               timeout = 900;
@@ -286,8 +286,8 @@ in {
             }
             {
               timeout = 1200;
-              on-timeout = "hyprctl dispatch dpms off";
-              on-resume = "hyprctl dispatch dpms on";
+              on-timeout = "hyprctl eval \"hl.dispatch(hl.dsp.dpms({ action = 'disable' }))\"";
+              on-resume = "hyprctl eval \"hl.dispatch(hl.dsp.dpms({ action = 'enable' }))\"";
             }
           ];
       };
