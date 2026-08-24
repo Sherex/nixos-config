@@ -27,10 +27,6 @@ jobs:
       AWS_REGION: garage
       NIX_PERSONAL_BINARY_CACHE: s3://nix-cache?endpoint=${{ vars.S3_ENDPOINT }}&region=garage&scheme=https
       NIX_PERSONAL_BINARY_CACHE_PUBLIC_KEY: ${{ vars.S3_PUBLIC_KEY }}
-      NIX_CONFIG: |
-        secret-key-files = ${{ env.NIX_SIGN_PRIVATE_KEY_FILE }}
-        extra-substituters = ${{ env.NIX_PERSONAL_BINARY_CACHE }}
-        extra-trusted-public-keys = ${{ env.NIX_PERSONAL_BINARY_CACHE_PUBLIC_KEY }}
     steps:
       - uses: actions/checkout@v7
       - name: Create Nix signing key file
@@ -38,6 +34,20 @@ jobs:
           cat >"$NIX_SIGN_PRIVATE_KEY_FILE" <<'EOF'
           ${{ secrets.NIX_SIGN_PRIVATE_KEY }}
           EOF
+
+      - name: Set NIX_CONFIG variable
+        env:
+          NIX_CONFIG_CONTENT: |
+            secret-key-files = ${{ env.NIX_SIGN_PRIVATE_KEY_FILE }}
+            extra-substituters = ${{ env.NIX_PERSONAL_BINARY_CACHE }}
+            extra-trusted-public-keys = ${{ env.NIX_PERSONAL_BINARY_CACHE_PUBLIC_KEY }}
+        run: |
+          {
+            echo "NIX_CONFIG<<EOF"
+            echo "$NIX_CONFIG_CONTENT"
+            echo "EOF"
+          } >> "$FORGEJO_ENV"
+
       - name: Setup S3 credentials
         run: |
           # For daemon running as root
