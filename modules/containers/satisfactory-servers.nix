@@ -8,6 +8,7 @@
     ports = [
       "7777:7777/udp"
       "7777:7777/tcp"
+      "8888:8888/tcp"
     ];
     volumes = [
       "/srv/containers/satisfactory/container-data:/config"
@@ -19,6 +20,7 @@
       PUID = "1000";
       ROOTLESS = "false";
       STEAMBETA = "false";
+      TZ = "Europe/Oslo";
     };
   };
 
@@ -48,7 +50,7 @@
 
   networking.firewall = {
     allowedTCPPorts = [ 7777 ];
-    allowedUDPPorts = [ 7777 ];
+    allowedUDPPorts = [ 7777 8888 ];
   };
 }
 
