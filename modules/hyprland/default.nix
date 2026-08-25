@@ -272,13 +272,15 @@ in {
             after_sleep_cmd = "hyprctl dispatch dpms on";
             ignore_dbus_inhibit = false;
             lock_cmd = binaries.hyprlock;
+            on_lock_cmd = "touch ${earlylockfile}";
           };
 
           listener = [
             {
               timeout = 30;
-              on-timeout = "pidof hyprlock && hyprctl eval \"hl.dispatch(hl.dsp.dpms({ action = 'disable' }))\" && touch ${earlylockfile}";
-              on-resume = "[[ -f '${earlylockfile}' ]] && hyprctl eval \"hl.dispatch(hl.dsp.dpms({ action = 'enable' }))\" && rm ${earlylockfile}";
+              condition_cmd = "[[ -f '${earlylockfile}' ]]";
+              on-timeout = "hyprctl eval \"hl.dispatch(hl.dsp.dpms({ action = 'disable' }))\"";
+              on-resume = "hyprctl eval \"hl.dispatch(hl.dsp.dpms({ action = 'enable' }))\" && rm -f ${earlylockfile}";
             }
             {
               timeout = 900;
