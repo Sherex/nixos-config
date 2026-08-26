@@ -21,28 +21,26 @@
 
       ;; Regular double-quoted strings: "..."
       (
-        (comment) @_comment
+        (comment) @injection.language
         .
         (string_expression) @injection.content
-        (#lua-match? @_comment "^/%*%s*[a-zA-Z0-9_-]+%s*%*/$")
+        (#lua-match? @injection.language "^/%*%s*[a-zA-Z0-9_-]+%s*%*/$")
         (#offset! @injection.content 0 1 0 -1)
         (#set! injection.combined)
-        (#gsub! @_comment "^/%*%s*" "")
-        (#gsub! @_comment "%s*%*/$" "")
-        (#set! injection.language @_comment)
+        (#gsub! @injection.language "^/%*%s*" "")
+        (#gsub! @injection.language "%s*%*/$" "")
       )
 
       ;; Indented strings: \'\'...\'\'
       (
-        (comment) @_comment
+        (comment) @injection.language
         .
         (indented_string_expression) @injection.content
-        (#lua-match? @_comment "^/%*%s*[a-zA-Z0-9_-]+%s*%*/$")
+        (#lua-match? @injection.language "^/%*%s*[a-zA-Z0-9_-]+%s*%*/$")
         (#offset! @injection.content 0 2 0 -2)
         (#set! injection.combined)
-        (#gsub! @_comment "^/%*%s*" "")
-        (#gsub! @_comment "%s*%*/$" "")
-        (#set! injection.language @_comment)
+        (#gsub! @injection.language "^/%*%s*" "")
+        (#gsub! @injection.language "%s*%*/$" "")
       )
     '';
 
