@@ -25,11 +25,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787176219,
-        "narHash": "sha256-djoRr6jBpe35q/0JwAvXpFXg1Ktf+X54NU2RLR7wnHw=",
-        "rev": "c53d643b3737e2fcd04e6cb3b3580ef50b2087a0",
+        "lastModified": 1788487777,
+        "narHash": "sha256-Ro/e1N4ZR8/XaFF+sF9SgfPK79HM5YNEppzFj8p+0Ak=",
+        "rev": "693e8ce0fb240a73c116a03cfd7b19269c87af88",
         "type": "tarball",
-        "url": "https://git.i-h.no/api/v1/repos/Sherex/home-manager/archive/c53d643b3737e2fcd04e6cb3b3580ef50b2087a0.tar.gz"
+        "url": "https://git.i-h.no/api/v1/repos/Sherex/home-manager/archive/693e8ce0fb240a73c116a03cfd7b19269c87af88.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -105,11 +105,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1787135253,
-        "narHash": "sha256-RD2kNWCG+Bjo6h+JVjWVNntZs2GtRoeY2xHjts/FNkA=",
-        "rev": "ffb3c9b700e759be2ef13237c9d8f953b32a1e46",
+        "lastModified": 1788404924,
+        "narHash": "sha256-lhEhY8X5EgkQ/eg6IFz4cc8jRuSYSvnxx1al7d1dvZ0=",
+        "rev": "0968519e14f7aa7d3e9b389682bd74d2b51c8ce8",
         "type": "tarball",
-        "url": "https://git.i-h.no/api/v1/repos/Sherex/nixpkgs/archive/ffb3c9b700e759be2ef13237c9d8f953b32a1e46.tar.gz"
+        "url": "https://git.i-h.no/api/v1/repos/Sherex/nixpkgs/archive/0968519e14f7aa7d3e9b389682bd74d2b51c8ce8.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -133,11 +133,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786629091,
-        "narHash": "sha256-gkig4nPi1CWc4Z50GBsjE4ygSE7hMpl/TwID2an2Cck=",
-        "rev": "a8627b21b9107c5711c96b84f32a9a4b3d45295f",
+        "lastModified": 1788337237,
+        "narHash": "sha256-gkSH8VUtCo6hnysNmb9DbTuDepH2t5pv+QWjP75xKAk=",
+        "rev": "fbf759290e0cb0a98dfc813a4eb7d53ad1dacb57",
         "type": "tarball",
-        "url": "https://git.i-h.no/api/v1/repos/Sherex/sops-nix/archive/a8627b21b9107c5711c96b84f32a9a4b3d45295f.tar.gz"
+        "url": "https://git.i-h.no/api/v1/repos/Sherex/sops-nix/archive/fbf759290e0cb0a98dfc813a4eb7d53ad1dacb57.tar.gz"
       },
       "original": {
         "type": "tarball",
