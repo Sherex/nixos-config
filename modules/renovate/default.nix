@@ -60,6 +60,11 @@ in
       };
       onboardingConfigFileName = "renovate.json5";
       persistRepoData = true;
+      hostRules = [{
+        matchHost = "git.i-h.no";
+        hostType = "forgejo";
+        # token = process.env.FORGEJO_TOKEN, // Pass this in via your server's env vars
+      }];
       packageRules = [{
         matchFileNames = [".forgejo/workflows/**"];
         overrideDatasource = "forgejo-tags";
