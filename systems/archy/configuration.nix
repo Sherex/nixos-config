@@ -25,6 +25,8 @@
   backup.enable = true;
   backup.borgbaseId = "vf5v43p8";
 
+  programs.wireshark.enable = true;
+
   hardware.graphics.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
 
