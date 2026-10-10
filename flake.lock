@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781152676,
-        "narHash": "sha256-RxWs5ND31KzTG7wvMM+PMfUjyNpmIEr999lqNARaM5o=",
-        "rev": "ff8702b4de27f72b4c78573dfb89ec74e36abdf1",
+        "lastModified": 1789770686,
+        "narHash": "sha256-uZkBR7yHdIKUFB5SZdfgh1qkGfI3XmYmI/lTiquxbck=",
+        "rev": "725ea35e410ad83be4931d1bff7e090eacaf3563",
         "type": "tarball",
-        "url": "https://git.i-h.no/api/v1/repos/Sherex/disko/archive/ff8702b4de27f72b4c78573dfb89ec74e36abdf1.tar.gz"
+        "url": "https://git.i-h.no/api/v1/repos/Sherex/disko/archive/725ea35e410ad83be4931d1bff7e090eacaf3563.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -25,11 +25,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787176219,
-        "narHash": "sha256-djoRr6jBpe35q/0JwAvXpFXg1Ktf+X54NU2RLR7wnHw=",
-        "rev": "c53d643b3737e2fcd04e6cb3b3580ef50b2087a0",
+        "lastModified": 1791484883,
+        "narHash": "sha256-iKxFHJrg7Sltwhq3ssCZYQ4CFEDVvReVVuVuO9dj3sE=",
+        "rev": "dfadbe5162d5e86bc0808badec8f346f81b4b3f0",
         "type": "tarball",
-        "url": "https://git.i-h.no/api/v1/repos/Sherex/home-manager/archive/c53d643b3737e2fcd04e6cb3b3580ef50b2087a0.tar.gz"
+        "url": "https://git.i-h.no/api/v1/repos/Sherex/home-manager/archive/dfadbe5162d5e86bc0808badec8f346f81b4b3f0.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -105,11 +105,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1787135253,
-        "narHash": "sha256-RD2kNWCG+Bjo6h+JVjWVNntZs2GtRoeY2xHjts/FNkA=",
-        "rev": "ffb3c9b700e759be2ef13237c9d8f953b32a1e46",
+        "lastModified": 1791456040,
+        "narHash": "sha256-H83yz/do+hjOO0uujHyH8RgtIQP2v7Mw+cLwcZK/xKc=",
+        "rev": "e7439b6b14ad3cc35d05608ebca9bce01a25f5f8",
         "type": "tarball",
-        "url": "https://git.i-h.no/api/v1/repos/Sherex/nixpkgs/archive/ffb3c9b700e759be2ef13237c9d8f953b32a1e46.tar.gz"
+        "url": "https://git.i-h.no/api/v1/repos/Sherex/nixpkgs/archive/e7439b6b14ad3cc35d05608ebca9bce01a25f5f8.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -133,11 +133,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786629091,
-        "narHash": "sha256-gkig4nPi1CWc4Z50GBsjE4ygSE7hMpl/TwID2an2Cck=",
-        "rev": "a8627b21b9107c5711c96b84f32a9a4b3d45295f",
+        "lastModified": 1791103873,
+        "narHash": "sha256-nFxM+pKoZ8LJAEnUXARyCaOAloWgaW9kZQOSjWzKcTE=",
+        "rev": "dcd241ba97088c22569d1573286e1b9daad340c0",
         "type": "tarball",
-        "url": "https://git.i-h.no/api/v1/repos/Sherex/sops-nix/archive/a8627b21b9107c5711c96b84f32a9a4b3d45295f.tar.gz"
+        "url": "https://git.i-h.no/api/v1/repos/Sherex/sops-nix/archive/dcd241ba97088c22569d1573286e1b9daad340c0.tar.gz"
       },
       "original": {
         "type": "tarball",
