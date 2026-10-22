@@ -64,6 +64,10 @@ in
           disable_login_form = false;
         };
       };
+      declarativePlugins = with pkgs.grafanaPlugins; [
+        prometheus
+        victoriametrics-logs-datasource
+      ];
 
       provision = {
         enable = true;
